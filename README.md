@@ -13,7 +13,7 @@
 
 # COMMITS
 
-### git commit -m "title, type: укажите тип" -m "description"
+### git commit -m "type: что сделали на анг." -m "description"
 
 *Type может быть следующим:*
 
