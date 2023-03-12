@@ -19,4 +19,5 @@
 4) pip install -r requirements.txt
 5) python3 manage.py migrate(python manage.py migrate)
 
+
 *** 
