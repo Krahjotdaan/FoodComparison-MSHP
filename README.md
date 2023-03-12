@@ -1,92 +1,122 @@
-# food_comparison
+# Основные правила
+---
+
+- **ВСЕ задачи выдаются через GitLab (вкладка Issues), запросы на слияние своей ветки с веткой main тоже в GitLab (вкладка Merge requests)**
+- За невыполнение срока, указанного в GitLab -1 балл (при условии, что вы доделали таск после срока на этой неделе);
+- Если вы не отписали, что болеете или не успеваете, то ставится 2;
+- Спорные моменты мы всегда можем решить;
+- Следовать код стайлу (файл README);
+- Коммиты пишутся по определённой структуре (файл README);
+- Таски выдаются по новой каждую неделю.
+- При начале работы со своей веткой прописываем git merge main КАЖДЫЙ РАЗ (т.к. изменённый main может повлиять напрямую на решение вашего таска);
+- Если возникли конфликты то Git -> resolve conflicts;
+
+# COMMITS
+
+### git commit -m "type: что сделали на анг." -m "description"
+
+*Type может быть следующим:*
+
+- feat: (создана новая функция с изменениями)
+- fix: (исправление ошибки)
+- docs: (изменения в документации, например, изменение файла README)
+- style: (форматирование, добавление пробела, табуляции, отсутствующие точки с запятой и т. д .;)
+- refactor: (переработанный код, который не исправляет ошибку и не добавляет функцию)
+- test: (добавление недостающих тестов, рефакторинг тестов; без изменения производственного кода)
+- chore: (обновление рутинных задач и т. д.; без изменения производственного кода)
+- pref: (улучшение производительности)
+- build: (измения влияющие на итоговую сборку, системные или внешние зависимости) 
 
 
+### Это будут выглядеть так:
 
-## Getting started
-
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
-
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
-
+``` python
+git commit -m "build: Added scenes" -m "Я добвил сцену с игрой 
+(game_scene.py), в неё можно добавить код инициализации призраков 
+и пакмана"
 ```
-cd existing_repo
-git remote add origin https://gitlab.informatics.ru/2022-2023/hse/s106/food_comparison.git
-git branch -M main
-git push -uf origin main
-```
-
-## Integrate with your tools
-
-- [ ] [Set up project integrations](https://gitlab.informatics.ru/2022-2023/hse/s106/food_comparison/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
 
 ***
 
-# Editing this README
+# Code Style
+---
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+## Самое главное: соблюдать CRUD (create, read, update, delete) для таблиц 
+---
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
 
-## Name
-Choose a self-explaining name for your project.
+## Variables (переменные)
+#### Не делать:
+``` python
+x = 0 # неясно что значит
+X = 0 # нет, просто нет
+cnt = 0 # здесь лучше будет написать count = 0
+```
+#### Вот так можно
+``` python
+count = 0
+i = 0 # только в цикле
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+```
+ ---
+## Functions names (имена функций)
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+#### НЕ ДЕЛАТЬ:
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+``` python
+def sdfldfslksdflkjsdfalkj(): # просто не надо 
+    pass
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+def pls_work(): # непонятная запись, неясно что она делает
+    pass
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+def damag(): # грамматическая ошибка
+    pass
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+def damageToPacman: # camelcase, в питоне пишем через нижнее подчеркивание
+    pass
+```
+#### Вот так можно:
+``` python
+def damage_to_pacman:
+    pass
+```
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+---
+## Classes (классы)
+#### Не делать:
+``` python
+class Ldsfkjajlkdfs: # неясно, кто это
+    pass
+class pacman: # с маленькой буквы
+    pass
+```
+#### Вот так можно:
+``` python
+class Pacman:
+    pass
+```
+---
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+## Мотивационная цитата Игоря
+>Быстро и легко можно получить только при***лей, для остального наберись терпения  
+c. Игорь
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+> P.S. Код и коммиты пишутся СТРОГО по структуре, пердставленной выше
+> 
+> За несоблюдение может быть снижена оценка
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
 
-## License
-For open source projects, say how it is licensed.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+
+
+
+
+
+
+
+
+
+
+
