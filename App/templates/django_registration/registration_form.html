@@ -1,0 +1,12 @@
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="row mt-5">
+    <div class="col mt-5">
+        <form method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-primary" value="Sign up">Sign up</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
