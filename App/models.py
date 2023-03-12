@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.contrib import messages
+
 
 class VitaminFood(models.Model):
     #Таблица витамина в еде
@@ -13,3 +16,19 @@ class Fact(models.Model):
     food = models.OneToOneField(to=Food, on_delete=models.CASCADE)
     description = models.CharField(max_length=1000)
 
+
+class Vitamin(models.Model):
+    vitamin_id = models.ForeignKey(to=User, default=1, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+
+    @staticmethod
+    def get():
+        return Vitamin.objects.all()
+
+    @staticmethod
+    def add(self, vitamin_id, name):
+        Vitamin.objects.create(
+            vitamin_id=vitamin_id,
+            name=name
+        )
+        messages.success(self.request, 'Name added')
