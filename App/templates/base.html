@@ -9,15 +9,28 @@
 
 <body>
     {% include 'navbar.html' %}
+
+    <div class="container">
     {% block content %}
 
+
+    {% endblock %}
+    </div>
+
+
+    <div class="fixed-bottom">
+        <hr class="">
+        <p class="text-center mb-4 mt-4" >© Дачные кодеры</p>
+    </div>
+
+    {% block base_js %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+            crossorigin="anonymous"></script>
     {% endblock %}
 
-    <footer class="my-4 pt-5 text-muted text-center text-small">
-        <hr>
-        <p class="mb-1">© Дачные кодеры, 2023 г.</p>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    {% block extra_js %}
+    {% endblock %}
 </body>
+
 </html>
