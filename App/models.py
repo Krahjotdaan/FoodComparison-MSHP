@@ -10,6 +10,18 @@ class Food(models.Model):
     description = models.CharField(max_length=1000)
     deathdoze = models.IntegerField()
 
+    @staticmethod
+    def new_food(self, name, author, searched, description, deathdoze):
+        Food.objects.create(
+            name=name,
+            author=author,
+            searched=searched,
+            description=description,
+            deathdoze=deathdoze
+        )
+        messages.success(self.request, 'fruit added')
+
+
 class Vitamin(models.Model):
     name = models.CharField(max_length=100)
 
