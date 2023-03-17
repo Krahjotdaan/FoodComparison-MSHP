@@ -1,5 +1,6 @@
 from django.shortcuts import render
 #from food_comp import models
+from App import models
 
 def index(request):
     """
@@ -9,3 +10,11 @@ def index(request):
     context = dict()
     context["text"] = "фруктовый ввод..."
     return render(request, "index.html", context)
+
+
+def food_list_page(request):
+    food = models.Food.objects.all()
+    context = {
+        'food': food,
+    }
+    return render(request, "food_list.html", context)
