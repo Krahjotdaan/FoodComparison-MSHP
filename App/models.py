@@ -42,11 +42,24 @@ class VitaminFood(models.Model):
     vitamin = models.OneToOneField(to=Vitamin, on_delete=models.CASCADE)
     food = models.OneToOneField(to=Food, on_delete=models.CASCADE)
 
+    @staticmethod
+    def add(vitamin, food):
+        VitaminFood.objects.create(
+            vitamin=vitamin,
+            food=food
+        )
 
 class Fact(models.Model):
     # Таблица интересных фактов
     food = models.OneToOneField(to=Food, on_delete=models.CASCADE)
     description = models.CharField(max_length=1000)
+
+    @staticmethod
+    def add(description, food):
+        Fact.objects.create(
+            description=description,
+            food=food
+        )
 
 
 class Like(models.Model):
