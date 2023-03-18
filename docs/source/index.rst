@@ -10,6 +10,7 @@ Welcome to food_comparison's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   auth.rst
    code.rst
 
 

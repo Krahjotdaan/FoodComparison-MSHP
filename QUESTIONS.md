@@ -9,6 +9,8 @@
 ### прописать в консоль:
 1) pip install -r requirements.txt
 2) python3/python manage.py migrate
+3) pip install sphinxS
+4) pip install sphinx_rtd_theme
 
 ## Если вы создали ветку, а на сервере её нет
 ``` python
