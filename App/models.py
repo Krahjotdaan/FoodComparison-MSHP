@@ -11,7 +11,7 @@ class Food(models.Model):
     deathdoze = models.IntegerField()
 
     @staticmethod
-    def new_food(self, name, author, searched, description, deathdoze):
+    def new_food(name, author, searched, description, deathdoze):
         Food.objects.create(
             name=name,
             author=author,
@@ -19,7 +19,6 @@ class Food(models.Model):
             description=description,
             deathdoze=deathdoze
         )
-        messages.success(self.request, 'fruit added')
 
 
 class Vitamin(models.Model):
