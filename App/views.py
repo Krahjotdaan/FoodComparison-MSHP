@@ -1,5 +1,5 @@
+
 from django.shortcuts import render
-#from food_comp import models
 from App import models
 
 def index(request):

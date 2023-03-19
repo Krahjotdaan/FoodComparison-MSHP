@@ -10,6 +10,17 @@ class Food(models.Model):
     description = models.CharField(max_length=1000)
     deathdoze = models.IntegerField()
 
+    @staticmethod
+    def new_food(name, author, searched, description, deathdoze):
+        Food.objects.create(
+            name=name,
+            author=author,
+            searched=searched,
+            description=description,
+            deathdoze=deathdoze
+        )
+
+
 class Vitamin(models.Model):
     name = models.CharField(max_length=100)
 
@@ -30,11 +41,24 @@ class VitaminFood(models.Model):
     vitamin = models.OneToOneField(to=Vitamin, on_delete=models.CASCADE)
     food = models.OneToOneField(to=Food, on_delete=models.CASCADE)
 
+    @staticmethod
+    def add(vitamin, food):
+        VitaminFood.objects.create(
+            vitamin=vitamin,
+            food=food
+        )
 
 class Fact(models.Model):
     # Таблица интересных фактов
     food = models.OneToOneField(to=Food, on_delete=models.CASCADE)
     description = models.CharField(max_length=1000)
+
+    @staticmethod
+    def add(description, food):
+        Fact.objects.create(
+            description=description,
+            food=food
+        )
 
 
 class Like(models.Model):

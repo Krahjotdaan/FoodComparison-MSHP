@@ -1,5 +1,5 @@
+
 # Основные правила
----
 
 - **ВСЕ задачи выдаются через GitLab (вкладка Issues), запросы на слияние своей ветки с веткой main тоже в GitLab (вкладка Merge requests)**
 - За невыполнение срока, указанного в GitLab -1 балл (при условии, что вы доделали таск после срока на этой неделе);
@@ -10,6 +10,53 @@
 - Таски выдаются по новой каждую неделю.
 - При начале работы со своей веткой прописываем git merge main КАЖДЫЙ РАЗ (т.к. изменённый main может повлиять напрямую на решение вашего таска);
 - Если возникли конфликты то Git -> resolve conflicts;
+
+***
+
+# DOCS
+
+*Doc's NAME*
+
+- param, parameter, arg, argument, key, keyword: описание параметра
+- type: тип параметра + ссылка
+- raises, raise, except, exception: указать где и когда взникает конкретное исключение
+- var, ivar, cvar: описание переменной
+- vartype: тип переменной + ссылка
+- returns, return: описание возвращаемого значения 
+- rtype: тип возвращаемого значения + ссылка
+- meta: метаданные описания объекта (доступ к классу / объекту / функции)
+
+*Например:*
+
+```python
+def get_snippet_page(request, ID):
+    """
+    Отображение главной страницы сайта
+    
+    :param request: объект с деталями запроса
+    :type request: :class:`django.http.HttpRequest`
+    :param id: primary key в модели :class:`main.viwes.Shippet`
+    :type id: int
+    :return: объект ответа сервера с HTML-кодом внутри
+    :rtype: :class:`django.http.HttpResponse`
+    :raises: :class:`django.http.Http404` в случае, если сниппет с указынным ID не существует
+    :meta public:
+    """
+    context = get_base_context(request, "Просмотр сниппета")
+    try:
+        record = Snippet.objects.get(id = id)
+        context['addform'] = AddSnippetForm(
+            initial = {
+                'user': 'AnonymousUser',
+                'name': record.name,
+                'code': record.code,
+            }
+        )
+    except Snippet.DoesNotExist:
+        raise Http404
+    return render(request, 'pages/view_snippet.html', context)
+```
+***
 
 # COMMITS
 
@@ -39,10 +86,8 @@ git commit -m "build: Added scenes" -m "Я добвил сцену с игрой
 ***
 
 # Code Style
----
 
-## Самое главное: соблюдать CRUD (create, read, update, delete) для таблиц 
----
+## Самое главное: соблюдать CRUD (create, read, update, delete) для таблиц
 
 
 ## Variables (переменные)

@@ -1,12 +1,9 @@
-
-
 import sys
 import os
-sys.path.append(os.path.abspath('../../'))
-
-
 import django
-os.environ['DJANGO_SETTINGS_MODULE'] = 'food_django.settings'
+
+sys.path.append(os.path.abspath('../../'))
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'food_django.settings')
 django.setup()
 # Configuration file for the Sphinx documentation builder.
 #
@@ -17,9 +14,9 @@ django.setup()
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'food_comparison'
-copyright = '2023, Igor'
+copyright = '2023, Igorello'
 author = 'Igor'
-release = '1'
+release = 'v1.0'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -27,7 +24,9 @@ release = '1'
 
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinx_rtd_theme'
 ]
+
 
 templates_path = ['_templates']
 exclude_patterns = []
@@ -37,5 +36,6 @@ language = 'ru'
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'alabaster'
+pygments_style = "sphinx"
+html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
