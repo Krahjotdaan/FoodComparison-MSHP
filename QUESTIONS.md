@@ -1,16 +1,16 @@
 ## Как на своей ветке обновить проект?
-### git merge main
+``` python
+git merge main
+```
 
-## Как открыть "умный" merge, для решения конфликтов?
-### Git -> resolve conflicts
+## Что делать после клонирования проекта?
+### переключись на СВОЮ ветку и пропиши в консоль:
 
-## Что делать после клонирования проекта
-### переключиться на свою ветку
-### прописать в консоль:
-1) pip install -r requirements.txt
-2) python3/python manage.py migrate
-3) pip install sphinxS
-4) pip install sphinx_rtd_theme
+``` python
+git config --global user.name "your name and surname"
+git config --global user.email "your account"
+python3/python manage.py migrate
+```
 
 ## Если вы создали ветку, а на сервере её нет
 ``` python
@@ -31,4 +31,7 @@ git push origin --delete имя_ветки
 ``` python
 git remote prune origin
 ```
+
+## Как открыть "умный" merge, для решения конфликтов?
+### Git -> resolve conflicts
 *** 
