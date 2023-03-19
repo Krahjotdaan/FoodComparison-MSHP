@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  .list_item {
+        margin-top: 5px;
+        padding: 0;
+      }
+</style>
+  <div class="container">
+    {% for food in food %}
+      <div class="row" >
+        <div class="list_item">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{ food.name }}</h5>
+              <p class="card-text">{{ food.description }}</p>
+          </div>
+        </div>
+      </div>
+  </div>
+    {% endfor %}
+
+  </div>
+
+{% endblock %}
