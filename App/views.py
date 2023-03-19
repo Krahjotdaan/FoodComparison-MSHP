@@ -7,7 +7,7 @@ def index(request):
     :param request: объект с деталями запроса
     :return: объект ответа сервера с HTML-кодом внутри
     """
-    context = dict()
+    context = {}
     context["text"] = "фруктовый ввод..."
     return render(request, "index.html", context)
 

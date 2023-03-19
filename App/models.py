@@ -1,9 +1,17 @@
-from django.contrib.auth.models import User
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib import messages
 
 class Food(models.Model):
+    """
+    Таблица еды
+
+    :var name: Название еды
+    :var author: Человек, создавший данный продукт на сайте
+    :var searched: Сколько раз на фрукт нажимали, чтобы узнать информацию о нём
+    :var description: Описание еды
+    :var deathdoze: Количество еды, необходимое для смерти челока от нее
+    """
     name = models.CharField(max_length=100)
     author = models.ForeignKey(to=User, default=1, on_delete=models.CASCADE)
     searched = models.IntegerField()
@@ -22,6 +30,11 @@ class Food(models.Model):
 
 
 class Vitamin(models.Model):
+    """
+    Таблица существующего витамина
+
+    :var name: Название витамина (A, B, C, D и так далее)
+    """
     name = models.CharField(max_length=100)
 
     @staticmethod
@@ -37,7 +50,12 @@ class Vitamin(models.Model):
         messages.success(self.request, 'Name added')
 
 class VitaminFood(models.Model):
-    #Таблица витамина в еде
+    """
+    Таблица отношения существующего витамина к определенной еде
+
+    :var food: Еда, в которой содержится витамин
+    :var vitamin: Ссылка на витамин, который есть в еде
+    """
     vitamin = models.OneToOneField(to=Vitamin, on_delete=models.CASCADE)
     food = models.OneToOneField(to=Food, on_delete=models.CASCADE)
 
@@ -49,7 +67,12 @@ class VitaminFood(models.Model):
         )
 
 class Fact(models.Model):
-    # Таблица интересных фактов
+    """
+    Таблица интересного факта, относящегося к определенной еде
+
+    :var food: Ссылка на еду
+    :var description: Описание самого интересного факта
+    """
     food = models.OneToOneField(to=Food, on_delete=models.CASCADE)
     description = models.CharField(max_length=1000)
 
@@ -62,6 +85,12 @@ class Fact(models.Model):
 
 
 class Like(models.Model):
+    """
+    Таблица лайка к определенной еде
+
+    :var fruit: Ссылка на еду
+    :var author: Человек, лайкнувший еду
+    """
     fruit = models.ForeignKey(to=Food, default=1, on_delete=models.CASCADE)
     author = models.ForeignKey(to=User, default=1, on_delete=models.CASCADE)
 
