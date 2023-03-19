@@ -9,6 +9,8 @@ class Food(models.Model):
     searched = models.IntegerField()
     description = models.CharField(max_length=1000)
     deathdoze = models.IntegerField()
+    calories = models.IntegerField()
+    
 
 class Vitamin(models.Model):
     name = models.CharField(max_length=100)
@@ -16,7 +18,7 @@ class Vitamin(models.Model):
     @staticmethod
     def get():
         return Vitamin.objects.all()
-
+    
     @staticmethod
     def add(self, vitamin_id, name):
         Vitamin.objects.create(
@@ -24,6 +26,7 @@ class Vitamin(models.Model):
             name=name
         )
         messages.success(self.request, 'Name added')
+
 
 class VitaminFood(models.Model):
     #Таблица витамина в еде
