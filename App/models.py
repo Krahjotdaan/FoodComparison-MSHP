@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib import messages
 
+
 class Food(models.Model):
     name = models.CharField(max_length=100)
     author = models.ForeignKey(to=User, default=1, on_delete=models.CASCADE)
@@ -10,7 +11,8 @@ class Food(models.Model):
     description = models.CharField(max_length=1000)
     deathdoze = models.IntegerField()
     calories = models.IntegerField()
-    
+    image = models.ImageField(upload_to='images/')
+
 
 class Vitamin(models.Model):
     name = models.CharField(max_length=100)
@@ -18,7 +20,7 @@ class Vitamin(models.Model):
     @staticmethod
     def get():
         return Vitamin.objects.all()
-    
+
     @staticmethod
     def add(self, vitamin_id, name):
         Vitamin.objects.create(
@@ -29,7 +31,7 @@ class Vitamin(models.Model):
 
 
 class VitaminFood(models.Model):
-    #Таблица витамина в еде
+    # Таблица витамина в еде
     vitamin = models.OneToOneField(to=Vitamin, on_delete=models.CASCADE)
     food = models.OneToOneField(to=Food, on_delete=models.CASCADE)
 
