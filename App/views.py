@@ -13,6 +13,16 @@ def index(request):
 
 
 def food_list_page(request):
+    """
+    Отображение страницы со всей едой
+
+    :param request: объект с деталями запроса
+    :type request: :class:`django.http.HttpRequest`
+    :return: объект ответа сервера с HTML-кодом внутри
+    :rtype: :class:`django.http.HttpResponse`
+    :meta public:
+    """
+
     food = models.Food.objects.all()
     context = {
         'food': food,
