@@ -28,3 +28,17 @@ def food_list_page(request):
         'food': food,
     }
     return render(request, "food_list.html", context)
+
+def food_element_page(request):
+
+    if 'id' in request.GET:
+        food_id = request.GET['id']
+        food = models.Food.objects.get(id=food_id)
+        context = {
+        'food': food,
+        }
+    else:
+        context = {
+            'food': 'Ошибка',
+        }
+    return render(request, "food.html", context)
