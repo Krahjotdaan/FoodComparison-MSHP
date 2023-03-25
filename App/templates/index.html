@@ -5,7 +5,13 @@
 
 
 <div class="position-absolute top-50 start-50 translate-middle">
+    {% if user.is_authenticated %}
+    <div>Привет, {{user.username}}!</div>
+    {% else %}
+    <div>Привет, Анонимус!</div>
+    {% endif %}
     <div class="d-flex justify-content-center">
+        
         <form class="row g-3">
             <div class="col-auto">
                 <input class="form-control" id="     " placeholder="Введите фрукт...">
