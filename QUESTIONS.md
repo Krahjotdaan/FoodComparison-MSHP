@@ -7,7 +7,7 @@ git merge main
 ``` python
 git cherry-pick ветка
 # для тимлидов
-master git merge --squash ветка
+git merge --squash ветка
 ```
 
 ## Что делать после клонирования проекта?

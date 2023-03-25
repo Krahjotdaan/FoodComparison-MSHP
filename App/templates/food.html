@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  .header{
+    font-size: 500%;
+    margin-top: 7px;
+<!--    font-style: italic;-->
+  }
+  .text{
+    margin-top: 15px;
+    font-size: 250%;
+  }
+</style>
+{% if food != 'Ошибка' %}
+<div class="container">
+<div class="header">
+  <b>{{food.name}}</b>
+</div>
+<div class="text">
+  <b>Смертельная доза:</b> {{food.deathdoze}}
+</div>
+<div class="text">
+  <b>Описание:</b> {{food.description}}
+</div>
+<div class="text">
+  <b>Количество запросов:</b> {{food.searched}}
+</div>
+<div class="text">
+  <b>Автор:</b> {{food.author}}
+</div>
+</div>
+{% else %}
+<div class="header">
+  <b>{{food}}</b>
+</div>
+{% endif %}
+{% endblock %}

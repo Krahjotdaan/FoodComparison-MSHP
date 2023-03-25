@@ -28,3 +28,26 @@ def food_list_page(request):
         'food': food,
     }
     return render(request, "food_list.html", context)
+
+def food_element_page(request):
+    """
+    Отображение страницы с элементом базы данных Food
+
+    :param request: объект с деталями запроса
+    :type request: :class:django.http.HttpRequest
+    :return: объект ответа сервера с HTML-кодом внутри
+    :rtype: :class:django.http.HttpResponse
+    :meta public:
+    """
+
+    if 'id' in request.GET:
+        food_id = request.GET['id']
+        food = models.Food.objects.get(id=food_id)
+        context = {
+        'food': food,
+        }
+    else:
+        context = {
+            'food': 'Ошибка',
+        }
+    return render(request, "food.html", context)

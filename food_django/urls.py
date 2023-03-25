@@ -24,5 +24,6 @@ urlpatterns = [
     path('accounts/', include('django_registration.backends.one_step.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('', views.index, name='index'),
-    path('food', views.food_list_page, name='food_list'),
+    path('food/', views.food_list_page, name='food_list'),
+    path('food_item/', views.food_element_page, name='food_item'),
 ]
