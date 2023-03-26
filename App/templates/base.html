@@ -4,32 +4,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <title>Дачные кодеры</title>
+    <style>
+        .bg {
+            background-color: #E2DEDE;
+        }
+        .color-dark {
+            color: #201E1E;
+        }
+        .borders {
+            border-radius: 14px;
+        }
+
+        .label{
+            color: #ADADAD;
+            width: 200px;
+            margin-left: 10px;
+        }
+        #image_field {
+            border-radius: 12px;
+            height: 240px;
+            width: 240px;
+            border: 1px solid #000000;
+
+        }
+        #title_field {
+            border-radius: 6px;
+            height: 39px;
+            width: 250px;
+            border: 1px solid #E2DEDE;
+
+        }
+        #interesting_fact_field {
+            border-radius: 6px;
+            height: 121px;
+            width: 600px;
+            border: 1px solid #E2DEDE;
+            resize: none;
+            padding: 7px 9px;
+            box-sizing: border-box;
+        }
+        #description_field {
+            border-radius: 6px;
+            height: 121px;
+            width: 600px;
+            border: 1px solid #E2DEDE;
+            resize: none;
+            padding: 7px 9px;
+            box-sizing: border-box;
+
+        }
+        #choice_field {
+           width: 70px;
+        }
+        #vitamins_quantity {
+           height: 23px;
+           width: 80px;
+           border: 1px solid #E2DEDE;
+           border-radius: 6px;
+        }
+        #death_doze {
+            border-radius: 6px;
+            height: 29px;
+            width: 175px;
+            border: 1px solid #E2DEDE;
+        }
+        input#image_field {
+            height: 215px;
+            width: 215px;
+            text-indent: -9999px;
+            color: transparent;
+        }
+        .translucent-text {
+            font-size: 18px;
+            font-weight: 400;
+            opacity: 0.5;
+        }
+    </style>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
 
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="collapse navbar-collapse justify-content-left">
-            <ul class="navbar-nav mb-2 mb-lg-0">
-                {% block nav %}
-
-                {% endblock %}
-            </ul>
-        </div>
-    </nav>
+<body class="bg">
+    {% include 'navbar.html' %}
 
     <div class="container">
+
     {% block content %}
 
 
     {% endblock %}
-    </div>
 
-
-    <div class="fixed-bottom">
-        <hr class="">
-        <p class="text-center mb-4 mt-4" >© Дачные кодеры</p>
     </div>
+    <footer class="my-4 pt-5 text-muted text-center text-small fixed-down">
+        <hr>
+        <p class="mb-1 color-dark">© Дачные кодеры</p>
+    </footer>
 
     {% block base_js %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"

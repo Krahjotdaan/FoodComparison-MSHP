@@ -1,21 +1,6 @@
 
 {% extends 'base.html' %}
 
-{% block nav %}
-    <li class="nav-item ps-3">
-      <a class="nav-link"  href="/">Главная</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link active" href="{% url 'django_registration_register' %}">Регистрация</a>
-    </li>
-      <li class="nav-item">
-      <a class="nav-link" href="{% url 'login' %}">Войти</a>
-    </li>
-      <li class="nav-item">
-      <a class="nav-link" href="/food/">Вся еда</a>
-    </li>
-{% endblock %}
-
 {% block content %}
 <h3 class="mt-5">Спасибо за регистрацию!</h3>
 <br>
