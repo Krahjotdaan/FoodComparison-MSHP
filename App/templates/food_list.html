@@ -27,21 +27,24 @@
 <style>
   .list_item {
         margin-top: 5px;
-        padding: 0;
+        padding: 5px;
+      }
+  a {
+        text-decoration: none;
+        color: black;
+        font-size: 25px;
       }
 </style>
-  <div class="container">
-    {% for food in food %}
-      <div class="row" >
-        <div class="list_item">
-          <div class="card">
+    <div class="row row-cols-3 mt-3" >
+      {% for food in food %}
+      <div class="col text-center p-2">
+          <a href="/food_item/?id={{food.id}}" class="card"  style="border-radius: 10px;">
             <div class="card-body">
-              <h5 class="card-title"><a href="/food_item/?id={{food.id}}">{{ food.name }}</a></h5>
-              <p class="card-text">{{ food.description }}</p>
-          </div>
-        </div>
+              <img src="https://goo.su/swyUm5" class="img-fluid" style="border-radius: 10px;" alt="...">
+              <p class="card-text pt-3">{{ food.name }}</p>
+            </div>
+          </a>
       </div>
-  </div>
     {% endfor %}
 
   </div>
