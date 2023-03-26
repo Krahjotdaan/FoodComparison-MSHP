@@ -3,17 +3,24 @@
 
 {% block nav %}
     <li class="nav-item ps-3">
-      <a class="nav-link"  href="/">Главная</a>
+      <a class="nav-link" aria-current="page" href="/">Главная</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="{% url 'django_registration_register' %}">Регистрация</a>
+      <a class="nav-link active" aria-current="page" href="/food/">Вся еда</a>
+    </li>
+    {% if user.is_authenticated %}
+    <li class="nav-item">
+      <a class="nav-link" aria-current="page" href="{% url 'logout' %}">Выйти</a>
+    </li>
+    {% else %}
+    <li class="nav-item">
+      <a class="nav-link" aria-current="page" href="{% url 'django_registration_register' %}">Регистрация</a>
     </li>
       <li class="nav-item">
-      <a class="nav-link" href="{% url 'login' %}">Войти</a>
+      <a class="nav-link" aria-current="page" href="{% url 'login' %}">Войти</a>
     </li>
-      <li class="nav-item">
-      <a class="nav-link active" href="/food/">Вся еда</a>
-    </li>
+    {% endif %}
+
 {% endblock %}
 
 {% block content %}

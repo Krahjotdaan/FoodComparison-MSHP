@@ -3,17 +3,24 @@
 
 {% block nav %}
     <li class="nav-item ps-3">
-      <a class="nav-link active"  href="/">Главная</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'django_registration_register' %}">Регистрация</a>
-    </li>
-      <li class="nav-item">
-      <a class="nav-link" href="{% url 'login' %}">Войти</a>
-    </li>
-      <li class="nav-item">
-      <a class="nav-link" href="/food/">Вся еда</a>
-    </li>
+          <a class="nav-link active" aria-current="page" href="/">Главная</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="/food/">Вся еда</a>
+        </li>
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="{% url 'logout' %}">Выйти</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="{% url 'django_registration_register' %}">Регистрация</a>
+        </li>
+          <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="{% url 'login' %}">Войти</a>
+        </li>
+        {% endif %}
+
 {% endblock %}
 
 {% block content %}
@@ -21,6 +28,11 @@
 
 
 <div class="position-absolute top-50 start-50 translate-middle">
+    {% if user.is_authenticated %}
+    <div>Привет, {{user.username}}!</div>
+    {% else %}
+    <div>Привет, Анонимус!</div>
+    {% endif %}
     <div class="d-flex justify-content-center">
         <form class="row g-3">
             <div class="col-auto">
