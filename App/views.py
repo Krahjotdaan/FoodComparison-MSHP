@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from App import models
+from .models import Food
 
 
 def index(request):
@@ -9,6 +10,15 @@ def index(request):
     """
     context = {}
     context["text"] = "фруктовый ввод..."
+
+    search_query = request.GET.get('search_fruit', None)
+    if search_query:
+        fruit_name = Food.objects.filter(name__icontains=search_query)
+        food = Food.objects.get(name=search_query)
+        context['food'] = food
+        return render(request, "food_item.html", context)
+
+
     return render(request, "index.html", context)
 
 

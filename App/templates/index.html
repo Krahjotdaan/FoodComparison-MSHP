@@ -10,9 +10,9 @@
     <div>Привет, Анонимус!</div>
     {% endif %}
     <div class="d-flex justify-content-center">
-         <form class="row g-3">
+         <form class="row g-3" action="{% url 'index' %}">
             <div class="col-auto">
-                <input class="form-control" placeholder="Введите фрукт...">
+                <input name="search_fruit" type="search" class="form-control" placeholder="Введите фрукт...">
             </div>
             <div class="col-auto">
                 <button type="submit" class="btn btn-primary mb-3">фруктовый ввод...</button>
