@@ -28,6 +28,13 @@ class Food(models.Model):
             deathdoze=deathdoze
         )
 
+    @staticmethod
+    def get():
+        return Food.objects.all()
+
+    @staticmethod
+    def get_by_id(value):
+        return Food.objects.get(id=value)
 
 class Vitamin(models.Model):
     """
