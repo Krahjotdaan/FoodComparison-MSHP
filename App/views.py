@@ -31,7 +31,7 @@ def food_list_page(request):
         food = models.Food.objects.filter(name__iregex=search_query)
         context['food'] = food
     else:
-        food = models.Food.objects.all()
+        food = models.Food.get()
         context['food'] = food
 
     return render(request, "food_list.html", context)
@@ -50,7 +50,7 @@ def food_item_page(request):
 
     if 'id' in request.GET:
         food_id = request.GET['id']
-        food = models.Food.objects.get(id=food_id)
+        food = models.Food.get_by_id(food_id)
         context = {
             'food': food,
         }
