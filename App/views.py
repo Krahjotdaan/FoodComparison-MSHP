@@ -1,6 +1,6 @@
-
 from django.shortcuts import render
 from App import models
+
 
 def index(request):
     """
@@ -29,7 +29,8 @@ def food_list_page(request):
     }
     return render(request, "food_list.html", context)
 
-def food_element_page(request):
+
+def food_item_page(request):
     """
     Отображение страницы с элементом базы данных Food
 
@@ -44,10 +45,10 @@ def food_element_page(request):
         food_id = request.GET['id']
         food = models.Food.objects.get(id=food_id)
         context = {
-        'food': food,
+            'food': food,
         }
     else:
         context = {
             'food': 'Ошибка',
         }
-    return render(request, "food.html", context)
+    return render(request, "food_item.html", context)
