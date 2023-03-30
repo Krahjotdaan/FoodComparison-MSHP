@@ -11,14 +11,6 @@ def index(request):
     context = {}
     context["text"] = "фруктовый ввод..."
 
-    search_query = request.GET.get('search_fruit', None)
-    if search_query:
-        fruit_name = Food.objects.filter(name__icontains=search_query)
-        food = Food.objects.get(name=search_query)
-        context['food'] = food
-        return render(request, "food_item.html", context)
-
-
     return render(request, "index.html", context)
 
 
@@ -32,11 +24,16 @@ def food_list_page(request):
     :rtype: :class:`django.http.HttpResponse`
     :meta public:
     """
+    context = {}
+    search_query = request.GET.get('search_fruit', '')
 
-    food = models.Food.objects.all()
-    context = {
-        'food': food,
-    }
+    if search_query:
+        food = models.Food.objects.filter(name__iregex=search_query)
+        context['food'] = food
+    else:
+        food = models.Food.objects.all()
+        context['food'] = food
+
     return render(request, "food_list.html", context)
 
 
