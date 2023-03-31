@@ -10,3 +10,6 @@ def index(request):
     context["text"] = "фруктовый ввод..."
     return render(request, "index.html", context)
 
+
+def page(request):
+    return render(request, 'profile/page.html')
