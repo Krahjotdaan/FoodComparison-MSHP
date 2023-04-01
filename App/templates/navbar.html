@@ -24,20 +24,59 @@
 
     <div class="collapse navbar-collapse justify-content-left">
       <ul class="navbar-nav mb-2 mb-lg-0">
-        <li class="nav-item ps-3">
-          <a class="nav-link active" aria-current="page" href="/">Главная</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url 'django_registration_register' %}">Регистрация</a>
-        </li>
-          <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url 'login' %}">Войти</a>
-        </li>
+
+          {% if request.get_full_path == '/' %}
+            <li class="nav-item ps-3">
+                <a class="nav-link active" aria-current="page" href="/">Главная</a>
+            </li>
+          {% else %}
+            <li class="nav-item ps-3">
+                <a class="nav-link" aria-current="page" href="/">Главная</a>
+            </li>
+          {% endif %}
+          {% if request.get_full_path == '/food/' %}
+            <li class="nav-item ps-3">
+                <a class="nav-link active" aria-current="page" href="/food/">Вся еда</a>
+            </li>
+          {% else %}
+            <li class="nav-item ps-3">
+                <a class="nav-link" aria-current="page" href="/food/">Вся еда</a>
+            </li>
+          {% endif %}
+
+          {% if user.is_authenticated %}
+         <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="{% url 'logout' %}">Выйти</a>
+         </li>
+         {% else %}
+
+          {% if request.get_full_path == '/accounts/register/' %}
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'django_registration_register' %}">Регистрация</a>
+          </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="{% url 'django_registration_register' %}">Регистрация</a>
+          </li>
+          {% endif %}
+
+          {% if request.get_full_path == '/accounts/login/' %}
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'login' %}">Войти</a>
+          </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="{% url 'login' %}">Войти</a>
+          </li>
+          {% endif %}
+
+          {% endif %}
+
       </ul>
     </div>
   </div>
      <div class = "profile">
-        <a class="nav-link active" aria-current="page" href="">Профиль</a>
+        <a class="nav-link active" aria-current="page" href="profile/page.html">Профиль</a>
          <img class = "ava" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAHwAugMBIgACEQEDEQH/xAAYAAEBAQEBAAAAAAAAAAAAAAAAAQIDB//EABsQAQEBAAIDAAAAAAAAAAAAAAABEQJhITFB/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/APYooSAYsimALFxZATCRrFBnDGgEwxQEwxTAZwxoBhMbSgyLiWAgFBmxlsyASKLAFIsAUUAFAAAAAAAABCqAyljSUGWW2aCCp5AajMagKsIoCgAAAAAAAUKAAAAAipQRK0lBhGrEAjTMaBVRQUAAAAAAAAAAAAABFSgIqAzUWoBGmI3AVUUFEUAAAAAAAAAAAABKqAIrIJUWoCRqMasoNrGZVgNKyoKIAoigAAAAAACACBQEpWbQKggMytRhZQb1qVz1qUG11iVrQVWdUFEAUQBRAFEAVNE0FTUqaC2s1LUtBbU1DewZlVz41uAqoQG5V1ggOmmsT2toN6usfAG9NZ00GtNZ1NBrTWdNBbU1LU0GtZQAEAKicqYD/9k=">
         </div>
 </nav>
