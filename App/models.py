@@ -109,20 +109,21 @@ class Like(models.Model):
 
 class Complaint(models.Model):
 
-    author = models.ForeignKey(to=User, default=1, on_delete=models.CASCADE)
+    author = models.ForeignKey(to=User, default=0, on_delete=models.CASCADE)
     complaint = models.CharField(max_length=1000)
-    post_id = models.IntegerField(default=0)
-    is_checked = models.BooleanField(default=False)
+    post_id = models.ForeignKey(to=Food, default=0, on_delete=models.CASCADE)
+    # is_checked = models.BooleanField(default=False)
 
     def __str__(self):
-        return f'Пользователь {self.author} послал {self.complaint} '
+        return f'Пользователь {self.author} послал {self.complaint} \n'
                # f'на пост с id {self.post_id}'
 
     @staticmethod
-    def add(author):
+    def add(author, complaint, post_id):
         Complaint.objects.create(
             author=author,
-            complaint=forms.RadioSelect,
+            complaint=complaint,
+            post_id=post_id,
         )
 
     @staticmethod
@@ -131,4 +132,4 @@ class Complaint(models.Model):
 
     @staticmethod
     def get_not_checked():
-        return Complaint.objects.filter(is_checked = False)
+        return Complaint.objects.filter(is_checked=False)
