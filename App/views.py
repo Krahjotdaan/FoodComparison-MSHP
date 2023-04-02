@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from App import models
-from .models import Food
+from App import models, forms
+from .models import Food, Complaint
 
 
 def index(request):
@@ -47,7 +47,6 @@ def food_item_page(request):
     :rtype: :class:django.http.HttpResponse
     :meta public:
     """
-
     if 'id' in request.GET:
         food_id = request.GET['id']
         food = models.Food.objects.get(id=food_id)
@@ -59,3 +58,34 @@ def food_item_page(request):
             'food': 'Ошибка',
         }
     return render(request, "food_item.html", context)
+
+
+def complaint_list(request):
+    context = {}
+
+    if request.method == 'POST':
+        author = request.user
+        new_complaint = models.Complaint.add(author=author)
+        new_complaint.save()
+
+    all_complaints = Complaint.get_all()
+    not_checked_complaints = Complaint.get_not_checked()
+    context['not_checked_complaints'] = not_checked_complaints
+    context['all_complaints'] = all_complaints
+
+    return render(request, "complaint_list.html", context)
+
+def complaint_add(request):
+    context = {}
+
+    context['author'] = request.user
+
+    # new_complaint = Complaint.add(author="io", complaint="НАРУШЕНИЕ!", post_id=0, is_checked=False)
+    # new_complaint.save()
+
+    # if request.method == 'POST':
+    #     complaint = Complaint()
+    #     Complaint.add()
+
+    return render(request, "complaint_add.html", context)
+

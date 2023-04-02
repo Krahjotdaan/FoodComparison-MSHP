@@ -1,3 +1,4 @@
+from django import forms
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -104,3 +105,30 @@ class Like(models.Model):
     @staticmethod
     def get():
         return Like.objects.all()
+
+
+class Complaint(models.Model):
+
+    author = models.ForeignKey(to=User, default=1, on_delete=models.CASCADE)
+    complaint = models.CharField(max_length=1000)
+    post_id = models.IntegerField(default=0)
+    is_checked = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'Пользователь {self.author} послал {self.complaint} '
+               # f'на пост с id {self.post_id}'
+
+    @staticmethod
+    def add(author):
+        Complaint.objects.create(
+            author=author,
+            complaint=forms.RadioSelect,
+        )
+
+    @staticmethod
+    def get_all():
+        return Complaint.objects.all()
+
+    @staticmethod
+    def get_not_checked():
+        return Complaint.objects.filter(is_checked = False)

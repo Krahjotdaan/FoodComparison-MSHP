@@ -19,6 +19,7 @@
                 <a class="nav-link" aria-current="page" href="/">Главная</a>
             </li>
           {% endif %}
+
           {% if request.get_full_path == '/food/' %}
             <li class="nav-item ps-3">
                 <a class="nav-link active" aria-current="page" href="/food/">Вся еда</a>
@@ -26,6 +27,16 @@
           {% else %}
             <li class="nav-item ps-3">
                 <a class="nav-link" aria-current="page" href="/food/">Вся еда</a>
+            </li>
+          {% endif %}
+
+          {% if request.complaint == '/complaint_list/' %}
+            <li class="nav-item ps-3">
+                <a class="nav-link active" aria-current="page" href="/complaint_list/">Жалобы</a>
+            </li>
+          {% else %}
+            <li class="nav-item ps-3">
+                <a class="nav-link" aria-current="page" href="/complaint_list/">Жалобы</a>
             </li>
           {% endif %}
 
