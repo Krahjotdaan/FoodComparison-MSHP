@@ -59,3 +59,7 @@ def food_item_page(request):
             'food': 'Ошибка',
         }
     return render(request, "food_item.html", context)
+
+
+def page(request):
+    return render(request, 'profile/page.html')
