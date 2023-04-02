@@ -26,5 +26,5 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('food/', views.food_list_page, name='food_list'),
     path('food_item/', views.food_item_page, name='food_item'),
-    path('profile/page.html', views.page, name='profile_page'),
+    path('profile/page.html', views.profile_page, name='profile_page'),
 ]
