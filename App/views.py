@@ -61,5 +61,5 @@ def food_item_page(request):
     return render(request, "food_item.html", context)
 
 
-def page(request):
+def profile_page(request):
     return render(request, 'profile/page.html')
