@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from App import models, forms
-from .models import Food, Complaint
+from App.models import Complaint
 
 
 def index(request):
@@ -59,37 +59,75 @@ def food_item_page(request):
         }
     return render(request, "food_item.html", context)
 
+def complaint_add(request):
+    context = {}
+
+    return render(request, "complaint_add.html", context)
 
 def complaint_list(request):
     context = {}
-
     if request.method == 'POST':
         author = request.user
         complaint = request.POST.get('btnradio')
-        post_id = request.POST.get('id')
-
-        print(str(author) + str(complaint) + str(post_id))
-        new_complaint = models.Complaint.add(author=author, complaint=complaint, post_id=post_id)
+        new_complaint = models.Complaint.add(author=author, complaint=complaint)
         new_complaint.save()
 
-    all_complaints = Complaint.get_all()
-    not_checked_complaints = Complaint.get_not_checked()
-    context['not_checked_complaints'] = not_checked_complaints
+    all_complaints = models.Complaint.get_all()
     context['all_complaints'] = all_complaints
 
     return render(request, "complaint_list.html", context)
 
-def complaint_add(request):
-    context = {}
 
-    context['author'] = request.user
 
-    # new_complaint = Complaint.add(author="io", complaint="НАРУШЕНИЕ!", post_id=0, is_checked=False)
-    # new_complaint.save()
 
-    # if request.method == 'POST':
-    #     complaint = Complaint()
-    #     Complaint.add()
 
-    return render(request, "complaint_add.html", context)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# def complaint_list(request):
+#     context = {}
+#
+#     if request.method == 'POST':
+#         author = request.user
+#         complaint = request.POST.get('btnradio')
+#         post_id = request.POST.get('id')
+#         is_checked = False
+#
+#         print(str(author) + str(complaint) + str(post_id))
+#         new_complaint = models.Complaint.add(author=author, complaint=complaint, post_id=post_id, is_checked=is_checked)
+#         new_complaint.save()
+#
+#     all_complaints = Complaint.get_all()
+#     not_checked_complaints = Complaint.get_not_checked()
+#     context['not_checked_complaints'] = not_checked_complaints
+#     context['all_complaints'] = all_complaints
+#
+#     return render(request, "complaint_list.html", context)
+#
+# def complaint_add(request):
+#     context = {}
+#
+#     context['author'] = request.user
+#
+#     # new_complaint = Complaint.add(author="io", complaint="НАРУШЕНИЕ!", post_id=0, is_checked=False)
+#     # new_complaint.save()
+#
+#     # if request.method == 'POST':
+#     #     complaint = Complaint()
+#     #     Complaint.add()
+#
+#     return render(request, "complaint_add.html", context)
 
