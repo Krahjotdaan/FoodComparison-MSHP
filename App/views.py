@@ -26,7 +26,9 @@ def food_list_page(request):
     """
     context = {}
     search_query = request.GET.get('search_fruit', '')
-
+    if 'id' in request.GET and request.user.is_authenticated:
+        food_id = request.GET['id']
+        models.Like.add(models.Food.get_by_id(food_id), request.user)
     if search_query:
         food = models.Food.objects.filter(name__iregex=search_query)
         context['food'] = food
