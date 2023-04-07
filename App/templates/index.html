@@ -4,22 +4,29 @@
 {% block content %}
 
 <div class="">
-    {% if user.is_authenticated %}
-    <div>Привет, {{user.username}}!</div>
-    {% else %}
-    <div>Привет, Анонимус!</div>
-    {% endif %}
-    <div class="d-flex justify-content-center">
-         <form class="row g-3" action="{% url 'food_list' %}">
-            <div class="col-auto">
-                <input name="search_fruit" type="search" class="form-control" placeholder="Введите фрукт...">
-            </div>
-            <div class="col-auto">
-                <button type="submit" class="btn btn-primary mb-3">фруктовый ввод...</button>
-            </div>
-         </form>
+
+
+    <div class="position-absolute top-50 start-50 translate-middle">
+        <div class="text-center">
+            {% if user.is_authenticated %}
+                <div>Привет, {{user.username}}!</div>
+            {% else %}
+                <div>Привет, Анонимус!</div>
+            {% endif %}
+        </div>
+        <div class="d-flex justify-content-center mt-4">
+            <form class="row g-3" action="{% url 'food_list' %}">
+                <div class="col-auto">
+                    <input name="search_fruit" type="search" class="form-control" placeholder="Введите фрукт...">
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mb-3">фруктовый ввод...</button>
+                </div>
+            </form>
         </div>
     </div>
+
+</div>
 
 
 {% endblock %}
