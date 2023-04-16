@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from App import models
 from .models import Food
+import operator
 
 
 def index(request):
@@ -63,3 +64,32 @@ def food_item_page(request):
 
 def profile_page(request):
     return render(request, 'profile/page.html')
+
+
+def statistics(request):
+    """
+        Отображение страницы с едой отфильтрованной по её рейтингу
+
+        :param request: объект с деталями запроса
+        :type request: :class:django.http.HttpRequest
+        :return: объект ответа сервера с HTML-кодом внутри
+        :rtype: :class:django.http.HttpResponse
+    """
+    context = dict()
+
+    rating = models.Like.objects.all()
+    rating_dict = dict()
+
+    for item in rating:
+        if item.fruit in rating_dict.keys():
+            rating_dict[item.fruit] += 1
+        else:
+            rating_dict[item.fruit] = 1
+
+    rating_list = list()
+
+    for item in rating_dict:
+        rating_list.append([item, rating_dict[item]])
+
+    context['list'] = sorted(rating_list, key=operator.itemgetter(1))[::-1]
+    return render(request, 'food_statistics.html', context)

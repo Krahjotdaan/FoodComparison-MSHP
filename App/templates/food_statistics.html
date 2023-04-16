@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <hr>
+    {% for item in list %}
+    <h1>{{ item.0.name }}</h1>
+    <h2>{{ item.1 }}</h2>
+    {% endfor %}
+
+{% endblock %}
