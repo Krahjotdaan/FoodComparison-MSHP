@@ -7,22 +7,67 @@
         color: black;
         font-size: 25px;
     }
+svg
+{
+    opacity: 0.7;
+}
+svg:hover
+{
+    opacity: 1;
+
+}
+
 </style>
     <div class="row row-cols-3 mt-3" >
         {% for food in food %}
             <div class="col text-center p-2">
-                <div class="card"  style="border-radius: 10px;">
+                <div class="card"  style="border-radius: 0;">
                     <div class="card-body">
                         <a href="/food_item/?id={{food.id}}">
-                            <img src="https://goo.su/swyUm5" class="img-fluid" style="border-radius: 10px;" alt="...">
+                            <img src="https://goo.su/swyUm5" class="img-fluid" style="border-radius: 0;" alt="...">
                             <p class="card-text pt-3">{{ food.name }}</p>
                         </a>
-                        <div class="row row-cols-2 mt-3">
-                            <div class="col">
-                                <a class="btn btn-primary" href="?id={{food.id}}">Лайк</a>
+                        <div class="row row-cols-3 mt-3 mb-3">
+                            <div class="col-4">
+                                <a href="?id={{food.id}}" >
+                                    {% if food.id in liked_food_id %}
+                                    <svg  id="heart"
+                                         xmlns="http://www.w3.org/2000/svg" width="30"
+                                         height="30" fill="red" class="bi bi-heart"
+                                         style="margin-top: 10px" viewBox="0 0 16 16">
+                                        <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523
+                                        1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368
+                                        5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717
+                                        2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.0
+                                        55.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+
+                                    </svg>
+                                    {% else %}
+                                    <svg  id="heart"
+                                         xmlns="http://www.w3.org/2000/svg" width="30"
+                                         height="30" fill="black" class="bi bi-heart"
+                                         style="margin-top: 10px" viewBox="0 0 16 16">
+                                        <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523
+                                        1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368
+                                        5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717
+                                        2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.0
+                                        55.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+
+                                    </svg>
+                                    {% endif %}
+                                </a>
                             </div>
-                            <div class="col">
-                                <a class="btn btn-primary" href="/#">Сравнение</a>
+                            <div class="col-4"></div>
+                            <div class="col-4">
+                                <a href="/#">
+                                    <svg id="compare"
+                                         xmlns="http://www.w3.org/2000/svg" width="50" height="50"
+                                         fill="#22742b" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5
+                                        4.5a.5.5 0 0 0-1 0v3h-3a.5.5
+                                        0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+                                    </svg>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -30,5 +75,14 @@
             </div>
         {% endfor %}
     </div>
+<script>
+    function like(){
+        var heart = document.getElementById("heart")
+        let color = heart.getAttribute("fill")
+        if (color == "black") {
+            heart.setAttribute("fill","red")
+        }
+    }
+</script>
 
 {% endblock %}
