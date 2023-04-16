@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from App import models
-from .models import Food
 
 
 def index(request):
@@ -35,7 +34,11 @@ def food_list_page(request):
     else:
         food = models.Food.get()
         context['food'] = food
-
+    likes = models.Like.get()
+    context['liked_food_id'] = []
+    for like in likes:
+        if like.author == request.user:
+            context['liked_food_id'].append(like.fruit.id)
     return render(request, "food_list.html", context)
 
 
