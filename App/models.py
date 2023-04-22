@@ -114,20 +114,22 @@ class Complaint(models.Model):
     """
     author = models.ForeignKey(to=User, default=0, on_delete=models.CASCADE)
     complaint = models.CharField(max_length=1000)
+    fruit_id = models.ForeignKey(to=Food, default=1, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'Пользователь {self.author} послал {self.complaint} \n'
+        return f'Пользователь {self.author} послал {self.complaint} на фрукт {self.fruit_id.name}\n'
 
     @staticmethod
-    def add(author, complaint):
+    def add(author, complaint, fruit_id):
         Complaint.objects.create(
             author=author,
             complaint=complaint,
+            fruit_id=fruit_id
         )
 
     @staticmethod
     def get_all():
-        return Complaint.objects.all()
+        return Complaint.objects.all().order_by("-id")
 
 
 
