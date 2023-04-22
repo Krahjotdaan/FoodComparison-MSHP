@@ -69,8 +69,7 @@ def complaint_list(request):
     if request.method == 'POST':
         author = request.user
         complaint = request.POST.get('btnradio')
-        new_complaint = models.Complaint.add(author=author, complaint=complaint)
-        new_complaint.save()
+        models.Complaint.objects.create(author=author, complaint=complaint)
 
     all_complaints = models.Complaint.get_all()
     context['all_complaints'] = all_complaints
