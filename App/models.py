@@ -1,3 +1,4 @@
+from django import forms
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -104,3 +105,87 @@ class Like(models.Model):
     @staticmethod
     def get():
         return Like.objects.all()
+
+
+
+class Complaint(models.Model):
+    """
+
+    """
+    author = models.ForeignKey(to=User, default=0, on_delete=models.CASCADE)
+    complaint = models.CharField(max_length=1000)
+    fruit_id = models.ForeignKey(to=Food, default=1, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'Пользователь {self.author} послал {self.complaint} на фрукт {self.fruit_id.name}\n'
+
+    @staticmethod
+    def add(author, complaint, fruit_id):
+        Complaint.objects.create(
+            author=author,
+            complaint=complaint,
+            fruit_id=fruit_id
+        )
+
+    @staticmethod
+    def get_all():
+        return Complaint.objects.all().order_by("-id")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# class Complaint(models.Model):
+#
+#     author = models.ForeignKey(to=User, default=0, on_delete=models.CASCADE)
+#     complaint = models.CharField(max_length=1000)
+#     post_id = models.ForeignKey(to=Food, default=0, on_delete=models.CASCADE)
+#     post_id_id = models.IntegerField(default=0, null=False)
+#     is_checked = models.BooleanField(default=False)
+#
+#     def __str__(self):
+#         return f'Пользователь {self.author} послал {self.complaint} \n'
+#                # f'на пост с id {self.post_id}'
+#
+#     @staticmethod
+#     def add(author, complaint, post_id, is_checked):
+#         Complaint.objects.create(
+#             author=author,
+#             complaint=complaint,
+#             post_id=post_id,
+#             is_checked=is_checked,
+#         )
+#
+#     @staticmethod
+#     def get_all():
+#         return Complaint.objects.all()
+#
+#     @staticmethod
+#     def get_not_checked():
+#         return Complaint.objects.filter(is_checked=False)
