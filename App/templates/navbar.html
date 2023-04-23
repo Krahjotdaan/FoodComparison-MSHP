@@ -75,6 +75,18 @@
 
           {% endif %}
 
+        <li class="nav-item ps-3">
+          <a class="nav-link active" aria-current="page" href="/">Главная</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'food_creation' %}">Создание еды</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'django_registration_register' %}">Регистрация</a>
+        </li>
+          <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'login' %}">Войти</a>
+        </li>
       </ul>
     </div>
   </div>

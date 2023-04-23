@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib import messages
 
+
 class Food(models.Model):
     """
     Таблица еды
@@ -17,6 +18,9 @@ class Food(models.Model):
     searched = models.IntegerField()
     description = models.CharField(max_length=1000)
     deathdoze = models.IntegerField()
+    calories = models.IntegerField()
+    image = models.ImageField(upload_to='images/')
+
 
     @staticmethod
     def new_food(name, author, searched, description, deathdoze):
@@ -48,6 +52,7 @@ class Vitamin(models.Model):
             name=name
         )
         messages.success(self.request, 'Name added')
+
 
 class VitaminFood(models.Model):
     """

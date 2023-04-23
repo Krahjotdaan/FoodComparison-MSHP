@@ -1,6 +1,7 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from App.forms import FruitCreationForm
 from App import models
-from .models import Food
 
 
 def index(request):
@@ -12,6 +13,36 @@ def index(request):
     context["text"] = "фруктовый ввод..."
 
     return render(request, "index.html", context)
+
+
+@login_required
+def food_creation(request):
+    context = dict()
+    if request.method == 'POST':
+        form = FruitCreationForm(request.POST)
+
+        if form.is_valid() is True:
+            name = form.data['title']
+            description = form.data['description']
+            calories = form.data['calories']
+            vitamins = form.data['vitamins']
+            deahtdoze = form.data['death_doze']
+            interesting_facts = form.data['interesting_fact']
+            image = form.data['image']
+
+            fruit = models.Food(name=name, author=request.user, searched=0,
+                                description=description, deahtdoze=deahtdoze, calories=calories,
+                                image=image)
+            fruit.save()
+
+            models.VitaminFood.objects.create(vitamin=vitamins, food=fruit)
+            models.Fact.objects.create(food=fruit, description=interesting_facts)
+    else:
+        form = FruitCreationForm()
+        context['form'] = form
+
+    return render(request, 'food_creation.html', context=context)
+
 
 
 def food_list_page(request):
