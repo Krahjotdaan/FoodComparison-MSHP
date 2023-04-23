@@ -65,5 +65,6 @@ def profile_page(request):
     return render(request, 'profile/page.html')
 
 def comprasion_page(request):
-
-    return render(request, "comprasion_page.html")
+    context = dict()
+    context['aasdfasdf'] = models.Comprasion.get_by_user(request.user)
+    return render(request, "comprasion_page.html", context)
