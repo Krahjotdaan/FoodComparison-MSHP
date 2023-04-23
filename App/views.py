@@ -68,17 +68,20 @@ def profile_page(request):
 
 def statistics(request):
     """
-        Отображение страницы с едой отфильтрованной по её рейтингу
+        Отображение страницы с едой отфильтрованной по её рейтингу (в том числе и еда, не имеющая рейтинга)
 
         :param request: объект с деталями запроса
         :type request: :class:django.http.HttpRequest
         :return: объект ответа сервера с HTML-кодом внутри
         :rtype: :class:django.http.HttpResponse
     """
+
     context = dict()
+    rating_dict = dict()
+    rating_list = list()
 
     rating = models.Like.objects.all()
-    rating_dict = dict()
+    food = models.Food.objects.all()
 
     for item in rating:
         if item.fruit in rating_dict.keys():
@@ -86,10 +89,15 @@ def statistics(request):
         else:
             rating_dict[item.fruit] = 1
 
-    rating_list = list()
+    for item in food:
+        if item not in rating_dict.keys():
+            rating_dict[item] = 0
 
     for item in rating_dict:
         rating_list.append([item, rating_dict[item]])
 
-    context['list'] = sorted(rating_list, key=operator.itemgetter(1))[::-1]
+    context = {
+        'list': sorted(rating_list, key=operator.itemgetter(1))[::-1]
+    }
+
     return render(request, 'food_statistics.html', context)

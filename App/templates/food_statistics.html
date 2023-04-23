@@ -1,10 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <hr>
-    {% for item in list %}
-    <h1>{{ item.0.name }}</h1>
-    <h2>{{ item.1 }}</h2>
-    {% endfor %}
+ <div class="container mt-4" align="center">
+        {% for item in list %}
+            <div class="card mt-3" align="left" style="width: 19rem;">
+              <div class="card-body">
+                <h5 class="card-title mt-1" style="font-size: 23px;">{{ item.0.name }}</h5>
+                  <p class="card-text">{{item.0.description}}</p>
+                  <p class="card-text">Рейтинг: {{item.1}}</p>
+              </div>
+              <hr>
+              <a href="/food_item/?id={{item.0.id}}" class="btn btn-outline-success mb-3" style="width: 85%; margin-left: 21px;">Подробнее</a>
+            </div>
+        {% endfor %}
+    </div>
 
 {% endblock %}
