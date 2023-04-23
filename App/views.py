@@ -63,3 +63,9 @@ def food_item_page(request):
 
 def profile_page(request):
     return render(request, 'profile/page.html')
+
+def comments_page(request):
+    context = []
+    comentdata = models.Comment.objects.all()
+    context['comments'] = comentdata
+    return render(request, 'comments.html')

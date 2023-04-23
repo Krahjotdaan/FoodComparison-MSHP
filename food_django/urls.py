@@ -27,4 +27,5 @@ urlpatterns = [
     path('food/', views.food_list_page, name='food_list'),
     path('food_item/', views.food_item_page, name='food_item'),
     path('profile/page.html', views.profile_page, name='profile_page'),
+    path('comments/', views.comments_page, name='comments_page'),
 ]

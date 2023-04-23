@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib import messages
-
+from datetime import datetime
 class Food(models.Model):
     """
     Таблица еды
@@ -104,3 +104,28 @@ class Like(models.Model):
     @staticmethod
     def get():
         return Like.objects.all()
+
+class Comment(models.Model):
+    """
+    Таблица комментариев
+
+    :name: подпись оставившего отзыв
+    :date: дата , когда оставлен комменатрий
+    :text: содержание комментраия
+
+    """
+    name = models.CharField(max_length=21)
+    #date = models.CharField()
+    text = models.CharField(max_length=500)
+
+    @staticmethod
+    def add(author, text ):
+        Comment.objects.create(
+            name=author,
+            text=text,
+            #date = datetime.today()
+        )
+
+    @staticmethod
+    def get():
+        return Comment.objects.all()
