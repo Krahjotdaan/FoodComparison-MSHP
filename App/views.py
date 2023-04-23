@@ -63,3 +63,7 @@ def food_item_page(request):
 
 def profile_page(request):
     return render(request, 'profile/page.html')
+
+def comprasion_page(request):
+
+    return render(request, "comprasion_page.html")
