@@ -4,14 +4,12 @@
 {% block content %}
 
 <div class="">
-
-
-    <div class="position-absolute top-50 start-50 translate-middle">
+    <div class="position-absolute top-50 start-50 translate-middle ">
         <div class="text-center">
             {% if user.is_authenticated %}
-                <div>Привет, {{user.username}}!</div>
+                <h1>{{index_l}}{{user.username}}</h1>
             {% else %}
-                <div>Привет, Анонимус!</div>
+                <h1>{{index_g}}</h1>
             {% endif %}
         </div>
         <div class="d-flex justify-content-center mt-4">

@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from App import models
+from random import randint
 from .models import Food
 
 
@@ -10,7 +11,16 @@ def index(request):
     """
     context = {}
     context["text"] = "фруктовый ввод..."
-
+    data_guest= ["Здарово, солнышко!", "Ну привет мЫшь", "Кто ты ?", "Как дела",
+            "critical error ||| reload page ||| please", "Привет , дорогой !",
+            " Зарегестриуйся , пожааааалуйста", "Приветик!", "зарегаться или не зарегаться ?",
+            "Привет! Хорошо выглядишь", "Привет, посетитель", "тут нчиего нет"]
+    data_loged = ["Здарово, ", "Ну привет, ", "Ты ли это, ", "Как дела, ", "hii, ",
+            "Михао, ", "Привет, ", "Тевирп, ", "Теперь ты - ", "Ку-ку, ", "Почисть историю, "]
+    indg = randint(0, len(data_guest) - 1)
+    indl = randint(0, len(data_loged) - 1)
+    context["index_g"] = data_guest[indg]
+    context["index_l"] = data_loged[indl]
     return render(request, "index.html", context)
 
 
