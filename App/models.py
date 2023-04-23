@@ -18,18 +18,18 @@ class Food(models.Model):
     searched = models.IntegerField()
     description = models.CharField(max_length=1000)
     deathdoze = models.IntegerField()
-    calories = models.IntegerField()
     image = models.ImageField(upload_to='images/')
 
 
     @staticmethod
-    def new_food(name, author, searched, description, deathdoze):
+    def new_food(name, author, searched, description, deathdoze, image):
         Food.objects.create(
             name=name,
             author=author,
             searched=searched,
             description=description,
-            deathdoze=deathdoze
+            deathdoze=deathdoze,
+            image=image
         )
 
 

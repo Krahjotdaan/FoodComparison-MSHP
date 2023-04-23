@@ -17,21 +17,23 @@ def index(request):
 
 @login_required
 def food_creation(request):
+    print('in function')
     context = dict()
     if request.method == 'POST':
+        print('IN POst')
         form = FruitCreationForm(request.POST)
 
         if form.is_valid() is True:
+            print('valid')
             name = form.data['title']
             description = form.data['description']
-            calories = form.data['calories']
             vitamins = form.data['vitamins']
             deahtdoze = form.data['death_doze']
             interesting_facts = form.data['interesting_fact']
             image = form.data['image']
 
             fruit = models.Food(name=name, author=request.user, searched=0,
-                                description=description, deahtdoze=deahtdoze, calories=calories,
+                                description=description, deahtdoze=deahtdoze,
                                 image=image)
             fruit.save()
 
