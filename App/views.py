@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from App import models
+from django.http import JsonResponse
 from .models import Food
 
 
@@ -64,7 +65,15 @@ def food_item_page(request):
 def profile_page(request):
     return render(request, 'profile/page.html')
 
+def add_comprasion(request):
+    fruit_id = request.GET.get("id")
+    # models.Comprasion.objects.create(author=request.user, fruit=models.Food.objects.filter(id=fruit_id))
+    # ^^^^  добавление в БД (закомментировано из-за отсутствия фруктов)
+    context = {
+        'data': fruit_id
+    }
+    return JsonResponse(context)
+
 def comprasion_page(request):
     context = dict()
-    context['aasdfasdf'] = models.Comprasion.get_by_user(request.user)
     return render(request, "comprasion_page.html", context)

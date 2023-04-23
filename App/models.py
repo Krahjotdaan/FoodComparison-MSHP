@@ -104,3 +104,7 @@ class Like(models.Model):
     @staticmethod
     def get():
         return Like.objects.all()
+
+class Comprasion(models.Model):
+    fruit = models.ForeignKey(to=Food, default=1, on_delete=models.CASCADE)
+    author = models.ForeignKey(to=User, default=1, on_delete=models.CASCADE)

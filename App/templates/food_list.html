@@ -54,7 +54,7 @@
                             <div class="col-4"></div>
                             <div class="col-4">
                                 <a href="/comprasion_page?id={{food.id}}">
-                                    <svg id="compare"
+                                    <svg id="compare" onclick="load_datetime()"
                                          xmlns="http://www.w3.org/2000/svg" width="50" height="50"
                                          fill="#22742b" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
                                         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5
@@ -68,7 +68,41 @@
                 </div>
             </div>
         {% endfor %}
-
+        <button onclick="test()">PLS</button>
+        <div id="test_field"></div>
   </div>
+<script>
+function test() {
+    let req = new XMLHttpRequest()
+
+    req.open(method="GET", url="/add_comprasion?id=1", async=true)
+
+    req.onload = function() {
+        let data = JSON.parse(req.response)
+        test_field.innerHTML = data.data
+    }
+    req.onerror = function() {
+        test_field.innerHTML = "error"
+    }
+
+    // отправка
+    req.send()
+}
+function load_datetime() {
+    let req = new XMLHttpRequest()
+
+    // настройка
+    req.open(method="GET", url="/add_comprasion/", async=true)
+    req.onload = function() {
+        let data = JSON.parse(req.response)
+        test_field.innerHTML = data.data
+    }
+    req.onerror = function() {
+    }
+
+    // отправка
+    req.send()
+}
+</script>
 
 {% endblock %}
