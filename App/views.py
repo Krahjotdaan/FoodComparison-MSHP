@@ -66,11 +66,12 @@ def profile_page(request):
     return render(request, 'profile/page.html')
 
 def add_comprasion(request):
-    fruit_id = request.GET.get("id")
-    # models.Comprasion.objects.create(author=request.user, fruit=models.Food.objects.filter(id=fruit_id))
-    # ^^^^  добавление в БД (закомментировано из-за отсутствия фруктов)
+    # fruit = models.Food.objects.filter(id=request.GET.get("id"))
+    fruit = request.GET.get('id')
+    models.Comprasion.add(models.Food.objects.get(id=fruit), author=request.user)
+    
     context = {
-        'data': fruit_id
+        'data': fruit
     }
     return JsonResponse(context)
 

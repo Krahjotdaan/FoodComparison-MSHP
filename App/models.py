@@ -14,12 +14,12 @@ class Food(models.Model):
     """
     name = models.CharField(max_length=100)
     author = models.ForeignKey(to=User, default=1, on_delete=models.CASCADE)
-    searched = models.IntegerField()
+    searched = models.IntegerField(default=0)
     description = models.CharField(max_length=1000)
-    deathdoze = models.IntegerField()
+    deathdoze = models.IntegerField(default=1)
 
     @staticmethod
-    def new_food(name, author, searched, description, deathdoze):
+    def add(name, author, searched, description, deathdoze):
         Food.objects.create(
             name=name,
             author=author,
@@ -108,3 +108,6 @@ class Like(models.Model):
 class Comprasion(models.Model):
     fruit = models.ForeignKey(to=Food, default=1, on_delete=models.CASCADE)
     author = models.ForeignKey(to=User, default=1, on_delete=models.CASCADE)
+
+    def add(fruit, author):
+        Comprasion.objects.create(fruit=fruit, author=author)
