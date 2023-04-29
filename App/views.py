@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from App import models
+from random import randint
 from .models import Food
 
 
@@ -9,8 +10,16 @@ def index(request):
     :return: объект ответа сервера с HTML-кодом внутри
     """
     context = {}
-    context["text"] = "фруктовый ввод..."
-
+    data_guest= ["Здарово, солнышко!", "Ну привет человек!", "Приветик!",
+            "Привет! Хорошо выглядишь!", "Привет, посетитель!", "Какая встреча!",
+            "Ура ты снова тут!", "Рад тебя видеть!", "Заходи сюда почаще, мне это это нравится!"]
+    data_loged = ["Здарово, ", "Ну привет, ", "Ты ли это, ", "Как дела, ", "Приветик, ",
+            "Михао, ", "Привет, ", "Теперь ты - ", "Хорошего тебе дня, ", "Приветствую тебя, ",
+            "Кого я вижу, это же ", "О, здравствуй, мой драгоценный, "]
+    indg = randint(0, len(data_guest) - 1)
+    indl = randint(0, len(data_loged) - 1)
+    context["index_g"] = data_guest[indg]
+    context["index_l"] = data_loged[indl]
     return render(request, "index.html", context)
 
 
