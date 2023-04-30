@@ -1,30 +1,41 @@
-
 {% extends 'base.html' %}
-
 {% block content %}
 
-<div class="">
-    <div class="position-absolute top-50 start-50 translate-middle ">
-        <div class="text-center">
-            {% if user.is_authenticated %}
-                <h1>{{index_l}}{{user.username}}</h1>
-            {% else %}
-                <h1>{{index_g}}</h1>
-            {% endif %}
-        </div>
-        <div class="d-flex justify-content-center mt-4">
-            <form class="row g-3" action="{% url 'food_list' %}">
-                <div class="col-auto">
-                    <input name="search_fruit" type="search" class="form-control" placeholder="Введите фрукт...">
-                </div>
-                <div class="col-auto">
-                    <button type="submit" class="btn btn-primary mb-3">фруктовый ввод...</button>
-                </div>
-            </form>
+    <div class="">
+        <div class="position-absolute top-50 start-50 translate-middle mt-4">
+            <div class="text-center">
+                {% if user.is_authenticated %}
+                    <h3>{{index_l}}{{user.username}}</h3>
+                {% else %}
+                    <h3>{{index_g}}</h3>
+                {% endif %}
+            </div>
+            <div class="d-flex justify-content-center mt-4">
+                <form class="row g-3" action="{% url 'food_list' %}">
+                    <div class="col-auto">
+                        <input name="search_fruit" type="search" class="form-control" placeholder="Введите фрукт...">
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary mb-3">фруктовый ввод...</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="text-center row-g-3">
+                <p class="fs-3">О сайте:</p>
+                <p class="fs-5">
+                    Здесь вы можете выбрать нужный продукт и сравнить его с другими по различным параметрам,
+                    таким как калорийность, содержание полезных витаминов и даже по смертельной дозе.
+                </p>
+                <p class="fs-5">
+                    Также вы можете добавлять продукты в избранное для составления определенного рациона питания.
+                    Наш сайт поможет вам подобрать правильный и здоровый рацион, который будет соответствовать вашим потребностям и целям.
+                </p>
+
+            </div>
+
+
         </div>
     </div>
-
-</div>
-
 
 {% endblock %}
