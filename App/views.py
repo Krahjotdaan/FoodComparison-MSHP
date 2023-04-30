@@ -52,10 +52,9 @@ def food_item_page(request):
     :rtype: :class:django.http.HttpResponse
     :meta public:
     """
-
+    food_id = request.GET['id']
+    food = models.Food.objects.get(id=food_id)
     if 'id' in request.GET:
-        food_id = request.GET['id']
-        food = models.Food.objects.get(id=food_id)
         context = {
             'food': food,
         }
@@ -63,8 +62,28 @@ def food_item_page(request):
         context = {
             'food': 'Ошибка',
         }
+
+    if request.POST.get('like'):
+        models.Like.objects.update_or_create(
+            fruit=food,
+            author=request.user
+        )
+    if request.POST.get('delete_like'):
+        models.Like.objects.get(
+            fruit=food,
+            author=request.user
+        ).delete()
+
     return render(request, "food_item.html", context)
 
 
 def profile_page(request):
     return render(request, 'profile/page.html')
+
+
+def like_page(request):
+    context = dict()
+    liked = models.Like.objects.all()
+    context['liked'] = liked
+
+    return render(request, 'like_page.html', context)
