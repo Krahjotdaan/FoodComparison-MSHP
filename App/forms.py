@@ -22,7 +22,7 @@ class FruitCreationForm(forms.Form):
     description = forms.CharField(label='Описание',
                                   max_length=255,
                                   required=True,
-                                  widget=forms.Textarea(attrs={"placeholder":"Описание..", "id": "description_field"}))
+                                  widget=forms.Textarea(attrs={"placeholder": "Описание..", "id": "description_field"}))
 
     calories = forms.IntegerField(label='Калории(на 1 кг)', 
                                   max_value=1000, 

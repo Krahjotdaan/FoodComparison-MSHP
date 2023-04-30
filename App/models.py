@@ -19,7 +19,7 @@ class Food(models.Model):
     description = models.CharField(max_length=1000)
     deathdoze = models.IntegerField(default=1)
     calories = models.IntegerField(default=1)
-    image = models.ImageField(upload_to='images/', default='')
+    image = models.ImageField(upload_to='media/images/', default="https://goo.su/swyUm5")
     interesting_fact = models.CharField(max_length=300, default='')
 
 

@@ -21,7 +21,7 @@ def food_creation(request):
     context = dict()
     if request.method == 'POST':
             print('IN POst')
-            form = FruitCreationForm(request.POST)
+            form = FruitCreationForm(request.POST, request.FILES)
 
         #if form.is_valid() is True:
             print('valid')
