@@ -69,10 +69,13 @@ def food_item_page(request):
             author=request.user
         )
     if request.POST.get('delete_like'):
-        models.Like.objects.get(
-            fruit=food,
-            author=request.user
-        ).delete()
+        try:
+            models.Like.objects.get(
+                fruit=food,
+                author=request.user
+            ).delete()
+        except:
+            pass
 
     return render(request, "food_item.html", context)
 
