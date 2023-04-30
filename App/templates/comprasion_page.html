@@ -3,6 +3,20 @@
 {% block content %}
 
 <h1 class="mt-5">SIUUU</h1>
+<table style="width: 100%">
+    <thead>
+        <td>Название</td>
+        <td>Автор</td>
+        <td>смертельная доза</td>
+    </thead>
 
+{% for i in compraisions %}
+    <tr>
+        <td>{{i.name}}</td>
+        <td>{{i.author}}</td>
+        <td>{{i.deathdoze}}</td>
+    </tr>
 
+{% endfor %}
+</table>
 {% endblock %}

@@ -28,7 +28,8 @@ class Food(models.Model):
             deathdoze=deathdoze
         )
 
-
+    # def get_by_food(food): на доработке
+        
 class Vitamin(models.Model):
     """
     Таблица существующего витамина
@@ -65,6 +66,9 @@ class VitaminFood(models.Model):
             vitamin=vitamin,
             food=food
         )
+
+
+    
 
 class Fact(models.Model):
     """
@@ -111,3 +115,13 @@ class Comprasion(models.Model):
 
     def add(fruit, author):
         Comprasion.objects.create(fruit=fruit, author=author)
+
+    def get_by_user(user): 
+        """
+        Возвращает всю еду, которая в списке сравнения пользователя
+        """
+        comprasions = list(Comprasion.objects.filter(author=user))
+        result = []
+        for i in comprasions:
+            result.append(i.fruit)
+        return result

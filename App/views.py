@@ -75,6 +75,8 @@ def add_comprasion(request):
     }
     return JsonResponse(context)
 
-def comprasion_page(request):
+def comprasion_page(request): # на доработке
     context = dict()
+    context['food'] = models.Comprasion.get_by_user(request.user)
+    arr = []
     return render(request, "comprasion_page.html", context)
