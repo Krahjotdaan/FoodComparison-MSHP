@@ -15,21 +15,25 @@ class Food(models.Model):
     """
     name = models.CharField(max_length=100)
     author = models.ForeignKey(to=User, default=1, on_delete=models.CASCADE)
-    searched = models.IntegerField()
+    searched = models.IntegerField(default=0)
     description = models.CharField(max_length=1000)
-    deathdoze = models.IntegerField()
-    image = models.ImageField(upload_to='images/')
+    deathdoze = models.IntegerField(default=1)
+    calories = models.IntegerField(default=1)
+    image = models.ImageField(upload_to='images/', default='')
+    interesting_fact = models.CharField(max_length=300, default='')
 
 
     @staticmethod
-    def new_food(name, author, searched, description, deathdoze, image):
+    def new_food(name, author, searched, description, deathdoze, calories, image, interesting_fact):
         Food.objects.create(
             name=name,
             author=author,
             searched=searched,
             description=description,
             deathdoze=deathdoze,
-            image=image
+            calories=calories,
+            image=image,
+            interesting_fact = interesting_fact
         )
 
 
@@ -68,23 +72,6 @@ class VitaminFood(models.Model):
     def add(vitamin, food):
         VitaminFood.objects.create(
             vitamin=vitamin,
-            food=food
-        )
-
-class Fact(models.Model):
-    """
-    Таблица интересного факта, относящегося к определенной еде
-
-    :var food: Ссылка на еду
-    :var description: Описание самого интересного факта
-    """
-    food = models.OneToOneField(to=Food, on_delete=models.CASCADE)
-    description = models.CharField(max_length=1000)
-
-    @staticmethod
-    def add(description, food):
-        Fact.objects.create(
-            description=description,
             food=food
         )
 

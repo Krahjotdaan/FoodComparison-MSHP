@@ -15,19 +15,22 @@
                      {{ form.image }}
                  </div>
                  <div class="row mt-3 label">
-                     {{ form.death_doze.label }}:
+                    {{ form.calories.label }}:
+                </div>
+                <div class="row mt-1">
+                    {{ form.calories }}
+                </div>
+                 <div class="row mt-2 label">
+                     {{ form.deathdoze.label }}:
                  </div>
                  <div class="row mt-1">
-                     {{ form.death_doze }}
+                     {{ form.deathdoze }}
                  </div>
-                 <div class="row mt-2 label">
-                    {{form.vitamins_choice.label}}:
+                 <div class="row mt-1 label">
+                    {{form.vitamins.label}}:
                 </div>
                  <div class="row mt-1">
-                        {{form.vitamins_choice}}
-                    <div class="col">
-                        {{form.vitamins_quantity}}
-                    </div>
+                    {{form.vitamins}}
                 </div>
              </div>
             <div class="col" style="margin-left: 18px;">
@@ -40,7 +43,6 @@
                  <div class="row mt-3">
                      {{ form.interesting_fact }}
                  </div>
-            </div>
            </div>
 
           <hr align="center" class="my-4" method="post">

@@ -20,27 +20,33 @@ def food_creation(request):
     print('in function')
     context = dict()
     if request.method == 'POST':
-        print('IN POst')
-        form = FruitCreationForm(request.POST)
+            print('IN POst')
+            form = FruitCreationForm(request.POST)
 
-        if form.is_valid() is True:
+        #if form.is_valid() is True:
             print('valid')
             name = form.data['title']
             description = form.data['description']
             vitamins = form.data['vitamins']
-            deahtdoze = form.data['death_doze']
-            interesting_facts = form.data['interesting_fact']
+            deathdoze = form.data['deathdoze']
+            interesting_fact = form.data['interesting_fact']
             image = form.data['image']
+            calories = form.data['calories']
 
             fruit = models.Food(name=name, author=request.user, searched=0,
-                                description=description, deahtdoze=deahtdoze,
-                                image=image)
+                                description=description, deathdoze=deathdoze,
+                                image=image, calories=calories,
+                                interesting_fact=interesting_fact)
             fruit.save()
 
-            models.VitaminFood.objects.create(vitamin=vitamins, food=fruit)
-            models.Fact.objects.create(food=fruit, description=interesting_facts)
-        else:
-            context['form'] = form
+            vits = models.Vitamin.objects.all()
+
+            for v in vitamins:
+                for vit in vits:
+                    if v == vit.name:
+                        models.VitaminFood.objects.create(vitamin=vit, food=fruit)
+        #else:
+           # context['form'] = form
     else:
         form = FruitCreationForm()
         context['form'] = form

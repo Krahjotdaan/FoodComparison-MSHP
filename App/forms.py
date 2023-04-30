@@ -1,5 +1,6 @@
 from django import forms
 
+
 class FruitCreationForm(forms.Form):
 
     V_CHOICES = (
@@ -10,6 +11,7 @@ class FruitCreationForm(forms.Form):
         ("Е", "Е"), ("K1", "K1"), ("K2", "K2"), ("U", "U"),
         ("P", "P"), ("N", "N"),
     )
+
     image = forms.ImageField(widget=forms.FileInput(attrs={"id": "image_field"}))
 
     title = forms.CharField(label='Название',
@@ -22,18 +24,18 @@ class FruitCreationForm(forms.Form):
                                   required=True,
                                   widget=forms.Textarea(attrs={"placeholder":"Описание..", "id": "description_field"}))
 
-    calories = forms.IntegerField(label='Калории(на 1 кг)', max_value=1000, required=True)
+    calories = forms.IntegerField(label='Калории(на 1 кг)', 
+                                  max_value=1000, 
+                                  required=True,
+                                  widget=forms.NumberInput(attrs={"id": "calories"}))
 
-    vitamins_choice = forms.ChoiceField(label='Витамины (мг)',
-                                        required=True,
-                                        choices=V_CHOICES,
-                                        widget=forms.Select(attrs={"id": "choice_field"}))
-    vitamins_quantity = forms.IntegerField(max_value=1000,
-                                           required=True,
-                                           widget=forms.NumberInput(attrs={"id": "vitamins_quantity"}))
-
-    death_doze = forms.IntegerField(label='Смертельная доза (кг)',
-                                    max_value=1000000000, widget=forms.NumberInput(attrs={"id": "death_doze"}))
+    vitamins = forms.ChoiceField(label='Витамины (мг)',
+                            required=True,
+                            choices=V_CHOICES,
+                            widget=forms.SelectMultiple(attrs={"id": "choice_field"}))
+    
+    deathdoze = forms.IntegerField(label='Смертельная доза (кг)',
+                                    max_value=1000000000, widget=forms.NumberInput(attrs={"id": "deathdoze"}))
 
     interesting_fact = forms.CharField(label='Интересный факт',
                                        max_length=255,
