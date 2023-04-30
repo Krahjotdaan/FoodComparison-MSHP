@@ -39,9 +39,14 @@ def food_creation(request):
 
             models.VitaminFood.objects.create(vitamin=vitamins, food=fruit)
             models.Fact.objects.create(food=fruit, description=interesting_facts)
+        else:
+            context['form'] = form
     else:
         form = FruitCreationForm()
         context['form'] = form
+
+    form = FruitCreationForm()
+    context['form'] = form
 
     return render(request, 'food_creation.html', context=context)
 
