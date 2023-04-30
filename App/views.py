@@ -65,7 +65,7 @@ def profile_page(request):
     return render(request, 'profile/page.html')
 
 def comments_page(request):
-    context = []
+    context = {}
     comentdata = models.Comment.objects.all()
     context['comments'] = comentdata
-    return render(request, 'comments.html')
+    return render(request, 'comments.html', context)
