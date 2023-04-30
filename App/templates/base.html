@@ -5,6 +5,38 @@
     <meta charset="UTF-8">
     <title>Сравнение еды</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        html,
+        body {
+          height: 100%;
+        }
+        .wrapper {
+          display: table;
+          height: 100%;
+        }
+        .content {
+          display: table-row;
+          height: 100%;
+        }
+        .footer{
+            display: table;
+            margin: -100px 0 0 0;
+            height: 80px;
+            width: 100%;
+            background: #22742b;
+            color: #fff;
+            text-align: center;
+        }
+
+        .label{
+            color: #ADADAD;
+            width: 200px;
+            margin-left: 10px;
+        }
+
         .bg {
             background-color: #E2DEDE;
         }
@@ -17,20 +49,6 @@
         .container {
             overflow: hidden;
             padding-bottom: 50px;
-        }
-        .foot {
-            position: fixed;
-            text-align: center;
-            left: 0; bottom: 0;
-            background: #22742b;
-            color: #fff;
-            width: 100%;
-        }
-
-        .label{
-            color: #ADADAD;
-            width: 200px;
-            margin-left: 10px;
         }
         #image_field {
             border-radius: 12px;
@@ -113,9 +131,9 @@
 
 
     <div class="mb-4 mt-5">
-        <div class="foot">
+        <footer class="footer">
             <p class="text-center mb-4 mt-4" >© Дачные кодеры</p>
-        </div>
+        </footer>
     </div>
 
     {% block base_js %}
