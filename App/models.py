@@ -1,35 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib import messages
-
-class Food(models.Model):
-    """
-    Таблица еды
-
-    :var name: Название еды
-    :var author: Человек, создавший данный продукт на сайте
-    :var searched: Сколько раз на фрукт нажимали, чтобы узнать информацию о нём
-    :var description: Описание еды
-    :var deathdoze: Количество еды, необходимое для смерти челока от нее
-    """
-    name = models.CharField(max_length=100)
-    author = models.ForeignKey(to=User, default=1, on_delete=models.CASCADE)
-    searched = models.IntegerField(default=0)
-    description = models.CharField(max_length=1000)
-    deathdoze = models.IntegerField(default=1)
-
-    @staticmethod
-    def add(name, author, searched, description, deathdoze):
-        Food.objects.create(
-            name=name,
-            author=author,
-            searched=searched,
-            description=description,
-            deathdoze=deathdoze
-        )
-
-    # def get_by_food(food): на доработке
-        
 class Vitamin(models.Model):
     """
     Таблица существующего витамина
@@ -49,23 +20,57 @@ class Vitamin(models.Model):
             name=name
         )
         messages.success(self.request, 'Name added')
-
-class VitaminFood(models.Model):
+class Food(models.Model):
     """
-    Таблица отношения существующего витамина к определенной еде
+    Таблица еды
 
-    :var food: Еда, в которой содержится витамин
-    :var vitamin: Ссылка на витамин, который есть в еде
+    :var name: Название еды
+    :var author: Человек, создавший данный продукт на сайте
+    :var searched: Сколько раз на фрукт нажимали, чтобы узнать информацию о нём
+    :var description: Описание еды
+    :var deathdoze: Количество еды, необходимое для смерти челока от нее
     """
-    vitamin = models.OneToOneField(to=Vitamin, on_delete=models.CASCADE)
-    food = models.OneToOneField(to=Food, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    author = models.ForeignKey(to=User, default=1, on_delete=models.CASCADE)
+    searched = models.IntegerField(default=0)
+    description = models.CharField(max_length=1000)
+    deathdoze = models.IntegerField(default=1)
+    vitamins = models.ManyToManyField(to=Vitamin)
 
     @staticmethod
-    def add(vitamin, food):
-        VitaminFood.objects.create(
-            vitamin=vitamin,
-            food=food
+    def add(name, author, searched, description, deathdoze):
+        Food.objects.create(
+            name=name,
+            author=author,
+            searched=searched,
+            description=description,
+            deathdoze=deathdoze
         )
+
+    @staticmethod
+    def get_by_food(food):
+        vitaminfood = food.vitamins.all()
+        return vitaminfood
+        
+
+
+# class VitaminFood(models.Model):
+#     """
+#     Таблица отношения существующего витамина к определенной еде
+
+#     :var food: Еда, в которой содержится витамин
+#     :var vitamin: Ссылка на витамин, который есть в еде
+#     """
+#     vitamin = models.ForeignKey(to=Vitamin, on_delete=models.CASCADE)
+#     food = models.ForeignKey(to=Food, on_delete=models.CASCADE)
+
+
+#     @staticmethod
+#     def add(vitamin, food):
+#         VitaminFood.objects.create(
+#             vitamin=vitamin,
+#             food=food
+#         )
 
 
     

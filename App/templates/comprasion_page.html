@@ -2,18 +2,24 @@
 
 {% block content %}
 
-<h1 class="mt-5">SIUUU</h1>
-<table style="width: 100%">
+<h1 class="mt-5">Сравнение</h1>
+<table style="width: 100%; border: solid 1px;">
     <thead>
         <td>Название</td>
         <td>Автор</td>
+        <td>Витамины</td>
         <td>смертельная доза</td>
     </thead>
 
-{% for i in compraisions %}
+{% for i, j in zip %}
     <tr>
         <td>{{i.name}}</td>
         <td>{{i.author}}</td>
+        <td>
+           {% for vitamin in j %}
+            {{vitamin.name}} <br>
+           {% endfor %}
+        </td>
         <td>{{i.deathdoze}}</td>
     </tr>
 

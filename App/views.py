@@ -78,5 +78,8 @@ def add_comprasion(request):
 def comprasion_page(request): # на доработке
     context = dict()
     context['food'] = models.Comprasion.get_by_user(request.user)
-    arr = []
+    context['vitamins'] = []
+    for i in context['food']:
+        context['vitamins'].append(Food.get_by_food(i))
+    context['zip'] = zip(context['food'], context['vitamins'])
     return render(request, "comprasion_page.html", context)
