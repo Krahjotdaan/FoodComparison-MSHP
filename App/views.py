@@ -46,7 +46,7 @@ def food_list_page(request):
         food = models.Food.objects.all()
         context['food'] = food
 
-    return render(request, "food_list.html", context)
+    return render(request, "food/food_list.html", context)
 
 
 def food_item_page(request):
