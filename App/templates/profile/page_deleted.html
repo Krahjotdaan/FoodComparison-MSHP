@@ -61,27 +61,7 @@
     width: 800px;
     }
 </style>
-<div class = "big-wrapper">
-<div class="wrapper p-3 mt-5">
-    <div class = "profile-wrapper">
-        <button class = "avatar">
-            <div class = "plus">+</div>
-        </button>
-        <div class = "user-data">
-            <p class = "user-id">id: {{user.id}}</p>
-            <div class = "user-name-email">
-                <div class = "user-name">Ваше имя: {{user.username}}</div>
-                <div class = "user-email">Ваша почта: {{user.email}}</div>
-            </div>
-        </div>
-    </div>
-    <h2 class="mt-5 mb-5 liked">Последнее понравившееся:</h2>
-
-</div>
-    <div class="d-grid gap-2">
-    <button type="button" class="btn btn-outline-danger btn-lg" href="{% url 'remove_usr' %}">Удалить профиль</button>
-    </div>
-</div>
+<h1>No Profile</h1>
 {% endblock %}
     </div>
 

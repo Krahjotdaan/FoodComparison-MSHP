@@ -3,6 +3,9 @@ from App import models
 from random import randint
 from .models import Food
 from App import values_data
+from django import template
+
+register = template.Library()
 
 def index(request):
     """
@@ -68,3 +71,12 @@ def food_item_page(request):
 
 def profile_page(request):
     return render(request, 'profile/page.html')
+
+
+
+
+@register.simple_tag
+def remove_user(request):
+    user = request.user
+    user.delete()
+    return render(request, 'profile/page_deleted.html')
