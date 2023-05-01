@@ -63,6 +63,15 @@
                     {{food.description}}
                 </h4>
             </div>
+
+            {% if user.is_authenticated %}
+            <form method="POST">
+                {% csrf_token %}
+                <input type="submit" value="Like" name="like"/>
+                <input type="submit" value="Delete Like" name="delete_like"/>
+            </form>
+            {% endif %}
+
         </div>
     </div>
 </div>
