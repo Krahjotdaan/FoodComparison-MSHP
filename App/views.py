@@ -62,7 +62,7 @@ def food_item_page(request):
     if 'id' in request.GET:
         context = {
             'food': food,
-            'video_urls': get_youtube_links(food_name=food.name)
+            'video_links': get_youtube_links(food_name=food.name)
         }
     else:
         context = {
