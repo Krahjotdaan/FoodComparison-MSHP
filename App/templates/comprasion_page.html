@@ -3,9 +3,10 @@
 {% block content %}
 
 <h1 class="mt-5">Сравнение</h1>
-<table style="width: 100%; border: solid 1px;">
+<table style="width: 100%; border: solid 1px; text-align: center;">
     <thead>
         <td>Название</td>
+        <td>Описание</td>
         <td>Автор</td>
         <td>Витамины</td>
         <td>смертельная доза</td>
@@ -14,10 +15,11 @@
 {% for i, j in zip %}
     <tr>
         <td>{{i.name}}</td>
+        <td>{{i.description}}</td>
         <td>{{i.author}}</td>
         <td>
            {% for vitamin in j %}
-            {{vitamin.name}} <br>
+            <strong>{{vitamin.name}}</strong>; 
            {% endfor %}
         </td>
         <td>{{i.deathdoze}}</td>

@@ -67,8 +67,10 @@ def profile_page(request):
 
 def add_comprasion(request):
     # fruit = models.Food.objects.filter(id=request.GET.get("id"))
+
     fruit = request.GET.get('id')
-    models.Comprasion.add(models.Food.objects.get(id=fruit), author=request.user)
+    if not models.Comprasion.get_by_user(request.user).__contains__(models.Food.objects.get(id=fruit)):
+        models.Comprasion.add(models.Food.objects.get(id=fruit), author=request.user)
     
     context = {
         'data': fruit
