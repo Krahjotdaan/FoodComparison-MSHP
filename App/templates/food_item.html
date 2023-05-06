@@ -80,4 +80,14 @@
     <b>{{food}}</b>
 </div>
 {% endif %}
+<div style="height: 15px;"></div>
+{% for link in video_links %}
+    <iframe width="429" height="315"
+            src={{link}}
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+    </iframe>
+{% endfor %}
 {% endblock %}

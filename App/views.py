@@ -1,9 +1,12 @@
 from django.shortcuts import render
 from App import models
 from random import randint
-from .models import Food
-from App import values_data
+import json
 import operator
+from .models import Food
+from googleapiclient.discovery import build
+from App import values_data
+
 
 
 def index(request):
@@ -59,6 +62,7 @@ def food_item_page(request):
     if 'id' in request.GET:
         context = {
             'food': food,
+            'video_links': get_youtube_links(food_name=food.name)
         }
     else:
         context = {
@@ -129,3 +133,38 @@ def statistics(request):
     }
 
     return render(request, 'food_statistics.html', context)
+
+
+def get_youtube_links(*, food_name):
+    '''
+    Функция получения ссылок на видео с ютуба о определенной еде
+
+    :return: str
+    '''
+    try:
+        with open('youtube_api_key.json','r') as data:
+            API_KEY = json.load(data)['api_key']
+
+        youtube = build("youtube", "v3", developerKey=API_KEY)
+
+        search_response = youtube.search().list(
+            q=f"факты о {food_name}",
+            type="video",
+            part="id,snippet",
+            maxResults=3,
+            relevanceLanguage='ru',
+            safeSearch='moderate',
+            videoDefinition='high',
+            videoEmbeddable='true',
+        ).execute()
+
+        video_urls = []
+        for search_result in search_response.get("items", []):
+            if search_result["id"]["kind"] == "youtube#video":
+                video_urls.append(f"https://www.youtube.com/embed/{search_result['id']['videoId']}")
+
+        return video_urls
+    except Exception as error:
+        print(repr(error))
+        return None
+
