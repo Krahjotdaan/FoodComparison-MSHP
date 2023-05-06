@@ -168,3 +168,24 @@ def get_youtube_links(*, food_name):
         print(repr(error))
         return None
 
+
+def complaint_add(request):
+    context = {
+        "id": request.GET.get("id", 0)
+    }
+
+    return render(request, "complaint_add.html", context)
+
+
+def complaint_list(request):
+    context = {}
+    if request.method == 'POST':
+        fruit = models.Food.objects.filter(id=request.POST.get('id'))[0]
+        author = request.user
+        complaint = request.POST.get('btnradio')
+        models.Complaint.add(author, complaint, fruit)
+
+    all_complaints = models.Complaint.get_all()
+    context['all_complaints'] = all_complaints
+
+    return render(request, "complaint_list.html", context)
