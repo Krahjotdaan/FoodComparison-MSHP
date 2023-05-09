@@ -37,4 +37,7 @@ urlpatterns = [
 
     # Liked food page
     path('like_page/', views.like_page, name='like_page'),
+    
+    path('comprasion_page', views.comprasion_page, name='comprasion'),
+    path('add_comprasion/', views.add_comprasion, name='add_comprasion'),
 ]

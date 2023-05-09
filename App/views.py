@@ -3,6 +3,7 @@ from App import models
 from random import randint
 import json
 import operator
+from django.http import JsonResponse
 from .models import Food
 from googleapiclient.discovery import build
 from App import values_data
@@ -189,3 +190,23 @@ def complaint_list(request):
     context['all_complaints'] = all_complaints
 
     return render(request, "complaint_list.html", context)
+def add_comprasion(request):
+    # fruit = models.Food.objects.filter(id=request.GET.get("id"))
+
+    fruit = request.GET.get('id')
+    if not models.Comprasion.get_by_user(request.user).__contains__(models.Food.objects.get(id=fruit)):
+        models.Comprasion.add(models.Food.objects.get(id=fruit), author=request.user)
+    
+    context = {
+        'data': fruit
+    }
+    return JsonResponse(context)
+
+def comprasion_page(request): # на доработке
+    context = dict()
+    context['food'] = models.Comprasion.get_by_user(request.user)
+    context['vitamins'] = []
+    for i in context['food']:
+        context['vitamins'].append(Food.get_by_food(i))
+    context['zip'] = zip(context['food'], context['vitamins'])
+    return render(request, "comprasion_page.html", context)
