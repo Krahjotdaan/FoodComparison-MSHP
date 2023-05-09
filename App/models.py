@@ -52,7 +52,7 @@ class Food(models.Model):
         )
 
     @staticmethod
-    def get_by_food(food):
+    def get_vitamins_by_food(food):
         vitaminfood = food.vitamins.all()
         return vitaminfood
         

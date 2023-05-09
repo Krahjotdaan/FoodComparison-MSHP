@@ -58,11 +58,15 @@ def food_item_page(request):
     :rtype: :class:django.http.HttpResponse
     :meta public:
     """
+
+    # TODO: сделать на 42 строчке файла рабочий фон для витаминов
     food_id = request.GET['id']
     food = models.Food.objects.get(id=food_id)
+    vitamins = models.Food.get_vitamins_by_food(food)
     if 'id' in request.GET:
         context = {
             'food': food,
+            'vitamins': vitamins,
             'video_links': get_youtube_links(food_name=food.name)
         }
     else:
@@ -207,6 +211,6 @@ def comprasion_page(request): # на доработке
     context['food'] = models.Comprasion.get_by_user(request.user)
     context['vitamins'] = []
     for i in context['food']:
-        context['vitamins'].append(Food.get_by_food(i))
+        context['vitamins'].append(Food.get_vitamins_by_food(i))
     context['zip'] = zip(context['food'], context['vitamins'])
     return render(request, "comprasion_page.html", context)
