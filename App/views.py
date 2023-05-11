@@ -4,6 +4,7 @@ from random import randint
 from .models import Food
 from App import values_data
 from django import template
+from django.contrib.auth.decorators import login_required
 
 register = template.Library()
 
@@ -73,10 +74,8 @@ def profile_page(request):
     return render(request, 'profile/page.html')
 
 
-
-
-@register.simple_tag
-def remove_user(request):
+@login_required
+def delete_user(request):
     user = request.user
     user.delete()
     return render(request, 'profile/page_deleted.html')

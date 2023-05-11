@@ -79,7 +79,11 @@
 
 </div>
     <div class="d-grid gap-2">
-    <button type="button" class="btn btn-outline-danger btn-lg" href="{% url 'remove_usr' %}">Удалить профиль</button>
+        {% if user.is_authenticated %}
+        <a type="button" class="btn btn-outline-danger btn-lg" aria-current="page" href="{% url 'remove_user' %}">Удалить профиль</a>
+        {% else %}
+        <button type="button" class="btn btn-outline-danger btn-lg" aria-current="page" href="{% url 'remove_user' %}" disabled>Удалить профиль</button>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
