@@ -2,10 +2,6 @@
 
 {% block content %}
 <style>
-  .header{
-    font-size: 500%;
-    margin-top: 7px;
-  }
   .text{
     margin-top: 15px;
     font-size: 250%;
@@ -22,7 +18,7 @@
         </div>
         <div class="position-absolute top-50 start-0 ms-4">
         <h5 class="mt-3">
-                Калории: ?
+                Калории: {{ food.calories }}
             </h5>
         </div>
         <div class="card-body">
@@ -36,14 +32,19 @@
             </div>
             <div class="mt-4 bg-body-secondary text-emphasis-secondary rounded">
                 <h4 class="p-2">
-                    Тут будет описание ( Почему вообще description у вас как факты? )
+                    {{ food.description }}
                 </h4>
             </div>
             <h4>
                 Витамины:
             </h4>
-            <div class="badge bg-body-secondary text-dark mx-1" style="width: 2rem;">
-                <h5 class="mt-2">!</h5>
+            <!-- <div class="badge bg-body-secondary text-dark mx-1" style="width: 2rem;"> -->
+            <div class="badge text-dark mx-1" style="width: 2rem;">
+                <h5 class="mt-2">
+                    {% for vitamin in vitamins %}
+                    {{vitamin.name}};
+                    {% endfor %}
+                </h5>
             </div>
             <div class="hstack gap-1 mt-2">
                 <div class="p-1">
@@ -56,13 +57,22 @@
                 </div>
             </div>
             <h4 class="ms-1">
-                Факты:
+                Интересный факт:
             </h4>
             <div class="mt-4 bg-body-secondary text-emphasis-secondary rounded">
                 <h4 class="p-2">
-                    {{food.description}}
+                    {{food.interesting_fact}}
                 </h4>
             </div>
+
+            {% if user.is_authenticated %}
+            <form method="POST">
+                {% csrf_token %}
+                <input type="submit" value="Like" name="like"/>
+                <input type="submit" value="Delete Like" name="delete_like"/>
+            </form>
+            {% endif %}
+
         </div>
     </div>
 </div>
@@ -71,4 +81,16 @@
     <b>{{food}}</b>
 </div>
 {% endif %}
+<div style="height: 18px;"></div>
+{% for link in video_links %}
+    <iframe width="31.5%" height="315"
+            src={{link}}
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            style="margin-left: 10px; margin-right: 10px;">
+
+    </iframe>
+{% endfor %}
 {% endblock %}
