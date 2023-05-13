@@ -1,7 +1,11 @@
+import os
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib import messages
+from PIL import Image
 
+
+_MAX_SIZE = 300
 
 class Food(models.Model):
     """
@@ -19,13 +23,13 @@ class Food(models.Model):
     description = models.CharField(max_length=1000)
     deathdoze = models.IntegerField(default=1)
     calories = models.IntegerField(default=1)
-    image = models.ImageField(upload_to='media/images/', default="https://goo.su/swyUm5")
+    image = models.ImageField(upload_to='../media/', default="https://goo.su/swyUm5")
     interesting_fact = models.CharField(max_length=300, default='')
 
 
     @staticmethod
     def new_food(name, author, searched, description, deathdoze, calories, image, interesting_fact):
-        Food.objects.create(
+        fruit = Food.objects.create(
             name=name,
             author=author,
             searched=searched,
@@ -35,8 +39,22 @@ class Food(models.Model):
             image=image,
             interesting_fact = interesting_fact
         )
+'''
+        if image is not None:
+            img = Image.open('media/' + image)
 
+            max_size = max(img.width, img.height)
+            if max_size > _MAX_SIZE:
+                img = img.resize(
+                    (round(img.width / max_size * _MAX_SIZE),
+                    round(img.height / max_size * _MAX_SIZE)),
+                    Image.ANTIALIAS
+                )
 
+                img.save('media/' + image)
+
+        return fruit
+    '''
 class Vitamin(models.Model):
     """
     Таблица существующего витамина

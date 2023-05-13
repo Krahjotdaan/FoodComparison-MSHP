@@ -1,7 +1,9 @@
+import os
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from App.forms import FruitCreationForm
 from App import models
+from PIL import Image
 
 
 def index(request):
@@ -17,36 +19,32 @@ def index(request):
 
 @login_required
 def food_creation(request):
-    print('in function')
     context = dict()
     if request.method == 'POST':
-            print('IN POst')
-            form = FruitCreationForm(request.POST, request.FILES)
+        form = FruitCreationForm(request.POST, request.FILES)
 
-        #if form.is_valid() is True:
-            print('valid')
-            name = form.data['title']
-            description = form.data['description']
-            vitamins = form.data['vitamins']
-            deathdoze = form.data['deathdoze']
-            interesting_fact = form.data['interesting_fact']
-            image = form.data['image']
-            calories = form.data['calories']
+        name = form.data['title']
+        description = form.data['description']
+        vitamins = form.data['vitamins']
+        deathdoze = form.data['deathdoze']
+        interesting_fact = form.data['interesting_fact']
+        image = form.data['image']
+        calories = form.data['calories']
 
-            fruit = models.Food(name=name, author=request.user, searched=0,
+        
+        fruit = models.Food(name=name, author=request.user, searched=0,
                                 description=description, deathdoze=deathdoze,
                                 image=image, calories=calories,
                                 interesting_fact=interesting_fact)
-            fruit.save()
+        fruit.save()
 
-            vits = models.Vitamin.objects.all()
+        vits = models.Vitamin.objects.all()
 
-            for v in vitamins:
-                for vit in vits:
-                    if v == vit.name:
-                        models.VitaminFood.objects.create(vitamin=vit, food=fruit)
-        #else:
-           # context['form'] = form
+        for v in vitamins:
+            for vit in vits:
+                if v == vit.name:
+                    models.VitaminFood.objects.create(vitamin=vit, food=fruit)
+
     else:
         form = FruitCreationForm()
         context['form'] = form
@@ -55,7 +53,6 @@ def food_creation(request):
     context['form'] = form
 
     return render(request, 'food_creation.html', context=context)
-
 
 
 def food_list_page(request):
