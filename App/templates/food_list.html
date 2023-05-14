@@ -2,30 +2,26 @@
 
 {% block content %}
 <style>
-    a {
+  .list_item {
+        margin-top: 5px;
+        padding: 5px;
+      }
+  a {
         text-decoration: none;
         color: black;
         font-size: 25px;
-    }
-svg
-{
-    opacity: 0.7;
-}
-svg:hover
-{
-    opacity: 1;
-
-}
-
+      }
 </style>
+    <h1 class="text-center m-4">Список еды</h1>
     <div class="row row-cols-3 mt-3" >
-        {% for food in food %}
+      {% for food in food %}
             <div class="col text-center p-2">
                 <div class="card"  style="border-radius: 0;">
                     <div class="card-body">
                         <a href="/food_item/?id={{food.id}}">
                             <img src="https://goo.su/swyUm5" class="img-fluid" style="border-radius: 0;" alt="...">
                             <p class="card-text pt-3">{{ food.name }}</p>
+                            <a href="/complaint_add?id={{food.id}}" class="btn btn-primary">Жалоба</a>
                         </a>
                         <div class="row row-cols-3 mt-3 mb-3">
                             <div class="col-4">
@@ -59,30 +55,56 @@ svg:hover
                             </div>
                             <div class="col-4"></div>
                             <div class="col-4">
-                                <a href="/#">
-                                    <svg id="compare"
+                                <div>
+                                    <svg id="compare" onclick="test({{food.id}})"
                                          xmlns="http://www.w3.org/2000/svg" width="50" height="50"
                                          fill="#22742b" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
                                         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5
                                         4.5a.5.5 0 0 0-1 0v3h-3a.5.5
                                         0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
                                     </svg>
-                                </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         {% endfor %}
-    </div>
+        <!-- <button onclick="test()">PLS</button> -->
+        <div id="test_field"></div>
+  </div>
 <script>
-    function like(){
-        var heart = document.getElementById("heart")
-        let color = heart.getAttribute("fill")
-        if (color == "black") {
-            heart.setAttribute("fill","red")
-        }
+function test(fruit_id) {
+    let req = new XMLHttpRequest()
+
+    req.open(method="GET", url=`/add_comprasion?id=${fruit_id}`, async=true)
+
+    req.onload = function() {
+        let data = JSON.parse(req.response)
+        test_field.innerHTML = data.data
     }
+    req.onerror = function() {
+        test_field.innerHTML = "error"
+    }
+
+    // отправка
+    req.send()
+}
+// function load_datetime() {
+//     let req = new XMLHttpRequest()
+
+//     // настройка
+//     req.open(method="GET", url="/add_comprasion/", async=true)
+//     req.onload = function() {
+//         let data = JSON.parse(req.response)
+//         test_field.innerHTML = data.data
+//     }
+//     req.onerror = function() {
+//     }
+
+//     // отправка
+//     req.send()
+// }
 </script>
 
 {% endblock %}

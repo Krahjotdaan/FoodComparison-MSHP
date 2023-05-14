@@ -23,8 +23,21 @@ urlpatterns = [
 
     path('accounts/', include('django_registration.backends.one_step.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
+
     path('', views.index, name='index'),
+
     path('food/', views.food_list_page, name='food_list'),
+    path('food/statistics', views.statistics, name='statistics'),
     path('food_item/', views.food_item_page, name='food_item'),
+
     path('profile/page.html', views.profile_page, name='profile_page'),
+
+    path('complaint_list/', views.complaint_list, name='complaint_list'),
+    path('complaint_add/', views.complaint_add, name='complaint_add'),
+
+    # Liked food page
+    path('like_page/', views.like_page, name='like_page'),
+    
+    path('comprasion_page', views.comprasion_page, name='comprasion'),
+    path('add_comprasion/', views.add_comprasion, name='add_comprasion'),
 ]
