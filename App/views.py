@@ -1,16 +1,12 @@
-from django.shortcuts import render
-from App import models
 from random import randint
 import json
 import operator
-from django.http import JsonResponse
-from .models import Food
 from googleapiclient.discovery import build
-from App import values_data
-from django import template
-from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.shortcuts import render
+from App import models, values_data
+from .models import Food
 
-register = template.Library()
 
 def index(request):
     """
@@ -18,7 +14,7 @@ def index(request):
     :return: объект ответа сервера с HTML-кодом внутри
     """
     context = {}
-    data_guest= values_data.data_guest
+    data_guest = values_data.data_guest
     data_loged = values_data.data_loged
     indg = randint(0, len(data_guest) - 1)
     indl = randint(0, len(data_loged) - 1)
@@ -98,7 +94,7 @@ def profile_page(request):
 
 
 def like_page(request):
-    context = dict()
+    context = {}
     liked = models.Like.objects.all()
     context['liked'] = liked
 
@@ -107,7 +103,8 @@ def like_page(request):
 
 def statistics(request):
     """
-        Отображение страницы с едой отфильтрованной по её рейтингу (в том числе и еда, не имеющая рейтинга)
+        Отображение страницы с едой отфильтрованной по её рейтингу
+        (в том числе и еда, не имеющая рейтинга)
 
         :param request: объект с деталями запроса
         :type request: :class:django.http.HttpRequest
@@ -115,8 +112,8 @@ def statistics(request):
         :rtype: :class:django.http.HttpResponse
     """
 
-    context = dict()
-    rating_dict = dict()
+    context = {}
+    rating_dict = {}
     rating_list = list()
 
     rating = models.Like.objects.all()
@@ -202,7 +199,8 @@ def add_comprasion(request):
     # fruit = models.Food.objects.filter(id=request.GET.get("id"))
 
     fruit = request.GET.get('id')
-    if not models.Comprasion.get_by_user(request.user).__contains__(models.Food.objects.get(id=fruit)):
+    if not \
+            models.Comprasion.get_by_user(request.user).__contains__(models.Food.objects.get(id=fruit)):
         models.Comprasion.add(models.Food.objects.get(id=fruit), author=request.user)
 
     context = {
@@ -212,17 +210,10 @@ def add_comprasion(request):
 
 
 def comprasion_page(request):  # на доработке
-    context = dict()
+    context = {}
     context['food'] = models.Comprasion.get_by_user(request.user)
     context['vitamins'] = []
     for i in context['food']:
         context['vitamins'].append(Food.get_vitamins_by_food(i))
     context['zip'] = zip(context['food'], context['vitamins'])
     return render(request, "comprasion_page.html", context)
-
-
-@login_required
-def delete_user(request):
-    user = request.user
-    user.delete()
-    return render(request, 'profile/page_deleted.html')
