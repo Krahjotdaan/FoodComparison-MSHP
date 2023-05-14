@@ -3,7 +3,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="container mt-5">
-    <div data-bs-theme="light" class="p-4 text-body bg-body borders" style="width: 1130px; height: 675px;">
+    <div data-bs-theme="light" class="p-4 text-body bg-body borders" style="width: 1130px; height: 735px;">
     <div class="row g-5">
       <form action="" method="post" enctype="multipart/form-data">
 
@@ -29,8 +29,10 @@
                  <div class="row mt-1 label">
                     {{form.vitamins.label}}:
                 </div>
-                 <div class="row mt-1">
-                    {{form.vitamins}}
+                 <div class="row col row-cols-3" style="width: 215px;">
+                    {% for v in form.vitamins %}
+                    <div class="col p-0">{{ v }}</div>
+                    {% endfor %}
                 </div>
              </div>
             <div class="col" style="margin-left: 18px;">

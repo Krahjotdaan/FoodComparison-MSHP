@@ -25,6 +25,7 @@ def food_creation(request):
         name = form.data['title']
         description = form.data['description']
         vitamins = form.data['vitamins']
+        print(vitamins)
         deathdoze = form.data['deathdoze']
         interesting_fact = form.data['interesting_fact']
         image = form.files['image']
@@ -36,12 +37,7 @@ def food_creation(request):
                                 interesting_fact=interesting_fact)
         fruit.save()
 
-        vits = models.Vitamin.objects.all()
-
-        for v in vitamins:
-            for vit in vits:
-                if v == vit.name:
-                    models.VitaminFood.objects.create(vitamin=vit, food=fruit)
+        
 
     else:
         form = FruitCreationForm()

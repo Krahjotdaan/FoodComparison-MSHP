@@ -5,12 +5,9 @@ class FruitCreationForm(forms.Form):
 
     V_CHOICES = (
         ("A1", "A1"), ("A2", "A2"), ("B1", "B1"), ("B2", "B2"),
-        ("B3", "B3"), ("B5", "B5"), ("B6", "B6"), ("B7", "B7"),
-        ("B9", "B9"), ("B12", "B12"), ("C", "C"), ("D1", "D1"),
-        ("D2", "D2"), ("D3", "D3"), ("D4", "D4"), ("D5", "D5"),
-        ("Е", "Е"), ("K1", "K1"), ("K2", "K2"), ("U", "U"),
-        ("P", "P"), ("N", "N"),
-    )
+        ("B3", "B3"), ("B5", "B5"), ("B6", "B6"), 
+        ("B7", "B7"), ("B9", "B9"), ("B12", "B12"), 
+        ("C", "C"), ("D", "D"), ("Е", "Е"), ("K1", "K1"), ("K2", "K2"))
 
     image = forms.ImageField(widget=forms.FileInput(attrs={"id": "image_field"}))
 
@@ -29,10 +26,10 @@ class FruitCreationForm(forms.Form):
                                   required=True,
                                   widget=forms.NumberInput(attrs={"id": "calories"}))
 
-    vitamins = forms.ChoiceField(label='Витамины (мг)',
+    vitamins = forms.MultipleChoiceField(label='Витамины (мг)',
                             required=True,
                             choices=V_CHOICES,
-                            widget=forms.SelectMultiple(attrs={"id": "choice_field"}))
+                            widget=forms.CheckboxSelectMultiple(attrs={"id": "choice_field"}))
     
     deathdoze = forms.IntegerField(label='Смертельная доза (кг)',
                                     max_value=1000000000, widget=forms.NumberInput(attrs={"id": "deathdoze"}))
