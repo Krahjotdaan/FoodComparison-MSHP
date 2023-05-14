@@ -12,18 +12,18 @@
         font-size: 25px;
       }
 </style>
-    <div class="col-auto">
-        <input name="search_fruit" type="search" class="form-control mt-2" placeholder="Введите комментарий ...">
-    </div>
-    <div class="col-auto mt-2">
-        <button type="submit" class="btn btn-primary"> Оставить отзыв </button>
-    </div>
+    <form method="POST" action="comments">
+        {% csrf_token %}
+
+        {{ form.text.label}}: {{form.text}}<br>
+        <input type="submit" value="Submit">
+    </form>
     <div class="row row-cols-1 mt-1" >
       {% for comment in comments %}
       <div class="col p-2">
           <a class="card"  style="border-radius: 10px;">
             <div class="card-body">
-              <b><img src = "https://liubimyi-sad.ru/wp-content/themes/liubimyi-sad/img/avatar.png" class = "img-fluid">    {{ comment.name }}</b>
+              <b><img src = "https://liubimyi-sad.ru/wp-content/themes/liubimyi-sad/img/avatar.png" class = "img-fluid">    {{ comment.author }}</b>
               <p class="card-text mt-3">{{ comment.text }}</p>
             </div>
           </a>

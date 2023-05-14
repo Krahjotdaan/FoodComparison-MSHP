@@ -114,17 +114,10 @@ class Comment(models.Model):
     :text: содержание комментраия
 
     """
-    name = models.CharField(max_length=21)
+    author = models.ForeignKey(to=User, default=1, on_delete=models.CASCADE)
     #date = models.CharField()
     text = models.CharField(max_length=500)
 
-    @staticmethod
-    def add(author, text ):
-        Comment.objects.create(
-            name=author,
-            text=text,
-            #date = datetime.today()
-        )
 
     @staticmethod
     def get():

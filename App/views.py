@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from App import models
-from .models import Food
+from django import forms
+from .models import Food, Comment
+from App.forms import commentinputforme
 
 
 def index(request):
@@ -66,6 +68,14 @@ def profile_page(request):
 
 def comments_page(request):
     context = {}
+    if request.method == "POST":
+        f = commentinputforme(request.POST)
+        if f.is_valid():
+            obj = Comment(author=request.user, text=f.data['text'])
+            obj.save()
+    else:
+        context['form']=commentinputforme()
     comentdata = models.Comment.objects.all()
+    print(comentdata[0].author)
     context['comments'] = comentdata
     return render(request, 'comments.html', context)
