@@ -1,6 +1,8 @@
 from random import randint
 import json
 import operator
+
+from django.contrib.auth.decorators import login_required
 from googleapiclient.discovery import build
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -217,3 +219,10 @@ def comprasion_page(request):  # на доработке
         context['vitamins'].append(Food.get_vitamins_by_food(i))
     context['zip'] = zip(context['food'], context['vitamins'])
     return render(request, "comprasion_page.html", context)
+
+
+@login_required
+def delete_user(request):
+    user = request.user
+    user.delete()
+    return render(request, 'profile/page_deleted.html')
