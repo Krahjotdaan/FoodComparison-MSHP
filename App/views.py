@@ -24,8 +24,7 @@ def food_creation(request):
 
         name = form.data['title']
         description = form.data['description']
-        vitamins = form.data['vitamins']
-        print(vitamins)
+        vitamins = request.POST.getlist('vitamins')
         deathdoze = form.data['deathdoze']
         interesting_fact = form.data['interesting_fact']
         image = form.files['image']
@@ -37,7 +36,8 @@ def food_creation(request):
                                 interesting_fact=interesting_fact)
         fruit.save()
 
-        
+        for v in vitamins:
+            fruit.vitamins.create(name=v)
 
     else:
         form = FruitCreationForm()
@@ -82,12 +82,13 @@ def food_item_page(request):
     :rtype: :class:django.http.HttpResponse
     :meta public:
     """
-
+    
     if 'id' in request.GET:
         food_id = request.GET['id']
         food = models.Food.objects.get(id=food_id)
         context = {
             'food': food,
+            'vitamins': models.Food.get_vitamins_by_food(food)
         }
     else:
         context = {

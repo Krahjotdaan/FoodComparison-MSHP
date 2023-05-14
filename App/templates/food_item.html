@@ -43,7 +43,12 @@
                 Витамины:
             </h4>
             <div class="badge bg-body-secondary text-dark mx-1" style="width: 2rem;">
-                <h5 class="mt-2">!</h5>
+                <h5 class="mt-2">
+                    {% for vitamin in vitamins %}
+                    {{vitamin.name}};
+                    {% endfor %}
+
+                </h5>
             </div>
             <div class="hstack gap-1 mt-2">
                 <div class="p-1">
