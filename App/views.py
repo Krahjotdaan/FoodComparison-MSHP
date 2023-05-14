@@ -1,9 +1,8 @@
-import os
+import os, shutil
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from App.forms import FruitCreationForm
 from App import models
-from PIL import Image
 
 
 def index(request):
@@ -28,9 +27,8 @@ def food_creation(request):
         vitamins = form.data['vitamins']
         deathdoze = form.data['deathdoze']
         interesting_fact = form.data['interesting_fact']
-        image = form.data['image']
+        image = form.files['image']
         calories = form.data['calories']
-
         
         fruit = models.Food(name=name, author=request.user, searched=0,
                                 description=description, deathdoze=deathdoze,

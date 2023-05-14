@@ -2,7 +2,6 @@ import os
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib import messages
-from PIL import Image
 
 
 _MAX_SIZE = 300
@@ -23,7 +22,7 @@ class Food(models.Model):
     description = models.CharField(max_length=1000)
     deathdoze = models.IntegerField(default=1)
     calories = models.IntegerField(default=1)
-    image = models.ImageField(upload_to='../media/', default="https://goo.su/swyUm5")
+    image = models.ImageField(upload_to='media/', default="https://goo.su/swyUm5")
     interesting_fact = models.CharField(max_length=300, default='')
 
 
