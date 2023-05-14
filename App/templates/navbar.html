@@ -13,11 +13,33 @@
                 <a class="nav-link" aria-current="page" href="/">Главная</a>
             </li>
           {% endif %}
-          
-          <li class="nav-item dropdown">
-            <li><a class="nav-link" href="{% url 'food_list' %}">Вся еда</a></li>
-            <li><a class="nav-link" href="{% url 'like_page' %}">Любимая еда</a></li>
-            <li><a class="nav-link" href="#">Добавить еду</a></li>
+          {% if request.get_full_path == '/food/' %}
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/food/">Вся еда</a>
+            </li>
+          {% else %}
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/food/">Вся еда</a>
+            </li>
+          {% endif %}
+          {% if request.get_full_path == '/like_page/' %}
+            <li class="nav-item ps-3">
+                <a class="nav-link active" aria-current="page" href="/like_page/">Любимая еда</a>
+            </li>
+          {% else %}
+            <li class="nav-item ps-3">
+                <a class="nav-link" aria-current="page" href="/like_page/">Любимая еда</a>
+            </li>
+          {% endif %}
+          {% if request.get_full_path == '#' %}
+            <li class="nav-item ps-3">
+                <a class="nav-link active" aria-current="page" href="#">Добавить еду</a>
+            </li>
+          {% else %}
+            <li class="nav-item ps-3">
+                <a class="nav-link" aria-current="page" href="#">Добавить еду</a>
+            </li>
+          {% endif %}
           </li>
           {% if user.is_authenticated %}
           
