@@ -90,5 +90,13 @@ def like_page(request):
     context = dict()
     liked = models.Like.objects.all()
     context['liked'] = liked
+    print(request.GET)
+    if 'breakfast' in request.POST:
+        food = request.POST.get('breakfast')
+        print(food)
+        models.Breakfast.objects.update_or_create(
+            breakfast=food,
+            author=request.user
+        )
 
     return render(request, 'like_page.html', context)

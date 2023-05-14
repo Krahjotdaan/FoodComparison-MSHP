@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib import messages
 
+
 class Food(models.Model):
     """
     Таблица еды
@@ -49,6 +50,7 @@ class Vitamin(models.Model):
         )
         messages.success(self.request, 'Name added')
 
+
 class VitaminFood(models.Model):
     """
     Таблица отношения существующего витамина к определенной еде
@@ -65,6 +67,7 @@ class VitaminFood(models.Model):
             vitamin=vitamin,
             food=food
         )
+
 
 class Fact(models.Model):
     """
@@ -104,3 +107,16 @@ class Like(models.Model):
     @staticmethod
     def get():
         return Like.objects.all()
+
+
+class Breakfast(models.Model):
+    breakfast = models.ForeignKey(to=Food, default=1, on_delete=models.CASCADE)
+    author = models.ForeignKey(to=User, default=1, on_delete=models.CASCADE)
+
+
+class Lunch(models.Model):
+    lunch = models.ForeignKey(to=Food, default=1, on_delete=models.CASCADE)
+
+
+class Dinner(models.Model):
+    dinner = models.ForeignKey(to=Food, default=1, on_delete=models.CASCADE)
