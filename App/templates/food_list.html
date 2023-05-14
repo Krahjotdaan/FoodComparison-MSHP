@@ -2,15 +2,18 @@
 
 {% block content %}
 <style>
-  .list_item {
-        margin-top: 5px;
-        padding: 5px;
-      }
   a {
-        text-decoration: none;
-        color: black;
-        font-size: 25px;
+      text-decoration: none;
+      color: black;
+      font-size: 25px;
       }
+  #complaint {
+      position: relative;
+      top: 50%;
+      transform: translate(0, -50%);
+      background:#22742b;
+      border-color:#22742b;
+  }
 </style>
     <h1 class="text-center m-4">Список еды</h1>
     <div class="row row-cols-3 mt-3" >
@@ -21,7 +24,7 @@
                         <a href="/food_item/?id={{food.id}}">
                             <img src="https://goo.su/swyUm5" class="img-fluid" style="border-radius: 0;" alt="...">
                             <p class="card-text pt-3">{{ food.name }}</p>
-                            <a href="/complaint_add?id={{food.id}}" class="btn btn-primary">Жалоба</a>
+
                         </a>
                         <div class="row row-cols-3 mt-3 mb-3">
                             <div class="col-4">
@@ -53,7 +56,10 @@
                                     {% endif %}
                                 </a>
                             </div>
-                            <div class="col-4"></div>
+                            <div class="col-4">
+                                <a id="complaint" href="/complaint_add?id={{food.id}}"
+                                   class="btn btn-primary" style="">Жалоба</a>
+                            </div>
                             <div class="col-4">
                                 <div>
                                     <svg id="compare" onclick="test({{food.id}})"

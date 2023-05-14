@@ -16,12 +16,12 @@
           
           <li class="nav-item dropdown">
             <li><a class="nav-link" href="{% url 'food_list' %}">Вся еда</a></li>
-            <li><a class="nav-link" href="{% url 'like_page' %}">Любимая еда</a></li>
-            <li><a class="nav-link" href="#">Добавить еду</a></li>
+
           </li>
           {% if user.is_authenticated %}
           
-
+            <li><a class="nav-link" href="{% url 'like_page' %}">Любимая еда</a></li>
+            <li><a class="nav-link" href="#">Добавить еду</a></li>
          <li class="nav-item">
             <a class="nav-link" aria-current="page" href="{% url 'logout' %}">Выйти</a>
          </li>
