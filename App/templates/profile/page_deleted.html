@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -61,31 +61,9 @@
     width: 800px;
     }
 </style>
-<div class = "big-wrapper">
-<div class="wrapper p-3 mt-5">
-    <div class = "profile-wrapper">
-        <button class = "avatar">
-            <div class = "plus">+</div>
-        </button>
-        <div class = "user-data">
-            <p class = "user-id">id: {{user.id}}</p>
-            <div class = "user-name-email">
-                <div class = "user-name">Ваше имя: {{user.username}}</div>
-                <div class = "user-email">Ваша почта: {{user.email}}</div>
-            </div>
+        <div class="position-absolute top-50 start-50 translate-middle ">
+<h1>Профиль успешно удалён</h1>
         </div>
-    </div>
-    <h2 class="mt-5 mb-5 liked">Последнее понравившееся:</h2>
-
-</div>
-    <div class="d-grid gap-2">
-        {% if user.is_authenticated %}
-        <a type="button" class="btn btn-outline-danger btn-lg" aria-current="page" href="{% url 'remove_user' %}">Удалить профиль</a>
-        {% else %}
-        <button type="button" class="btn btn-outline-danger btn-lg" aria-current="page" href="{% url 'remove_user' %}" disabled>Удалить профиль</button>
-        {% endif %}
-    </div>
-</div>
 {% endblock %}
     </div>
 
@@ -105,7 +83,4 @@
     {% endblock %}
 </body>
 
-</html> -->
-
-
-<div class="mt-5"></div>
+</html>

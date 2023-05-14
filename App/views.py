@@ -7,8 +7,10 @@ from django.http import JsonResponse
 from .models import Food
 from googleapiclient.discovery import build
 from App import values_data
+from django import template
+from django.contrib.auth.decorators import login_required
 
-
+register = template.Library()
 
 def index(request):
     """
@@ -147,7 +149,7 @@ def get_youtube_links(*, food_name):
     :return: str
     '''
     try:
-        with open('youtube_api_key.json','r') as data:
+        with open('youtube_api_key.json', 'r') as data:
             API_KEY = json.load(data)['api_key']
 
         youtube = build("youtube", "v3", developerKey=API_KEY)
@@ -194,19 +196,22 @@ def complaint_list(request):
     context['all_complaints'] = all_complaints
 
     return render(request, "complaint_list.html", context)
+
+
 def add_comprasion(request):
     # fruit = models.Food.objects.filter(id=request.GET.get("id"))
 
     fruit = request.GET.get('id')
     if not models.Comprasion.get_by_user(request.user).__contains__(models.Food.objects.get(id=fruit)):
         models.Comprasion.add(models.Food.objects.get(id=fruit), author=request.user)
-    
+
     context = {
         'data': fruit
     }
     return JsonResponse(context)
 
-def comprasion_page(request): # на доработке
+
+def comprasion_page(request):  # на доработке
     context = dict()
     context['food'] = models.Comprasion.get_by_user(request.user)
     context['vitamins'] = []
@@ -214,3 +219,10 @@ def comprasion_page(request): # на доработке
         context['vitamins'].append(Food.get_vitamins_by_food(i))
     context['zip'] = zip(context['food'], context['vitamins'])
     return render(request, "comprasion_page.html", context)
+
+
+@login_required
+def delete_user(request):
+    user = request.user
+    user.delete()
+    return render(request, 'profile/page_deleted.html')
