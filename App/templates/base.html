@@ -12,9 +12,16 @@
         .wrapper {
           min-height: 100%;
           display: flex;
+          background-color: #F5F5DC;
           flex-direction: column;
+          background-repeat:no-repeat;
+          background-size: cover;
+        }
+        .wrapper1 {
+          min-height: 100%;
+          display: flex;
           background-image: url("https://img.freepik.com/free-photo/summer-landscape-with-green-field_1398-1990.jpg?w=740&t=st=1684079700~exp=1684080300~hmac=42362b7846e8550389c80249ba22206d38aded2f9e58aa33631b77bc6af030a1"); /*  ФОН ФОН ФОН  */
-          /* background-image: url("https://c4.wallpaperflare.com/wallpaper/289/250/397/windows-xp-bliss-hd-wallpaper-preview.jpg"); */
+          flex-direction: column;
           background-repeat:no-repeat;
           background-size: cover;
         }
@@ -32,8 +39,8 @@
           text-align: center;
         }
         .index-text {
-            color: #fff;
-            background-color: rgba(1, 1, 1, 0.4);
+            color: #000;
+            background-color: rgba(255, 255, 255, 0.6);
             border-radius: 20px;
         }
 
@@ -159,7 +166,11 @@
 
 <body class="bg">
 
+{% if request.get_full_path == '/' %}
+    <div class="wrapper1">
+        {% else %}
     <div class="wrapper">
+        {% endif %}
         <header class="header">
              {% include 'navbar.html' %}
         </header>
