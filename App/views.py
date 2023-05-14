@@ -69,6 +69,7 @@ def profile_page(request):
 def comments_page(request):
     context = {}
     if request.method == "POST":
+        context['form'] = commentinputforme()
         f = commentinputforme(request.POST)
         if f.is_valid():
             obj = Comment(author=request.user, text=f.data['text'])
@@ -76,6 +77,5 @@ def comments_page(request):
     else:
         context['form']=commentinputforme()
     comentdata = models.Comment.objects.all()
-    print(comentdata[0].author)
     context['comments'] = comentdata
     return render(request, 'comments.html', context)

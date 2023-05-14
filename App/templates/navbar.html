@@ -50,13 +50,13 @@
            {% if request.get_full_path == 'comments' %}
           {% if user.is_authenticated %}
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="comments">Отзывы</a>
+                <a class="nav-link active" aria-current="page" href="/comments/">Отзывы</a>
             </li>
           {% endif %}
           {% else %}
            {% if user.is_authenticated %}
             <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="comments">Отзывы</a>
+                <a class="nav-link" aria-current="page" href="/comments/">Отзывы</a>
             </li>
           {% endif %}
           {% endif %}
