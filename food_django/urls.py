@@ -30,6 +30,13 @@ urlpatterns = [
     path('food/', views.food_list_page, name='food_list'),
     path('food_item/', views.food_item_page, name='food_item'),
     path('profile/page.html', views.profile_page, name='profile_page'),
+    path("profile/page_deleted.html", views.delete_user, name="remove_user"),
+    path('complaint_list/', views.complaint_list, name='complaint_list'),
+    path('complaint_add/', views.complaint_add, name='complaint_add'),
+    # Liked food page
+    path('like_page/', views.like_page, name='like_page'),
+    path('comprasion_page/', views.comprasion_page, name='comprasion_page'),
+    path('add_comprasion/', views.add_comprasion, name='add_comprasion'),
 ]
 
 if settings.DEBUG: 

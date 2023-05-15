@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+  .list_item {
+        margin-top: 5px;
+        padding: 5px;
+      }
+  a {
+        text-decoration: none;
+        color: black;
+        font-size: 25px;
+      }
+</style>
+
+    <div class="mt-4 text-center">
+        <h2>
+            Здесь будут отображаться избранные вами фрукты!
+        </h2>
+    </div>
+
+
+    <div class="row row-cols-3 mt-4" >
+    {% for item in liked %}
+
+        <div class="col text-center p-2">
+            <a href="/food_item/?id={{ item.fruit.id }}" class="card"  style="border-radius: 10px;">
+                <div class="card-body">
+                  <img src="https://goo.su/swyUm5" class="img-fluid" style="border-radius: 10px;" alt="...">
+                  <p class="card-text pt-3">{{ item.fruit.name }}</p>
+                </div>
+            </a>
+        </div>
+
+    {% endfor %}
+    </div>
+
+
+
+
+{% endblock %}

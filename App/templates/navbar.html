@@ -1,33 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <style>
-        .profile {
-        color: white;
-        justify-self: right;
-        display: flex;
-        gap: 10px;
-        }
-        .ava{
-        height: 20px;
-        width: 20px;
-        border-radius: 10px;
-        margin-top: 2px;
-        margin-right: 10px;
-        }
-        nav{
-            background: #22742b;
-        }
-    </style>
-</head>
-<body>
+
  <nav class="navbar navbar-expand-lg navbar-dark">
 
     <div class="collapse navbar-collapse justify-content-left">
-      <ul class="navbar-nav mb-2 mb-lg-0">
+      <ul class="navbar-nav mb-2 mb-lg-0 nav-links">
 
+          <!-- Главная -->
           {% if request.get_full_path == '/' %}
             <li class="nav-item ps-3">
                 <a class="nav-link active" aria-current="page" href="/">Главная</a>
@@ -37,6 +14,8 @@
                 <a class="nav-link" aria-current="page" href="/">Главная</a>
             </li>
           {% endif %}
+
+          <!-- Вся еда -->
           {% if request.get_full_path == '/food/' %}
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="/food/">Вся еда</a>
@@ -47,6 +26,48 @@
             </li>
           {% endif %}
 
+          <!-- Любимая еда -->
+          {% if user.is_authenticated %}
+              {% if request.get_full_path == '/like_page/' %}
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/like_page/">Любимая еда</a>
+                </li>
+              {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/like_page/">Любимая еда</a>
+                </li>
+              {% endif %}
+          {% endif %}
+
+          <!-- Добавить еду -->
+          {% if user.is_authenticated %}
+              {% if request.get_full_path == '#' %}
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Добавить еду</a>
+                </li>
+              {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="#">Добавить еду</a>
+                </li>
+              {% endif %}
+          {% endif %}
+
+          <!-- Сравнение -->
+          {% if user.is_authenticated %}
+              {% if request.get_full_path == '/comprasion_page/' %}
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/comprasion_page/">Сравнение</a>
+                </li>
+              {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/comprasion_page/">Сравнение</a>
+                </li>
+              {% endif %}
+          {% endif %}
+
+
+
+          <!-- Выйти -->
           {% if user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="/food_creation/">Создание еды</a>
@@ -65,25 +86,48 @@
               <a class="nav-link" aria-current="page" href="{% url 'django_registration_register' %}">Регистрация</a>
           </li>
           {% endif %}
-
-          {% if request.get_full_path == '/accounts/login/' %}
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{% url 'login' %}">Войти</a>
-          </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="{% url 'logout' %}">Выйти</a>
+              </li>
           {% else %}
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="{% url 'login' %}">Войти</a>
-          </li>
+              <!--Регистрация-->
+              {% if request.get_full_path == '/accounts/register/' %}
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{% url 'django_registration_register' %}">Регистрация</a>
+                </li>
+              {% else %}
+                <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="{% url 'django_registration_register' %}">Регистрация</a>
+                </li>
+              {% endif %}
+
+              <!--Войти-->
+              {% if request.get_full_path == '/accounts/login/' %}
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{% url 'login' %}">Войти</a>
+                </li>
+              {% else %}
+                <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="{% url 'login' %}">Войти</a>
+                </li>
+              {% endif %}
           {% endif %}
 
+          <!-- Профиль -->
+          {% if user.is_authenticated %}
+              {% if request.get_full_path == '/profile/page.html' %}
+                  <li class = "profile float-right">
+                      <a class="nav-link active" aria-current="page" href="{% url 'profile_page' %}">Профиль</a>
+                      <img class = "ava" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAHwAugMBIgACEQEDEQH/xAAYAAEBAQEBAAAAAAAAAAAAAAAAAQIDB//EABsQAQEBAAIDAAAAAAAAAAAAAAABEQJhITFB/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/APYooSAYsimALFxZATCRrFBnDGgEwxQEwxTAZwxoBhMbSgyLiWAgFBmxlsyASKLAFIsAUUAFAAAAAAAABCqAyljSUGWW2aCCp5AajMagKsIoCgAAAAAAAUKAAAAAipQRK0lBhGrEAjTMaBVRQUAAAAAAAAAAAAABFSgIqAzUWoBGmI3AVUUFEUAAAAAAAAAAAABKqAIrIJUWoCRqMasoNrGZVgNKyoKIAoigAAAAAACACBQEpWbQKggMytRhZQb1qVz1qUG11iVrQVWdUFEAUQBRAFEAVNE0FTUqaC2s1LUtBbU1DewZlVz41uAqoQG5V1ggOmmsT2toN6usfAG9NZ00GtNZ1NBrTWdNBbU1LU0GtZQAEAKicqYD/9k=">
+                  </li>
+              {% else %}
+                  <li class = "profile ">
+                      <a class="nav-link" aria-current="page" href="{% url 'profile_page' %}">Профиль</a>
+                      <img class = "ava" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAHwAugMBIgACEQEDEQH/xAAYAAEBAQEBAAAAAAAAAAAAAAAAAQIDB//EABsQAQEBAAIDAAAAAAAAAAAAAAABEQJhITFB/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/APYooSAYsimALFxZATCRrFBnDGgEwxQEwxTAZwxoBhMbSgyLiWAgFBmxlsyASKLAFIsAUUAFAAAAAAAABCqAyljSUGWW2aCCp5AajMagKsIoCgAAAAAAAUKAAAAAipQRK0lBhGrEAjTMaBVRQUAAAAAAAAAAAAABFSgIqAzUWoBGmI3AVUUFEUAAAAAAAAAAAABKqAIrIJUWoCRqMasoNrGZVgNKyoKIAoigAAAAAACACBQEpWbQKggMytRhZQb1qVz1qUG11iVrQVWdUFEAUQBRAFEAVNE0FTUqaC2s1LUtBbU1DewZlVz41uAqoQG5V1ggOmmsT2toN6usfAG9NZ00GtNZ1NBrTWdNBbU1LU0GtZQAEAKicqYD/9k=">
+                  </li>
+              {% endif %}
           {% endif %}
       </ul>
     </div>
-  </div>
-     <div class = "profile">
-        <a class="nav-link active" aria-current="page" href="profile/page.html">Профиль</a>
-         <img class = "ava" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAHwAugMBIgACEQEDEQH/xAAYAAEBAQEBAAAAAAAAAAAAAAAAAQIDB//EABsQAQEBAAIDAAAAAAAAAAAAAAABEQJhITFB/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/APYooSAYsimALFxZATCRrFBnDGgEwxQEwxTAZwxoBhMbSgyLiWAgFBmxlsyASKLAFIsAUUAFAAAAAAAABCqAyljSUGWW2aCCp5AajMagKsIoCgAAAAAAAUKAAAAAipQRK0lBhGrEAjTMaBVRQUAAAAAAAAAAAAABFSgIqAzUWoBGmI3AVUUFEUAAAAAAAAAAAABKqAIrIJUWoCRqMasoNrGZVgNKyoKIAoigAAAAAACACBQEpWbQKggMytRhZQb1qVz1qUG11iVrQVWdUFEAUQBRAFEAVNE0FTUqaC2s1LUtBbU1DewZlVz41uAqoQG5V1ggOmmsT2toN6usfAG9NZ00GtNZ1NBrTWdNBbU1LU0GtZQAEAKicqYD/9k=">
-        </div>
+
 </nav>
-</body>
-</html>
