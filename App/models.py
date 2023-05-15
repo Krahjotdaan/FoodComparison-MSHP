@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib import messages
+from datetime import datetime
+
 class Vitamin(models.Model):
     """
     Таблица существующего витамина
@@ -20,6 +22,8 @@ class Vitamin(models.Model):
             name=name
         )
         messages.success(self.request, 'Name added')
+
+
 class Food(models.Model):
     """
     Таблица еды
@@ -55,29 +59,7 @@ class Food(models.Model):
     def get_vitamins_by_food(food):
         vitaminfood = food.vitamins.all()
         return vitaminfood
-        
 
-
-# class VitaminFood(models.Model):
-#     """
-#     Таблица отношения существующего витамина к определенной еде
-
-#     :var food: Еда, в которой содержится витамин
-#     :var vitamin: Ссылка на витамин, который есть в еде
-#     """
-#     vitamin = models.ForeignKey(to=Vitamin, on_delete=models.CASCADE)
-#     food = models.ForeignKey(to=Food, on_delete=models.CASCADE)
-
-
-#     @staticmethod
-#     def add(vitamin, food):
-#         VitaminFood.objects.create(
-#             vitamin=vitamin,
-#             food=food
-#         )
-
-
-    
 
 class Fact(models.Model):
     """
@@ -141,6 +123,8 @@ class Complaint(models.Model):
     @staticmethod
     def get_all():
         return Complaint.objects.all().order_by("-id")
+
+
 class Comprasion(models.Model):
     fruit = models.ForeignKey(to=Food, default=1, on_delete=models.CASCADE)
     author = models.ForeignKey(to=User, default=1, on_delete=models.CASCADE)
@@ -148,7 +132,7 @@ class Comprasion(models.Model):
     def add(fruit, author):
         Comprasion.objects.create(fruit=fruit, author=author)
 
-    def get_by_user(user): 
+    def get_by_user(user):
         """
         Возвращает всю еду, которая в списке сравнения пользователя
         """
@@ -157,3 +141,37 @@ class Comprasion(models.Model):
         for i in comprasions:
             result.append(i.fruit)
         return result
+
+
+class Comment(models.Model):
+    """
+    Таблица комментариев
+
+    :name: подпись оставившего отзыв
+    :date: дата , когда оставлен комменатрий
+    :text: содержание комментраия
+
+    """
+    author = models.ForeignKey(to=User, default=1, on_delete=models.CASCADE)
+    #date = models.CharField()
+    text = models.CharField(max_length=500)
+
+
+    @staticmethod
+    def get():
+        return Comment.objects.all()
+
+# class VitaminFood(models.Model):
+#     """
+#     Таблица отношения существующего витамина к определенной еде
+#     :var food: Еда, в которой содержится витамин
+#     :var vitamin: Ссылка на витамин, который есть в еде
+#     """
+#     vitamin = models.ForeignKey(to=Vitamin, on_delete=models.CASCADE)
+#     food = models.ForeignKey(to=Food, on_delete=models.CASCADE)
+#     @staticmethod
+#     def add(vitamin, food):
+#         VitaminFood.objects.create(
+#             vitamin=vitamin,
+#             food=food
+#         )

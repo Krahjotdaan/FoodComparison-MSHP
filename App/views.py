@@ -8,6 +8,10 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from App import models, values_data
 from .models import Food
+from App import models
+from django import forms
+from .models import Food, Comment
+from App.forms import commentinputforme
 
 
 def index(request):
@@ -94,6 +98,19 @@ def food_item_page(request):
 def profile_page(request):
     return render(request, 'profile/page.html')
 
+def comments_page(request):
+    context = {}
+    if request.method == "POST":
+        context['form'] = commentinputforme()
+        f = commentinputforme(request.POST)
+        if f.is_valid():
+            obj = Comment(author=request.user, text=f.data['text'])
+            obj.save()
+    else:
+        context['form']=commentinputforme()
+    comentdata = models.Comment.objects.all()
+    context['comments'] = comentdata
+    return render(request, 'comments.html', context)
 
 def like_page(request):
     context = {}

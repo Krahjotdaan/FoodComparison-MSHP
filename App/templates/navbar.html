@@ -52,6 +52,21 @@
               {% endif %}
           {% endif %}
 
+          <!-- Отзывы -->
+          {% if user.is_authenticated %}
+              {% if request.get_full_path == 'comments' %}
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/comments/">Отзывы</a>
+                </li>
+              {% endif %}
+              {% else %}
+               {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/comments/">Отзывы</a>
+                </li>
+              {% endif %}
+          {% endif %}
+
           <!-- Сравнение -->
           {% if user.is_authenticated %}
               {% if request.get_full_path == '/comprasion_page/' %}
@@ -114,3 +129,5 @@
     </div>
 
 </nav>
+</body>
+</html>
