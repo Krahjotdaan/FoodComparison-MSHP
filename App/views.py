@@ -7,7 +7,7 @@ from googleapiclient.discovery import build
 from django.http import JsonResponse
 from django.shortcuts import render
 from App.forms import FruitCreationForm
-from App import models
+from App import models, values_data
 
 
 def index(request):
