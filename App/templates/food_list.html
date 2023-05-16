@@ -90,21 +90,13 @@ function test(fruit_id) {
     // отправка
     req.send()
 }
-// function load_datetime() {
-//     let req = new XMLHttpRequest()
+function add_like(fruit_id) {
+    let req = new XMLHttpRequest()
 
-//     // настройка
-//     req.open(method="GET", url="/add_comprasion/", async=true)
-//     req.onload = function() {
-//         let data = JSON.parse(req.response)
-//         test_field.innerHTML = data.data
-//     }
-//     req.onerror = function() {
-//     }
+    req.open(method="GET", url=`/add_like?id=${fruit_id}`, async=true)
 
-//     // отправка
-//     req.send()
-// }
+    req.send()
+}
 </script>
 
 {% endblock %}

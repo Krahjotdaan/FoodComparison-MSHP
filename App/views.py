@@ -12,13 +12,14 @@ from django.contrib.auth.decorators import login_required
 
 register = template.Library()
 
+
 def index(request):
     """
     :param request: объект с деталями запроса
     :return: объект ответа сервера с HTML-кодом внутри
     """
     context = {}
-    data_guest= values_data.data_guest
+    data_guest = values_data.data_guest
     data_loged = values_data.data_loged
     indg = randint(0, len(data_guest) - 1)
     indl = randint(0, len(data_loged) - 1)
@@ -226,3 +227,33 @@ def delete_user(request):
     user = request.user
     user.delete()
     return render(request, 'profile/page_deleted.html')
+
+
+def add_like(request):
+    """
+        Обработка AJAX запроса, который добавляет лайк определенному объекту еды
+
+        :param request: объект с деталями запроса
+        :type request: :class:django.http.HttpRequest
+        :return: None
+    """
+    context = {
+        'data': 'ok'
+    }
+    try:
+        likes = models.Like.objects.filter(
+            author=request.user,
+            fruit=models.Food.objects.filter(id=request.GET.get('id'))[0]
+        )[0]
+    except Exception as error:
+        context = {
+            'data': str(repr(error))
+        }
+        like = models.Like.objects.create(
+            fruit=models.Food.objects.filter(id=request.GET.get('id'))[0],
+            author=request.user
+        ).save()
+
+    return JsonResponse(context)
+
+

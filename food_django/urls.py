@@ -30,8 +30,8 @@ urlpatterns = [
     path("profile/page_deleted.html", views.delete_user, name="remove_user"),
     path('complaint_list/', views.complaint_list, name='complaint_list'),
     path('complaint_add/', views.complaint_add, name='complaint_add'),
-    # Liked food page
     path('like_page/', views.like_page, name='like_page'),
+    path('add_like/', views.add_like, name='add_like'),
     path('comprasion_page', views.comprasion_page, name='comprasion'),
     path('add_comprasion/', views.add_comprasion, name='add_comprasion'),
 ]
