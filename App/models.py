@@ -55,7 +55,7 @@ class Food(models.Model):
             description=description,
             interesting_fact=interesting_fact,
             deathdoze=deathdoze,
-            image=image
+            image=image,
         )
 
     @staticmethod
