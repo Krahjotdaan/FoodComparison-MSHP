@@ -26,7 +26,7 @@
         <div class="col text-center p-2">
             <a href="/food_item/?id={{ item.fruit.id }}" class="card"  style="border-radius: 10px;">
                 <div class="card-body">
-                  <img src="https://goo.su/swyUm5" class="img-fluid" style="border-radius: 10px;" alt="...">
+                    <img src="{{ item.fruit.image.url }}" height="350px" width="350px" class="img-fluid" style="border-radius: 10px;" alt="...">
                   <p class="card-text pt-3">{{ item.fruit.name }}</p>
                 </div>
             </a>

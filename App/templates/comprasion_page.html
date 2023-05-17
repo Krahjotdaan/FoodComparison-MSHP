@@ -2,30 +2,37 @@
 
 {% block content %}
 
-<h1 class="mt-5">Сравнение</h1>
+<div class="row">
+    <div class="col"><h1>Сравнение</h1></div>
+    <div class="col-md-auto">
+        <form method="POST">
+            {% csrf_token %}
+            <input class="mt-2 bg-body-secondary text-emphasis-secondary rounded" type="submit" name="clear_comprasion" value="Очистить список сравнения"/>
+        </form>
+    </div>
+    </div>
+
+<h3>{{ title }}</h3>
 <table style="width: 100%; border: solid 1px; text-align: center;">
     <thead>
         <td>Название</td>
         <td>Описание</td>
-        <td>Калории</td>
+        <td>Калории(на 1 кг)</td>
         <td>Витамины</td>
-        <td>смертельная доза</td>
-        <td>Автор</td>
+        <td>Смертельная доза(кг)</td>
     </thead>
 
-{% for i, j in zip %}
-    <tr>
-        <td>{{i.name}}</td>
-        <td>{{i.description}}</td>
-        
-        <td>{{i.calories}}</td>
-        <td>
-           {% for vitamin in j %}
-            <strong>{{vitamin.name}}</strong>; 
-           {% endfor %}
-        </td>
-        <td>{{i.deathdoze}}</td>
-        <td>{{i.author}}</td>
+    <tr>   
+        {% for x, y in zip %}
+            <td>{{ x.name }}</td>
+            <td>{{ x.description }}</td>
+            <td>{{ x.calories }}</td>
+            <td>
+                {% for vitamin in y %}
+                    {{ vitamin.name }},
+                {% endfor %}
+            </td>
+            <td>{{ x.deathdoze }}</td>
     </tr>
 
 {% endfor %}

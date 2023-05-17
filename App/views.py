@@ -5,14 +5,10 @@ import operator
 from django.contrib.auth.decorators import login_required
 from googleapiclient.discovery import build
 from django.http import JsonResponse
-from django.shortcuts import render
-from App.forms import FruitCreationForm
+from django.shortcuts import render, redirect
+from App.forms import FruitCreationForm, commentinputforme
 from App import models, values_data
-from .models import Food
-from App import models
-from django import forms
-from .models import Food, Comment
-from App.forms import commentinputforme
+from django.contrib import messages
 
 
 def index(request):
@@ -27,6 +23,7 @@ def index(request):
     indl = randint(0, len(data_loged) - 1)
     context["index_g"] = data_guest[indg]
     context["index_l"] = data_loged[indl]
+
     return render(request, "index.html", context)
 
 
@@ -43,7 +40,7 @@ def food_creation(request):
         interesting_fact = form.data['interesting_fact']
         image = form.files['image']
         calories = form.data['calories']
-
+        
         fruit = models.Food(name=name, author=request.user, searched=0,
                                 description=description, deathdoze=deathdoze,
                                 image=image, calories=calories,
@@ -52,6 +49,8 @@ def food_creation(request):
 
         for v in vitamins:
             fruit.vitamins.create(name=v)
+
+        messages.success(request, 'Фрукт создан')
 
     else:
         form = FruitCreationForm()
@@ -97,7 +96,6 @@ def food_item_page(request):
     :meta public:
     """
 
-    # TODO: сделать на 42 строчке файла рабочий фон для витаминов
     food_id = request.GET['id']
     food = models.Food.objects.get(id=food_id)
     vitamins = models.Food.get_vitamins_by_food(food)
@@ -117,14 +115,31 @@ def food_item_page(request):
             fruit=food,
             author=request.user
         )
+        messages.success(request, "Вы лайкнули фрукт")
     if request.POST.get('delete_like'):
         try:
             models.Like.objects.get(
                 fruit=food,
                 author=request.user
             ).delete()
+            messages.info(request, "Лайк удалён")
         except:
             pass
+    if request.POST.get('add_to_comprasion'):
+        models.Comprasion.objects.update_or_create(
+            fruit=food,
+            author=request.user
+        )
+        messages.success(request, "Добавлено к сравнению")
+    if request.POST.get('delete_from_comprasion'):
+            try:
+                models.Comprasion.objects.get(
+                fruit=food,
+                author=request.user
+            ).delete()
+                messages.info(request, "Удалено из сравнения")
+            except:
+                pass
 
     return render(request, "food_item.html", context)
 
@@ -132,19 +147,6 @@ def food_item_page(request):
 def profile_page(request):
     return render(request, 'profile/page.html')
 
-def comments_page(request):
-    context = {}
-    if request.method == "POST":
-        context['form'] = commentinputforme()
-        f = commentinputforme(request.POST)
-        if f.is_valid():
-            obj = Comment(author=request.user, text=f.data['text'])
-            obj.save()
-    else:
-        context['form']=commentinputforme()
-    comentdata = models.Comment.objects.all()
-    context['comments'] = comentdata
-    return render(request, 'comments.html', context)
 
 def like_page(request):
     context = {}
@@ -227,6 +229,7 @@ def get_youtube_links(*, food_name):
 
 
 def complaint_add(request):
+    
     context = {
         "id": request.GET.get("id", 0)
     }
@@ -252,8 +255,7 @@ def add_comprasion(request):
     # fruit = models.Food.objects.filter(id=request.GET.get("id"))
 
     fruit = request.GET.get('id')
-    if not \
-            models.Comprasion.get_by_user(request.user).__contains__(models.Food.objects.get(id=fruit)):
+    if not models.Comprasion.get_by_user(request.user).__contains__(models.Food.objects.get(id=fruit)):
         models.Comprasion.add(models.Food.objects.get(id=fruit), author=request.user)
 
     context = {
@@ -267,8 +269,22 @@ def comprasion_page(request):  # на доработке
     context['food'] = models.Comprasion.get_by_user(request.user)
     context['vitamins'] = []
     for i in context['food']:
-        context['vitamins'].append(Food.get_vitamins_by_food(i))
+        context['vitamins'].append(models.Food.get_vitamins_by_food(i))
+
+    if len(context['food']) == 0:
+        context['title'] = 'Привет! Пока что ты не сравниваешь никакие фрукты. Давай найдём парочку...'
+    elif len(context['food']) == 1:
+        context['title'] = 'Ты пока сравниваешь только один фрукт, ему одиноко :( Давай найдём ему пару!'
     context['zip'] = zip(context['food'], context['vitamins'])
+
+    if request.POST.get('clear_comprasion'):
+        comprasion_list = models.Comprasion.get_by_user(request.user)
+        for food in comprasion_list:
+            models.Comprasion.objects.get(fruit=food, author=request.user).delete()
+
+        return redirect("/comprasion_page/")
+
+
     return render(request, "comprasion_page.html", context)
 
 
@@ -277,3 +293,25 @@ def delete_user(request):
     user = request.user
     user.delete()
     return render(request, 'profile/page_deleted.html')
+
+
+def comments_page(request):
+    context = {}
+    if request.method == "POST":
+        context['form'] = commentinputforme()
+        f = commentinputforme(request.POST)
+        if f.is_valid():
+            obj = models.Comment(author=request.user, text=f.data['text'])
+            obj.save()
+    else:
+        context['form']=commentinputforme()
+    comentdata = models.Comment.objects.all()
+    context['comments'] = comentdata
+    return render(request, 'comments.html', context)
+
+def like_page(request):
+    context = {}
+    liked = models.Like.objects.all()
+    context['liked'] = liked
+
+    return render(request, 'like_page.html', context)
