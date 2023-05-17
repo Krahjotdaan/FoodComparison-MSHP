@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container mt-5">
+    <div data-bs-theme="light" class="p-4 text-body bg-body borders" style="width: 1130px; height: 735px;">
+    <div class="row g-5">
+      <form action="" method="post" enctype="multipart/form-data">
+
+         {% csrf_token %}
+           <div class="row mt-3" style="margin: 110px;">
+             <h1>Добавление фрукта</h1>
+             <div class="col-md-auto" id="image-field">
+                 <div class="row mt-3">
+                     {{ form.image }}
+                 </div>
+                 <div class="row mt-3 label">
+                    {{ form.calories.label }}:
+                </div>
+                <div class="row mt-1">
+                    {{ form.calories }}
+                </div>
+                 <div class="row mt-2 label">
+                     {{ form.deathdoze.label }}:
+                 </div>
+                 <div class="row mt-1">
+                     {{ form.deathdoze }}
+                 </div>
+                 <div class="row mt-1 label">
+                    {{form.vitamins.label}}:
+                </div>
+                 <div class="row col row-cols-3" style="width: 215px;">
+                    {% for v in form.vitamins %}
+                    <div class="col p-0">{{ v }}</div>
+                    {% endfor %}
+                </div>
+             </div>
+            <div class="col" style="margin-left: 18px;">
+                <div class="row mt-3">
+                    {{form.title}}
+                </div>
+                <div class="row mt-3">
+                    {{form.description}}
+                </div>
+                 <div class="row mt-3">
+                     {{ form.interesting_fact }}
+                 </div>
+           </div>
+
+          <hr align="center" class="my-4" method="post">
+          <input class="w-100 btn btn-success btn-lg"
+                  type="submit"
+                  style="--bs-btn-padding-y: 10px; --bs-btn-padding-x: 10px; --bs-btn-font-size: 17px;" 
+                  value="Добавить">
+        </form>
+    </div>
+
+    </div>
+</div>
+</html>
+{% endblock %}

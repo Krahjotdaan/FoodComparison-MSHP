@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from datetime import datetime
 
+
 class Vitamin(models.Model):
     """
     Таблица существующего витамина
@@ -42,9 +43,10 @@ class Food(models.Model):
     interesting_fact = models.CharField(max_length=1000, default="ЕСЛИ ВИДИШЬ ЭТУ НАДПИСЬ, ТО ДОБАВЬ ИНТЕРЕСНЫЙ ФАКТ")
     deathdoze = models.IntegerField(default=1)
     vitamins = models.ManyToManyField(to=Vitamin)
+    image = models.ImageField(upload_to='media/', default="https://goo.su/swyUm5")
 
     @staticmethod
-    def add(name, author, calories, searched, description, interesting_fact, deathdoze):
+    def add(name, author, calories, searched, description, interesting_fact, deathdoze, image):
         Food.objects.create(
             name=name,
             author=author,
@@ -52,13 +54,34 @@ class Food(models.Model):
             searched=searched,
             description=description,
             interesting_fact=interesting_fact,
-            deathdoze=deathdoze
+            deathdoze=deathdoze,
+            image=image
         )
 
     @staticmethod
     def get_vitamins_by_food(food):
         vitaminfood = food.vitamins.all()
         return vitaminfood
+        
+
+
+# class VitaminFood(models.Model):
+#     """
+#     Таблица отношения существующего витамина к определенной еде
+
+#     :var food: Еда, в которой содержится витамин
+#     :var vitamin: Ссылка на витамин, который есть в еде
+#     """
+#     vitamin = models.ForeignKey(to=Vitamin, on_delete=models.CASCADE)
+#     food = models.ForeignKey(to=Food, on_delete=models.CASCADE)
+
+
+#     @staticmethod
+#     def add(vitamin, food):
+#         VitaminFood.objects.create(
+#             vitamin=vitamin,
+#             food=food
+#         )
 
 
 class Fact(models.Model):
@@ -132,7 +155,7 @@ class Comprasion(models.Model):
     def add(fruit, author):
         Comprasion.objects.create(fruit=fruit, author=author)
 
-    def get_by_user(user):
+    def get_by_user(user): 
         """
         Возвращает всю еду, которая в списке сравнения пользователя
         """

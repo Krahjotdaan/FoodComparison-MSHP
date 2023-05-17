@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from App import views
+from food_django import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,6 +26,7 @@ urlpatterns = [
     path('accounts/', include('django_registration.backends.one_step.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('', views.index, name='index'),
+    path('food_creation/', views.food_creation, name='food_creation'),
     path('food/', views.food_list_page, name='food_list'),
     path('food_item/', views.food_item_page, name='food_item'),
     path('profile/page.html', views.profile_page, name='profile_page'),
@@ -36,3 +39,6 @@ urlpatterns = [
     path('add_comprasion/', views.add_comprasion, name='add_comprasion'),
     path('comments/', views.comments_page, name='comments_page'),
 ]
+
+if settings.DEBUG: 
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

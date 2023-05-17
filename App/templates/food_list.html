@@ -21,8 +21,8 @@
             <div class="col text-center p-2">
                 <div class="card"  style="border-radius: 0;">
                     <div class="card-body">
-                        <a href="/food_item/?id={{food.id}}">
-                            <img src="https://goo.su/swyUm5" class="img-fluid" style="border-radius: 0;" alt="...">
+                        <a href="/food_item/?id={{food.id}}" style="height: 400px; width: 400px;">
+                            <img src='{{food.image.url}}' height="375px" width="375px" class="img-responsive" style="border-radius: 0;" alt="...">
                             <p class="card-text pt-3">{{ food.name }}</p>
 
                         </a>
@@ -58,12 +58,12 @@
                             </div>
                             <div class="col-4">
                                 <a id="complaint" href="/complaint_add?id={{food.id}}"
-                                   class="btn btn-primary" style="">Жалоба
+                                   class="btn btn-primary">Жалоба
                                 </a>
                             </div>
                             <div class="col-4">
                                 <div>
-                                    <svg id="compare" onclick="test({{food.id}})"
+                                    <svg id="compare" onclick="test( food.id )"
                                          xmlns="http://www.w3.org/2000/svg" width="50" height="50"
                                          fill="#22742b" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
                                         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5

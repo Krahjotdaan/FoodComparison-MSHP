@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from googleapiclient.discovery import build
 from django.http import JsonResponse
 from django.shortcuts import render
+from App.forms import FruitCreationForm
 from App import models, values_data
 from .models import Food
 from App import models
@@ -27,6 +28,39 @@ def index(request):
     context["index_g"] = data_guest[indg]
     context["index_l"] = data_loged[indl]
     return render(request, "index.html", context)
+
+
+@login_required
+def food_creation(request):
+    context = dict()
+    if request.method == 'POST':
+        form = FruitCreationForm(request.POST, request.FILES)
+
+        name = form.data['title']
+        description = form.data['description']
+        vitamins = request.POST.getlist('vitamins')
+        deathdoze = form.data['deathdoze']
+        interesting_fact = form.data['interesting_fact']
+        image = form.files['image']
+        calories = form.data['calories']
+
+        fruit = models.Food(name=name, author=request.user, searched=0,
+                                description=description, deathdoze=deathdoze,
+                                image=image, calories=calories,
+                                interesting_fact=interesting_fact)
+        fruit.save()
+
+        for v in vitamins:
+            fruit.vitamins.create(name=v)
+
+    else:
+        form = FruitCreationForm()
+        context['form'] = form
+
+    form = FruitCreationForm()
+    context['form'] = form
+
+    return render(request, 'food_creation.html', context=context)
 
 
 def food_list_page(request):
