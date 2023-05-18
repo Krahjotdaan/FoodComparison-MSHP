@@ -255,7 +255,7 @@ def add_comprasion(request):
     # fruit = models.Food.objects.filter(id=request.GET.get("id"))
 
     fruit = request.GET.get('id')
-    if not models.Comprasion.get_by_user(request.user).__contains__(models.Food.objects.get(id=fruit)):
+    if not (models.Comprasion.get_by_user(request.user).__contains__(models.Food.objects.get(id=fruit))) and len(models.Comprasion.get_by_user(request.user)) < 4:
         models.Comprasion.add(models.Food.objects.get(id=fruit), author=request.user)
 
     context = {
@@ -271,10 +271,9 @@ def comprasion_page(request):  # на доработке
     for i in context['food']:
         context['vitamins'].append(models.Food.get_vitamins_by_food(i))
 
-    if len(context['food']) == 0:
-        context['title'] = 'Привет! Пока что ты не сравниваешь никакие фрукты. Давай найдём парочку...'
-    elif len(context['food']) == 1:
-        context['title'] = 'Ты пока сравниваешь только один фрукт, ему одиноко :( Давай найдём ему пару!'
+    context['count_food'] = len(context['food'])
+
+
     context['zip'] = zip(context['food'], context['vitamins'])
 
     if request.POST.get('clear_comprasion'):
