@@ -145,7 +145,10 @@ def food_item_page(request):
 
 
 def profile_page(request):
-    return render(request, 'profile/page.html')
+    context = {}
+    liked = models.Like.objects.filter(author=request.user)
+    context['liked'] = [liked[len(liked) - 3], liked[len(liked) - 2], liked[len(liked) - 1]]
+    return render(request, 'profile/page.html', context)
 
 
 def like_page(request):
@@ -308,6 +311,7 @@ def comments_page(request):
     comentdata = models.Comment.objects.all()
     context['comments'] = comentdata
     return render(request, 'comments.html', context)
+
 
 def like_page(request):
     context = {}

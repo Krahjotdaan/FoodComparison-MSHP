@@ -1,15 +1,12 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
-    <title>Сравнение еды</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
 
 <body>
-    {% include 'navbar.html' %}
-
+    
     <div class="container">
     {% block content %}
 <style>
@@ -47,6 +44,8 @@
     .user-id{
     color: #aaaaaa;
     margin-bottom: 20px;
+    font-size: 22px;
+    padding-left: 10px;
     }
     .liked {
     font-size: 22px;
@@ -60,22 +59,42 @@
     padding-left: 10px;
     width: 800px;
     }
+    a {
+        text-decoration: none;
+        color: black;
+        font-size: 25px;
+      }
 </style>
-<div class = "big-wrapper">
-<div class="wrapper p-3 mt-5">
+<h1>Профиль</h1>
+
+<div class="wrapper mt-3">
     <div class = "profile-wrapper">
         <button class = "avatar">
             <div class = "plus">+</div>
         </button>
         <div class = "user-data">
-            <p class = "user-id">id: {{user.id}}</p>
-            <div class = "user-name-email">
-                <div class = "user-name">Ваше имя: {{user.username}}</div>
-                <div class = "user-email">Ваша почта: {{user.email}}</div>
-            </div>
+            <p class = "user-id mt-3 bg-body-secondary text-emphasis-secondary rounded">id: {{user.id}}</p>
+                <div class = "user-name mt-3 bg-body-secondary text-emphasis-secondary rounded">Ваше имя: {{user.username}}</div>
+                <div class = "user-email mt-3 bg-body-secondary text-emphasis-secondary rounded">Ваша почта: {{user.email}}</div>
         </div>
     </div>
-    <h2 class="mt-5 mb-5 liked">Последнее понравившееся:</h2>
+    <h2 class="mt-5 mb-3 liked">Последнее понравившееся:</h2>
+    <div class="row row-cols-3" >
+        {% for item in liked %}
+            <div class="col text-center p-2">
+                <div class="card" style="border-radius: 20px;"> 
+                    <div class="card-body">
+                        <a href="/food_item/?id={{ item.fruit.id }}" style="height: 400px; width: 400px;">
+                        <img src="{{ item.fruit.image.url }}" height="375px" width="375px" class="img-responsive" style="border-radius: 0;" alt="...">
+                      <p class="card-text pt-3">{{ item.fruit.name }}</p>
+                     </a> 
+                    </div>
+                
+                </div>
+            </div>
+    
+        {% endfor %}
+        </div>
 
 </div>
     <div class="d-grid gap-2">
@@ -105,7 +124,4 @@
     {% endblock %}
 </body>
 
-</html> -->
-
-
-<div class="mt-5"></div>
+</html>
