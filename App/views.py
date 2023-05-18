@@ -147,7 +147,10 @@ def food_item_page(request):
 def profile_page(request):
     context = {}
     liked = models.Like.objects.filter(author=request.user)
-    context['liked'] = [liked[len(liked) - 3], liked[len(liked) - 2], liked[len(liked) - 1]]
+    try:
+        context['liked'] = [liked[len(liked) - 3], liked[len(liked) - 2], liked[len(liked) - 1]]
+    except:
+        context['liked'] = liked
     return render(request, 'profile/page.html', context)
 
 
