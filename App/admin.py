@@ -5,3 +5,4 @@ import App.models as model
 admin.site.register(model.Food)
 admin.site.register(model.Like)
 admin.site.register(model.Vitamin)
+admin.site.register(model.Comprasion)
