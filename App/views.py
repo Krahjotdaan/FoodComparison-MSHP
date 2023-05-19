@@ -90,13 +90,65 @@ def like_page(request):
     context = dict()
     liked = models.Like.objects.all()
     context['liked'] = liked
-    print(request.GET)
+
     if 'breakfast' in request.POST:
-        food = request.POST.get('breakfast')
-        print(food)
+        food_id = request.POST['breakfast']
+        food = models.Food.objects.get(id=food_id)
         models.Breakfast.objects.update_or_create(
             breakfast=food,
             author=request.user
         )
+    breakfast_food = models.Breakfast.objects.all()
+    context['breakfast_food'] = breakfast_food
+
+    if 'lunch' in request.POST:
+        food_id = request.POST['lunch']
+        food = models.Food.objects.get(id=food_id)
+        models.Lunch.objects.update_or_create(
+            lunch=food,
+            author=request.user
+        )
+    lunch_food = models.Lunch.objects.all()
+    context['lunch_food'] = lunch_food
+
+    if 'dinner' in request.POST:
+        food_id = request.POST['dinner']
+        food = models.Food.objects.get(id=food_id)
+        models.Dinner.objects.update_or_create(
+            dinner=food,
+            author=request.user
+        )
+    dinner_food = models.Dinner.objects.all()
+    context['dinner_food'] = dinner_food
+
+    try:
+        food_id = request.POST['breakfast_delete']
+        food = models.Food.objects.get(id=food_id)
+        models.Breakfast.objects.get(
+            breakfast=food,
+            author=request.user
+        ).delete()
+    except:
+        pass
+
+    try:
+        food_id = request.POST['lunch_delete']
+        food = models.Food.objects.get(id=food_id)
+        models.Lunch.objects.get(
+            lunch=food,
+            author=request.user
+        ).delete()
+    except:
+        pass
+
+    try:
+        food_id = request.POST['dinner_delete']
+        food = models.Food.objects.get(id=food_id)
+        models.Dinner.objects.get(
+            dinner=food,
+            author=request.user
+        ).delete()
+    except:
+        pass
 
     return render(request, 'like_page.html', context)

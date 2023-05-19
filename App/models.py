@@ -113,10 +113,24 @@ class Breakfast(models.Model):
     breakfast = models.ForeignKey(to=Food, default=1, on_delete=models.CASCADE)
     author = models.ForeignKey(to=User, default=1, on_delete=models.CASCADE)
 
+    @staticmethod
+    def get():
+        return Breakfast.objects.all()
+
 
 class Lunch(models.Model):
     lunch = models.ForeignKey(to=Food, default=1, on_delete=models.CASCADE)
+    author = models.ForeignKey(to=User, default=1, on_delete=models.CASCADE)
+
+    @staticmethod
+    def get():
+        return Lunch.objects.all()
 
 
 class Dinner(models.Model):
     dinner = models.ForeignKey(to=Food, default=1, on_delete=models.CASCADE)
+    author = models.ForeignKey(to=User, default=1, on_delete=models.CASCADE)
+
+    @staticmethod
+    def get():
+        return Dinner.objects.all()
