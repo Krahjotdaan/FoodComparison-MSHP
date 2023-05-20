@@ -35,6 +35,7 @@ urlpatterns = [
     path('complaint/add/', views.complaint_add, name='complaint_add'),
     # Liked food page
     path('like_page/', views.like_page, name='like_page'),
+    path('add_like/', views.add_like, name='add_like'),
     path('comprasion/page/', views.comprasion_page, name='comprasion_page'),
     path('comprasion/add/', views.add_comprasion, name='add_comprasion'),
     path('comments/', views.comments_page, name='comments_page'),
