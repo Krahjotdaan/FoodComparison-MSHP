@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<div class="row">
+    <div class="col"><h1>Сравнение</h1></div>
+    <div class="col-md-auto">
+        <form method="POST">
+            {% csrf_token %}
+            <input class="mt-2 bg-body-secondary text-emphasis-secondary rounded" type="submit" name="clear_comprasion" value="Очистить список сравнения"/>
+        </form>
+    </div>
+</div>
+
+{% if count_food == 0 %} <!-- если нет еды на сравнение -->
+<h3 class="mt-5">Привет! Пока что ты не сравниваешь никакие фрукты. Давай найдём парочку...</h3>
+<a class="btn btn-success fs-3 mt-3" href="/food/">Все фрукты</a>
+
+{% elif count_food == 1 %} <!-- если еда на сравнении всего одна -->
+
+<h3 class="mt-5">Ты пока что сравниваешь только один фрукт, ему одиноко :(  Давай найдем ему пару!</h3>
+<a class="btn btn-success fs-3 mt-3" href="/food/">Все фрукты</a>
+
+{% else %}
+
+<table style="width: 100%; text-align: center;" class="comprasion-table">
+    <tbody>
+        <thead>
+            <td><b>Название</b></td>
+            <td><b>Описание</b></td>
+            <td><b>Калории(на 1 кг)</b></td>
+            <td><b>Витамины</b></td>
+            <td><b>Смертельная доза(кг)</b></td>
+        </thead>
+    
+        <tr>   
+            {% for x, y in zip %}
+                <td>{{ x.name }}</td>
+                <td>{{ x.description }}</td>
+                <td>{{ x.calories }}</td>
+                <td>
+                    {% for vitamin in y %}
+                        {{ vitamin.name }},
+                    {% endfor %}
+                </td>
+                <td>{{ x.deathdoze }}</td>
+        </tr>
+    </tbody>
+
+{% endfor %}
+</table>
+<script>
+    $("table").each(function() {
+        var $this = $(this);
+        var newrows = [];
+        $this.find("tr").each(function(){
+            var i = 0;
+            $(this).find("td").each(function(){
+                i++;
+                if(newrows[i] === undefined) { newrows[i] = $("<tr></tr>"); }
+                newrows[i].append($(this));
+            });
+        });
+        $this.find("tr").remove();
+        $.each(newrows, function(){
+            $this.append(this);
+        });
+    });
+
+</script>
+{% endif %}
+
+{% endblock %}

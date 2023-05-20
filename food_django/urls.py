@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from App import views
+from food_django import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,7 +26,20 @@ urlpatterns = [
     path('accounts/', include('django_registration.backends.one_step.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('', views.index, name='index'),
+    path('food/creation/', views.food_creation, name='food_creation'),
     path('food/', views.food_list_page, name='food_list'),
-    path('food_item/', views.food_item_page, name='food_item'),
+    path('food/item/', views.food_item_page, name='food_item'),
     path('profile/page.html', views.profile_page, name='profile_page'),
+    path("profile/page_deleted.html", views.delete_user, name="remove_user"),
+    path('complaint/list/', views.complaint_list, name='complaint_list'),
+    path('complaint/add/', views.complaint_add, name='complaint_add'),
+    # Liked food page
+    path('like_page/', views.like_page, name='like_page'),
+    path('add_like/', views.add_like, name='add_like'),
+    path('comprasion/page/', views.comprasion_page, name='comprasion_page'),
+    path('comprasion/add/', views.add_comprasion, name='add_comprasion'),
+    path('comments/', views.comments_page, name='comments_page'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

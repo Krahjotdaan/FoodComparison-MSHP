@@ -6,19 +6,25 @@
     <title>Сравнение еды</title>
     <style>
         html,
+        
         body {
           height: 100%;
         }
         .wrapper {
           min-height: 100%;
           display: flex;
+          background-color: #F5F5DC;
           flex-direction: column;
-          background-image: url("https://img.freepik.com/free-photo/summer-landscape-with-green-field_1398-1990.jpg?w=740&t=st=1684079700~exp=1684080300~hmac=42362b7846e8550389c80249ba22206d38aded2f9e58aa33631b77bc6af030a1"); /*  ФОН ФОН ФОН  */
-          /* background-image: url("https://c4.wallpaperflare.com/wallpaper/289/250/397/windows-xp-bliss-hd-wallpaper-preview.jpg"); */
           background-repeat:no-repeat;
           background-size: cover;
         }
-        .header{
+        .wrapper1 {
+          min-height: 100%;
+          display: flex;
+          background-image: url("https://img.freepik.com/free-photo/summer-landscape-with-green-field_1398-1990.jpg?w=740&t=st=1684079700~exp=1684080300~hmac=42362b7846e8550389c80249ba22206d38aded2f9e58aa33631b77bc6af030a1"); /*  ФОН ФОН ФОН  */
+          flex-direction: column;
+          background-repeat:no-repeat;
+          background-size: cover;
         }
         .main {
           overflow: hidden;
@@ -32,8 +38,8 @@
           text-align: center;
         }
         .index-text {
-            color: #fff;
-            background-color: rgba(1, 1, 1, 0.4);
+            color: #000;
+            background-color: rgba(255, 255, 255, 0.6);
             border-radius: 20px;
         }
 
@@ -86,13 +92,13 @@
         #title_field {
             border-radius: 6px;
             height: 39px;
-            width: 250px;
+            width: 600px;
             border: 1px solid #E2DEDE;
 
         }
         #interesting_fact_field {
             border-radius: 6px;
-            height: 121px;
+            height: 200px;
             width: 600px;
             border: 1px solid #E2DEDE;
             resize: none;
@@ -101,7 +107,7 @@
         }
         #description_field {
             border-radius: 6px;
-            height: 121px;
+            height: 225px;
             width: 600px;
             border: 1px solid #E2DEDE;
             resize: none;
@@ -110,15 +116,24 @@
 
         }
         #choice_field {
-           width: 70px;
-        }
-        #vitamins_quantity {
-           height: 23px;
-           width: 80px;
+           height: 70px;
+           width: 175px;
            border: 1px solid #E2DEDE;
            border-radius: 6px;
         }
-        #death_doze {
+        #vitamins_quantity {
+           height: 30px;
+           width: 93px;
+           border: 1px solid #E2DEDE;
+           border-radius: 6px;
+        }
+        #deathdoze {
+            border-radius: 6px;
+            height: 29px;
+            width: 175px;
+            border: 1px solid #E2DEDE;
+        }
+        #calories {
             border-radius: 6px;
             height: 29px;
             width: 175px;
@@ -136,11 +151,9 @@
             opacity: 0.5;
         }
         th {
-            border: 1px solid !important;
             padding: 5px !important;
         }
         td {
-            border: 1px solid !important;
             padding: 5px !important;
         }
         thead {
@@ -148,6 +161,9 @@
         }
         button{
             background: #22742b;
+        }
+        tr:nth-child(2n+1) {
+            background-color: #e3e3e3 !important;
         }
     
 </style>
@@ -159,7 +175,11 @@
 
 <body class="bg">
 
+{% if request.get_full_path == '/' %}
+    <div class="wrapper1">
+        {% else %}
     <div class="wrapper">
+        {% endif %}
         <header class="header">
              {% include 'navbar.html' %}
         </header>

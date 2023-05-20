@@ -2,67 +2,82 @@
 
 {% block content %}
 <style>
-  .header{
-    font-size: 500%;
-    margin-top: 7px;
-  }
   .text{
     margin-top: 15px;
     font-size: 250%;
   }
-
-
 </style>
+
+        {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert {{message.tags}} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+        {% endif %}
+        
 {% if food != 'Ошибка' %}
 <div class="card mt-5">
     <div class="d-flex flex-row mb-3">
         <div class="p-4 r-2"><img
-                src="https://rdironworks.com/wp-content/uploads/2017/12/dummy-200x200.png"
-                class="rounded float-start" alt="..." width="200" height="200">
+                src="{{ food.image.url }}"
+                class="rounded float-start" alt="..." width="400px" height="400px">
         </div>
-        <div class="position-absolute top-50 start-0 ms-4">
-        <h5 class="mt-3">
-                Калории: ?
-            </h5>
-        </div>
+        
         <div class="card-body">
             <h5>
                 <small class="text-body-secondary">ID: {{food.id}}</small>
             </h5>
-            <div class="mt-2 bg-body-secondary text-emphasis-secondary rounded">
+            <div class="mt-3 bg-body-secondary text-emphasis-secondary rounded">
                 <h4 class="p-2">
                     {{food.name}}
                 </h4>
             </div>
-            <div class="mt-4 bg-body-secondary text-emphasis-secondary rounded">
+
+            <div class="mt-3 bg-body-secondary text-emphasis-secondary rounded">
                 <h4 class="p-2">
-                    Тут будет описание ( Почему вообще description у вас как факты? )
+                    {{ food.description }}
                 </h4>
             </div>
-            <h4>
-                Витамины:
-            </h4>
-            <div class="badge bg-body-secondary text-dark mx-1" style="width: 2rem;">
-                <h5 class="mt-2">!</h5>
-            </div>
-            <div class="hstack gap-1 mt-2">
-                <div class="p-1">
-                    <h4 class="">
-                        Смертельная доза:
-                    </h4>
-                </div>
-                <div class="ms-2 bg-body-secondary text-center rounded p-1">
-                    {{food.deathdoze}} КГ
-                </div>
-            </div>
-            <h4 class="ms-1">
-                Факты:
-            </h4>
-            <div class="mt-4 bg-body-secondary text-emphasis-secondary rounded">
-                <h4 class="p-2">
-                    {{food.description}}
+
+            <div class="mt-3 bg-body-secondary text-emphasis-secondary rounded" >
+                <h4>
+                    Витамины:
+                    {% for vitamin in vitamins %}
+                    {{vitamin.name}},
+                    {% endfor %}
                 </h4>
             </div>
+
+            <div class="mt-3 bg-body-secondary text-emphasis-secondary rounded">
+                <h4>
+                    Калории(на 1 кг): {{ food.calories }}
+                </h4>
+            </div>
+
+            <div class="mt-3 bg-body-secondary text-emphasis-secondary rounded">
+                 <h4>
+                    Смертельная доза: {{food.deathdoze}} КГ
+                </h4>   
+            </div>
+
+            <div class="mt-3 bg-body-secondary text-emphasis-secondary rounded">
+                <h4>
+                    Интересный факт: {{food.interesting_fact}}
+                </h4>
+            </div>
+
+            {% if user.is_authenticated %}
+            <form method="POST">
+                {% csrf_token %}
+                <input class="mt-2 bg-body-secondary text-emphasis-secondary rounded" type="submit" name="like" value="Лайк"/>
+                <input class="mt-2 bg-body-secondary text-emphasis-secondary rounded" type="submit" name="delete_like" value="Удалить лайк"/>
+                <input class="mt-2 bg-body-secondary text-emphasis-secondary rounded" type="submit" name="add_to_comprasion" value="Добавить в сравнение"/>
+                <input class="mt-2 bg-body-secondary text-emphasis-secondary rounded" type="submit" name="delete_from_comprasion" value="Удалить из сравнения"/>
+            </form>
+            {% endif %}
+
         </div>
     </div>
 </div>
@@ -71,4 +86,16 @@
     <b>{{food}}</b>
 </div>
 {% endif %}
+<div style="height: 18px;"></div>
+{% for link in video_links %}
+    <iframe width="31.5%" height="315"
+            src={{link}}
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            style="margin-left: 10px; margin-right: 10px;">
+
+    </iframe>
+{% endfor %}
 {% endblock %}
