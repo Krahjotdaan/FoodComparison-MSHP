@@ -30,7 +30,7 @@
                             <div class="col-4">
                                 <a href="?id={{food.id}}" >
                                     {% if food.id in liked_food_id %}
-                                    <svg  id="heart"
+                                    <svg  id="heart" onclick="add_like({{food.id}})"
                                          xmlns="http://www.w3.org/2000/svg" width="30"
                                          height="30" fill="red" class="bi bi-heart"
                                          style="margin-top: 10px" viewBox="0 0 16 16">
@@ -42,7 +42,7 @@
 
                                     </svg>
                                     {% else %}
-                                    <svg  id="heart"
+                                    <svg id="heart" onclick="add_like({{food.id}})"
                                          xmlns="http://www.w3.org/2000/svg" width="30"
                                          height="30" fill="black" class="bi bi-heart"
                                          style="margin-top: 10px" viewBox="0 0 16 16">
@@ -94,24 +94,17 @@ function test(fruit_id) {
         test_field.innerHTML = "error"
     }
 
-    // отправка
     req.send()
 }
-// function load_datetime() {
-//     let req = new XMLHttpRequest()
+function add_like(fruit_id) {
+    let req = new XMLHttpRequest()
 
-//     // настройка
-//     req.open(method="GET", url="/add_comprasion/", async=true)
-//     req.onload = function() {
-//         let data = JSON.parse(req.response)
-//         test_field.innerHTML = data.data
-//     }
-//     req.onerror = function() {
-//     }
+    event.preventDefault()
 
-//     // отправка
-//     req.send()
-// }
+    req.open(method="GET", url=`/add_like?id=${fruit_id}`, async=true)
+
+    req.send()
+}
 </script>
 
 {% endblock %}

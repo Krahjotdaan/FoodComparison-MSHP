@@ -36,9 +36,10 @@ urlpatterns = [
     # Liked food page
     path('like_page/', views.like_page, name='like_page'),
     path('comprasion_page/', views.comprasion_page, name='comprasion_page'),
+    path('add_like/', views.add_like, name='add_like'),
     path('add_comprasion/', views.add_comprasion, name='add_comprasion'),
     path('comments/', views.comments_page, name='comments_page'),
 ]
 
-if settings.DEBUG: 
+if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

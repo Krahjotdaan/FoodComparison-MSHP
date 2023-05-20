@@ -5,10 +5,15 @@ import operator
 from django.contrib.auth.decorators import login_required
 from googleapiclient.discovery import build
 from django.http import JsonResponse
+from .models import Food
+from googleapiclient.discovery import build
+from App import values_data, models
+from django import template
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from App.forms import FruitCreationForm, commentinputforme
-from App import models, values_data
 from django.contrib import messages
+register = template.Library()
 
 
 def index(request):
@@ -40,7 +45,7 @@ def food_creation(request):
         interesting_fact = form.data['interesting_fact']
         image = form.files['image']
         calories = form.data['calories']
-        
+
         fruit = models.Food(name=name, author=request.user, searched=0,
                                 description=description, deathdoze=deathdoze,
                                 image=image, calories=calories,
@@ -235,7 +240,6 @@ def get_youtube_links(*, food_name):
 
 
 def complaint_add(request):
-    
     context = {
         "id": request.GET.get("id", 0)
     }
@@ -321,3 +325,34 @@ def like_page(request):
     context['liked'] = liked
 
     return render(request, 'like_page.html', context)
+
+
+
+def add_like(request):
+    """
+        Обработка AJAX запроса, который добавляет лайк определенному объекту еды
+
+        :param request: объект с деталями запроса
+        :type request: :class:django.http.HttpRequest
+        :return: None
+    """
+    context = {
+        'data': 'ok'
+    }
+    try:
+        likes = models.Like.objects.filter(
+            author=request.user,
+            fruit=models.Food.objects.filter(id=request.GET.get('id'))[0]
+        )[0]
+    except Exception as error:
+        context = {
+            'data': str(repr(error))
+        }
+        like = models.Like.objects.create(
+            fruit=models.Food.objects.filter(id=request.GET.get('id'))[0],
+            author=request.user
+        ).save()
+
+    return JsonResponse(context)
+
+
