@@ -5,6 +5,13 @@
       <ul class="navbar-nav mb-2 mb-lg-0 nav-links">
 
           <!-- Главная -->
+          
+          <li class="nav-item ps-3">
+            <a href="/" class="nav-link active" style="display: flex; align-items: center; padding: 0;">
+              <img src="../../media/media/logo.png" alt="" class="" style="max-height: 40px; margin-right: 8px;">  
+              Овощебаза™
+            </a>    
+          </li>      
           {% if request.get_full_path == '/' %}
             <li class="nav-item ps-3">
                 <a class="nav-link active" aria-current="page" href="/">Главная</a>
@@ -41,26 +48,26 @@
 
           <!-- Добавить еду -->
           {% if user.is_authenticated %}
-              {% if request.get_full_path == '#' %}
+              {% if request.get_full_path == '/food/creation/' %}
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/food_creation/">Добавить еду</a>
+                    <a class="nav-link active" aria-current="page" href="/food/creation/">Добавить еду</a>
                 </li>
               {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="/food_creation/">Добавить еду</a>
+                    <a class="nav-link" aria-current="page" href="/food/creation/">Добавить еду</a>
                 </li>
               {% endif %}
           {% endif %}
 
           <!-- Сравнение -->
           {% if user.is_authenticated %}
-              {% if request.get_full_path == '/comprasion_page/' %}
+              {% if request.get_full_path == '/comprasion/page/' %}
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/comprasion_page/">Сравнение</a>
+                    <a class="nav-link active" aria-current="page" href="/comprasion/page/">Сравнение</a>
                 </li>
               {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="/comprasion_page/">Сравнение</a>
+                    <a class="nav-link" aria-current="page" href="/comprasion/page/">Сравнение</a>
                 </li>
               {% endif %}
           {% endif %}
