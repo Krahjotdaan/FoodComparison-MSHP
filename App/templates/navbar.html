@@ -43,11 +43,11 @@
           {% if user.is_authenticated %}
               {% if request.get_full_path == '#' %}
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/food_creation/">Добавить еду</a>
+                    <a class="nav-link active" aria-current="page" href="/food/creation/">Добавить еду</a>
                 </li>
               {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="/food_creation/">Добавить еду</a>
+                    <a class="nav-link" aria-current="page" href="/food/creation/">Добавить еду</a>
                 </li>
               {% endif %}
           {% endif %}
@@ -56,11 +56,11 @@
           {% if user.is_authenticated %}
               {% if request.get_full_path == '/comprasion_page/' %}
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/comprasion_page/">Сравнение</a>
+                    <a class="nav-link active" aria-current="page" href="/comprasion/page/">Сравнение</a>
                 </li>
               {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="/comprasion_page/">Сравнение</a>
+                    <a class="nav-link" aria-current="page" href="/comprasion/page/">Сравнение</a>
                 </li>
               {% endif %}
           {% endif %}

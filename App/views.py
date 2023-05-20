@@ -281,7 +281,7 @@ def comprasion_page(request):  # на доработке
         for food in comprasion_list:
             models.Comprasion.objects.get(fruit=food, author=request.user).delete()
 
-        return redirect("/comprasion_page/")
+        return redirect("/comprasion/page/")
 
 
     return render(request, "comprasion_page.html", context)
