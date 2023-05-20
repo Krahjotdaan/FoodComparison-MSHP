@@ -21,7 +21,7 @@
             <div class="col text-center p-2">
                 <div class="card"  style="border-radius: 20px;">
                     <div class="card-body">
-                        <a href="/food_item/?id={{food.id}}" style="height: 400px; width: 400px;">
+                        <a href="/food/item/?id={{food.id}}" style="height: 400px; width: 400px;">
                             <img src='{{food.image.url}}' height="375px" width="375px" class="img-responsive" style="border-radius: 0;" alt="...">
                             <p class="card-text pt-3">{{ food.name }}</p>
 
@@ -57,7 +57,7 @@
                                 </a>
                             </div>
                             <div class="col-4">
-                                <a id="complaint" href="/complaint_add?id={{food.id}}"
+                                <a id="complaint" href="/complaint/add?id={{food.id}}"
                                    class="btn btn-primary">Жалоба
                                 </a>
                             </div>
@@ -84,7 +84,7 @@
 function test(fruit_id) {
     let req = new XMLHttpRequest()
 
-    req.open(method="GET", url=`/add_comprasion?id=${fruit_id}`, async=true)
+    req.open(method="GET", url=`/comprasion/add/?id=${fruit_id}`, async=true)
 
     req.onload = function() {
         let data = JSON.parse(req.response)
