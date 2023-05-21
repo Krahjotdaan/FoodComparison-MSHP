@@ -184,7 +184,7 @@ def like_page(request):
     :rtype: :class:`django.http.HttpResponse`
     """
     context = {}
-    liked = models.Like.objects.all()
+    liked = models.Like.get_by_user(request.user)
     context['liked'] = liked
 
     if 'breakfast' in request.POST:

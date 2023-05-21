@@ -94,11 +94,11 @@ class Like(models.Model):
         )
 
     @staticmethod
-    def get():
+    def get_by_user(user):
         """
-        Функция, возвращающая все объекты данной таблицы
+        Функция, возвращающая все лайки данного пользователя
         """
-        return Like.objects.all()
+        return Like.objects.filter(author=user)
 
 
 class Complaint(models.Model):
