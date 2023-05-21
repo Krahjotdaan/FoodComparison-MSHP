@@ -101,7 +101,7 @@ function add_like(fruit_id) {
 
     event.preventDefault()
 
-    req.open(method="GET", url=`/add_like?id=${fruit_id}`, async=true)
+    req.open(method="GET", url=`/like/add/?id=${fruit_id}`, async=true)
 
     req.send()
 }
