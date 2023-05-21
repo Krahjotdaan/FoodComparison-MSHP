@@ -1,15 +1,11 @@
 from random import randint
 import json
 import operator
-
 from django.contrib.auth.decorators import login_required
-from googleapiclient.discovery import build
 from django.http import JsonResponse
-from .models import Food
 from googleapiclient.discovery import build
 from App import values_data, models
 from django import template
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from App.forms import FruitCreationForm, commentinputforme
 from django.contrib import messages
@@ -47,7 +43,7 @@ def food_creation(request):
     :return: объект ответа сервера с HTML-кодом внутри
     :rtype: :class:`django.http.HttpResponse`
     """
-    context = dict()
+    context = {}
     if request.method == 'POST':
         form = FruitCreationForm(request.POST, request.FILES)
 
@@ -65,8 +61,8 @@ def food_creation(request):
                             interesting_fact=interesting_fact)
         fruit.save()
 
-        for v in vitamins:
-            fruit.vitamins.create(name=v)
+        for vitamin in vitamins:
+            fruit.vitamins.create(name=vitamin)
 
         messages.success(request, 'Фрукт создан')
 
@@ -378,8 +374,8 @@ def add_comprasion(request):
     """
 
     fruit = request.GET.get('id')
-    if not (models.Comprasion.get_by_user(request.user).__contains__(models.Food.objects.get(id=fruit))) and len(
-            models.Comprasion.get_by_user(request.user)) < 4:
+    if not (models.Comprasion.get_by_user(request.user).__contains__(models.Food.objects.get(id=fruit))) \
+    and len(models.Comprasion.get_by_user(request.user)) < 4:
         models.Comprasion.add(models.Food.objects.get(id=fruit), author=request.user)
 
     context = {
