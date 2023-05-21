@@ -14,10 +14,16 @@ class Vitamin(models.Model):
 
     @staticmethod
     def get():
+        """
+        Функция, возвращающая все объекты данной таблицы
+        """
         return Vitamin.objects.all()
 
     @staticmethod
     def add(self, vitamin_id, name):
+        """
+        Добавление нового витамина
+        """
         Vitamin.objects.create(
             vitamin_id=vitamin_id,
             name=name
@@ -47,6 +53,9 @@ class Food(models.Model):
 
     @staticmethod
     def add(name, author, calories, searched, description, interesting_fact, deathdoze, image):
+        """
+        Добавление новой еды
+        """
         Food.objects.create(
             name=name,
             author=author,
@@ -62,44 +71,6 @@ class Food(models.Model):
     def get_vitamins_by_food(food):
         vitaminfood = food.vitamins.all()
         return vitaminfood
-        
-
-
-# class VitaminFood(models.Model):
-#     """
-#     Таблица отношения существующего витамина к определенной еде
-
-#     :var food: Еда, в которой содержится витамин
-#     :var vitamin: Ссылка на витамин, который есть в еде
-#     """
-#     vitamin = models.ForeignKey(to=Vitamin, on_delete=models.CASCADE)
-#     food = models.ForeignKey(to=Food, on_delete=models.CASCADE)
-
-
-#     @staticmethod
-#     def add(vitamin, food):
-#         VitaminFood.objects.create(
-#             vitamin=vitamin,
-#             food=food
-#         )
-
-
-# class Fact(models.Model):
-#     """
-#     Таблица интересного факта, относящегося к определенной еде
-
-#     :var food: Ссылка на еду
-#     :var description: Описание самого интересного факта
-#     """
-#     food = models.OneToOneField(to=Food, on_delete=models.CASCADE)
-#     description = models.CharField(max_length=1000)
-
-#     @staticmethod
-#     def add(description, food):
-#         Fact.objects.create(
-#             description=description,
-#             food=food
-#         )
 
 
 class Like(models.Model):
@@ -114,6 +85,9 @@ class Like(models.Model):
 
     @staticmethod
     def add(fruit, author):
+        """
+        Добавление лайка
+        """
         Like.objects.create(
             fruit=fruit,
             author=author
@@ -121,12 +95,19 @@ class Like(models.Model):
 
     @staticmethod
     def get():
+        """
+        Функция, возвращающая все объекты данной таблицы
+        """
         return Like.objects.all()
 
 
 class Complaint(models.Model):
     """
+    Таблица жалоб на фрукты
 
+    :var author: пользователь, подавший жалобу
+    :var complaint: сама жалоба
+    :var fruit_id: фрукт, на который подана жалоба
     """
     author = models.ForeignKey(to=User, default=0, on_delete=models.CASCADE)
     complaint = models.CharField(max_length=1000)
@@ -137,6 +118,9 @@ class Complaint(models.Model):
 
     @staticmethod
     def add(author, complaint, fruit_id):
+        """
+        Создание жалобы
+        """
         Complaint.objects.create(
             author=author,
             complaint=complaint,
@@ -145,14 +129,26 @@ class Complaint(models.Model):
 
     @staticmethod
     def get_all():
+        """
+        Получение всех жалоб в обратном порядке
+        """
         return Complaint.objects.all().order_by("-id")
 
 
 class Comprasion(models.Model):
+    """
+    Таблица сравнения фруктов
+
+    :var author: пользователь, который сравнивает фрукт
+    :var fruit: фрукт в сравнении
+    """
     fruit = models.ForeignKey(to=Food, default=1, on_delete=models.CASCADE)
     author = models.ForeignKey(to=User, default=1, on_delete=models.CASCADE)
 
     def add(fruit, author):
+        """
+        Добавление фрукта в сравнение
+        """
         Comprasion.objects.create(fruit=fruit, author=author)
 
     def get_by_user(user): 
@@ -170,9 +166,9 @@ class Comment(models.Model):
     """
     Таблица комментариев
 
-    :name: подпись оставившего отзыв
-    :date: дата , когда оставлен комменатрий
-    :text: содержание комментраия
+    :var name: подпись оставившего отзыв
+    :var date: дата , когда оставлен комменатрий
+    :var text: содержание комментраия
 
     """
     author = models.ForeignKey(to=User, default=1, on_delete=models.CASCADE)
@@ -182,44 +178,60 @@ class Comment(models.Model):
 
     @staticmethod
     def get():
+        """
+        Функция, возвращающая все объекты данной таблицы
+        """
         return Comment.objects.all()
-
-# class VitaminFood(models.Model):
-#     """
-#     Таблица отношения существующего витамина к определенной еде
-#     :var food: Еда, в которой содержится витамин
-#     :var vitamin: Ссылка на витамин, который есть в еде
-#     """
-#     vitamin = models.ForeignKey(to=Vitamin, on_delete=models.CASCADE)
-#     food = models.ForeignKey(to=Food, on_delete=models.CASCADE)
-#     @staticmethod
-#     def add(vitamin, food):
-#         VitaminFood.objects.create(
-#             vitamin=vitamin,
-#             food=food
-#         )
+    
 class Breakfast(models.Model):
+    """
+    Таблица завтрака пользователя
+
+    :var breakfast: фрукт на заврак
+    :var author: пользователь
+    """
     breakfast = models.ForeignKey(to=Food, default=1, on_delete=models.CASCADE)
     author = models.ForeignKey(to=User, default=1, on_delete=models.CASCADE)
 
     @staticmethod
     def get():
+        """
+        Функция, возвращающая все объекты данной таблицы
+        """
         return Breakfast.objects.all()
 
 
 class Lunch(models.Model):
+    """
+    Таблица обеда пользователя
+
+    :var breakfast: фрукт на обед
+    :var author: пользователь
+    """
     lunch = models.ForeignKey(to=Food, default=1, on_delete=models.CASCADE)
     author = models.ForeignKey(to=User, default=1, on_delete=models.CASCADE)
 
     @staticmethod
     def get():
+        """
+        Функция, возвращающая все объекты данной таблицы
+        """
         return Lunch.objects.all()
 
 
 class Dinner(models.Model):
+    """
+    Таблица ужина пользователя
+
+    :var breakfast: фрукт на ужин
+    :var author: пользователь
+    """
     dinner = models.ForeignKey(to=Food, default=1, on_delete=models.CASCADE)
     author = models.ForeignKey(to=User, default=1, on_delete=models.CASCADE)
 
     @staticmethod
     def get():
+        """
+        Функция, возвращающая все объекты данной таблицы
+        """
         return Dinner.objects.all()
