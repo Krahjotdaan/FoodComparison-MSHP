@@ -84,22 +84,22 @@ class Food(models.Model):
 #         )
 
 
-class Fact(models.Model):
-    """
-    Таблица интересного факта, относящегося к определенной еде
+# class Fact(models.Model):
+#     """
+#     Таблица интересного факта, относящегося к определенной еде
 
-    :var food: Ссылка на еду
-    :var description: Описание самого интересного факта
-    """
-    food = models.OneToOneField(to=Food, on_delete=models.CASCADE)
-    description = models.CharField(max_length=1000)
+#     :var food: Ссылка на еду
+#     :var description: Описание самого интересного факта
+#     """
+#     food = models.OneToOneField(to=Food, on_delete=models.CASCADE)
+#     description = models.CharField(max_length=1000)
 
-    @staticmethod
-    def add(description, food):
-        Fact.objects.create(
-            description=description,
-            food=food
-        )
+#     @staticmethod
+#     def add(description, food):
+#         Fact.objects.create(
+#             description=description,
+#             food=food
+#         )
 
 
 class Like(models.Model):
@@ -198,3 +198,28 @@ class Comment(models.Model):
 #             vitamin=vitamin,
 #             food=food
 #         )
+class Breakfast(models.Model):
+    breakfast = models.ForeignKey(to=Food, default=1, on_delete=models.CASCADE)
+    author = models.ForeignKey(to=User, default=1, on_delete=models.CASCADE)
+
+    @staticmethod
+    def get():
+        return Breakfast.objects.all()
+
+
+class Lunch(models.Model):
+    lunch = models.ForeignKey(to=Food, default=1, on_delete=models.CASCADE)
+    author = models.ForeignKey(to=User, default=1, on_delete=models.CASCADE)
+
+    @staticmethod
+    def get():
+        return Lunch.objects.all()
+
+
+class Dinner(models.Model):
+    dinner = models.ForeignKey(to=Food, default=1, on_delete=models.CASCADE)
+    author = models.ForeignKey(to=User, default=1, on_delete=models.CASCADE)
+
+    @staticmethod
+    def get():
+        return Dinner.objects.all()
