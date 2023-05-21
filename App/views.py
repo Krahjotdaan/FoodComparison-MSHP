@@ -13,13 +13,18 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from App.forms import FruitCreationForm, commentinputforme
 from django.contrib import messages
+
 register = template.Library()
 
 
 def index(request):
     """
+    Отображение главной страницы
+
     :param request: объект с деталями запроса
+    :type request: :class:`django.http.HttpRequest`
     :return: объект ответа сервера с HTML-кодом внутри
+    :rtype: :class:`django.http.HttpResponse`
     """
     context = {}
     data_guest = values_data.data_guest
@@ -34,6 +39,14 @@ def index(request):
 
 @login_required
 def food_creation(request):
+    """
+    Отображение страницы с добавлением своей еды
+
+    :param request: объект с деталями запроса
+    :type request: :class:`django.http.HttpRequest`
+    :return: объект ответа сервера с HTML-кодом внутри
+    :rtype: :class:`django.http.HttpResponse`
+    """
     context = dict()
     if request.method == 'POST':
         form = FruitCreationForm(request.POST, request.FILES)
@@ -47,9 +60,9 @@ def food_creation(request):
         calories = form.data['calories']
 
         fruit = models.Food(name=name, author=request.user, searched=0,
-                                description=description, deathdoze=deathdoze,
-                                image=image, calories=calories,
-                                interesting_fact=interesting_fact)
+                            description=description, deathdoze=deathdoze,
+                            image=image, calories=calories,
+                            interesting_fact=interesting_fact)
         fruit.save()
 
         for v in vitamins:
@@ -75,7 +88,6 @@ def food_list_page(request):
     :type request: :class:`django.http.HttpRequest`
     :return: объект ответа сервера с HTML-кодом внутри
     :rtype: :class:`django.http.HttpResponse`
-    :meta public:
     """
     context = {}
     search_query = request.GET.get('search_fruit', '')
@@ -98,7 +110,6 @@ def food_item_page(request):
     :type request: :class:django.http.HttpRequest
     :return: объект ответа сервера с HTML-кодом внутри
     :rtype: :class:django.http.HttpResponse
-    :meta public:
     """
 
     food_id = request.GET['id']
@@ -137,19 +148,27 @@ def food_item_page(request):
         )
         messages.success(request, "Добавлено к сравнению")
     if request.POST.get('delete_from_comprasion'):
-            try:
-                models.Comprasion.objects.get(
+        try:
+            models.Comprasion.objects.get(
                 fruit=food,
                 author=request.user
             ).delete()
-                messages.info(request, "Удалено из сравнения")
-            except:
-                pass
+            messages.info(request, "Удалено из сравнения")
+        except:
+            pass
 
     return render(request, "food_item.html", context)
 
-
+@login_required
 def profile_page(request):
+    """
+    Отображение страницы профиля
+
+    :param request: объект с деталями запроса
+    :type request: :class:`django.http.HttpRequest`
+    :return: объект ответа сервера с HTML-кодом внутри
+    :rtype: :class:`django.http.HttpResponse`
+    """
     context = {}
     liked = models.Like.objects.filter(author=request.user)
     try:
@@ -158,9 +177,16 @@ def profile_page(request):
         context['liked'] = liked
     return render(request, 'profile/page.html', context)
 
-
+@login_required
 def like_page(request):
+    """
+    Отображение страницы с понравившейся едой и расписанием приема пищи
 
+    :param request: объект с деталями запроса
+    :type request: :class:`django.http.HttpRequest`
+    :return: объект ответа сервера с HTML-кодом внутри
+    :rtype: :class:`django.http.HttpResponse`
+    """
     context = {}
     liked = models.Like.objects.all()
     context['liked'] = liked
@@ -230,13 +256,13 @@ def like_page(request):
 
 def statistics(request):
     """
-        Отображение страницы с едой отфильтрованной по её рейтингу
-        (в том числе и еда, не имеющая рейтинга)
+    Отображение страницы с едой отфильтрованной по её рейтингу
+    (в том числе и еда, не имеющая рейтинга)
 
-        :param request: объект с деталями запроса
-        :type request: :class:django.http.HttpRequest
-        :return: объект ответа сервера с HTML-кодом внутри
-        :rtype: :class:django.http.HttpResponse
+    :param request: объект с деталями запроса
+    :type request: :class:django.http.HttpRequest
+    :return: объект ответа сервера с HTML-кодом внутри
+    :rtype: :class:django.http.HttpResponse
     """
 
     context = {}
@@ -267,11 +293,14 @@ def statistics(request):
 
 
 def get_youtube_links(*, food_name):
-    '''
+    """
     Функция получения ссылок на видео с ютуба о определенной еде
 
-    :return: str
-    '''
+    :param food_name: название еды, по которой будет производится поиск
+    :type food_name: str
+    :return: cписок, в котором находится 3 ссылки
+    :rtype: str
+    """
     try:
         with open('youtube_api_key.json', 'r') as data:
             API_KEY = json.load(data)['api_key']
@@ -299,16 +328,32 @@ def get_youtube_links(*, food_name):
         print(repr(error))
         return None
 
-
+@login_required
 def complaint_add(request):
+    """
+    Отображение страницы подачи жалоб
+
+    :param request: объект с деталями запроса
+    :type request: :class:django.http.HttpRequest
+    :return: объект ответа сервера с HTML-кодом внутри
+    :rtype: :class:django.http.HttpResponse
+    """
     context = {
         "id": request.GET.get("id", 0)
     }
 
     return render(request, "complaint_add.html", context)
 
-
+@login_required
 def complaint_list(request):
+    """
+    Отображение страницы со всеми жалобами
+
+    :param request: объект с деталями запроса
+    :type request: :class:django.http.HttpRequest
+    :return: объект ответа сервера с HTML-кодом внутри
+    :rtype: :class:django.http.HttpResponse
+    """
     context = {}
     if request.method == 'POST':
         fruit = models.Food.objects.filter(id=request.POST.get('id'))[0]
@@ -321,12 +366,20 @@ def complaint_list(request):
 
     return render(request, "complaint_list.html", context)
 
-
+@login_required
 def add_comprasion(request):
-    # fruit = models.Food.objects.filter(id=request.GET.get("id"))
+    """
+    Обработка AJAX запроса по добавлению еды в таблицу для сравнения
+
+    :param request: объект с деталями запроса
+    :type request: :class:django.http.HttpRequest
+    :return: объект ответа сервера с HTML-кодом внутри
+    :rtype: :class:django.http.HttpResponse
+    """
 
     fruit = request.GET.get('id')
-    if not (models.Comprasion.get_by_user(request.user).__contains__(models.Food.objects.get(id=fruit))) and len(models.Comprasion.get_by_user(request.user)) < 4:
+    if not (models.Comprasion.get_by_user(request.user).__contains__(models.Food.objects.get(id=fruit))) and len(
+            models.Comprasion.get_by_user(request.user)) < 4:
         models.Comprasion.add(models.Food.objects.get(id=fruit), author=request.user)
 
     context = {
@@ -334,8 +387,16 @@ def add_comprasion(request):
     }
     return JsonResponse(context)
 
+@login_required
+def comprasion_page(request):
+    """
+    Отображение страницы сравнения еды
 
-def comprasion_page(request):  # на доработке
+    :param request: объект с деталями запроса
+    :type request: :class:django.http.HttpRequest
+    :return: объект ответа сервера с HTML-кодом внутри
+    :rtype: :class:django.http.HttpResponse
+    """
     context = {}
     context['food'] = models.Comprasion.get_by_user(request.user)
     context['vitamins'] = []
@@ -343,7 +404,6 @@ def comprasion_page(request):  # на доработке
         context['vitamins'].append(models.Food.get_vitamins_by_food(i))
 
     context['count_food'] = len(context['food'])
-
 
     context['zip'] = zip(context['food'], context['vitamins'])
 
@@ -354,18 +414,33 @@ def comprasion_page(request):  # на доработке
 
         return redirect("/comprasion/page/")
 
-
     return render(request, "comprasion_page.html", context)
 
 
 @login_required
 def delete_user(request):
+    """
+    Обработка и отображение удаления профиля
+
+    :param request: объект с деталями запроса
+    :type request: :class:django.http.HttpRequest
+    :return: объект ответа сервера с HTML-кодом внутри
+    :rtype: :class:django.http.HttpResponse
+    """
     user = request.user
     user.delete()
     return render(request, 'profile/page_deleted.html')
 
 
 def comments_page(request):
+    """
+    Отображение страницы добавления отзыва о сервисе
+
+    :param request: объект с деталями запроса
+    :type request: :class:django.http.HttpRequest
+    :return: объект ответа сервера с HTML-кодом внутри
+    :rtype: :class:django.http.HttpResponse
+    """
     context = {}
     if request.method == "POST":
         context['form'] = commentinputforme()
@@ -374,20 +449,20 @@ def comments_page(request):
             obj = models.Comment(author=request.user, text=f.data['text'])
             obj.save()
     else:
-        context['form']=commentinputforme()
+        context['form'] = commentinputforme()
     comentdata = models.Comment.objects.all()
     context['comments'] = comentdata
     return render(request, 'comments.html', context)
 
-
-
+@login_required
 def add_like(request):
     """
-        Обработка AJAX запроса, который добавляет лайк определенному объекту еды
+    Обработка AJAX запроса, который добавляет лайк определенному объекту еды
 
-        :param request: объект с деталями запроса
-        :type request: :class:django.http.HttpRequest
-        :return: None
+    :param request: объект с деталями запроса
+    :type request: :class:django.http.HttpRequest
+    :return: HTTP response that consumes data to be serialized to JSON
+    :rtype: :class:`django.http.HttpResponse`
     """
     context = {
         'data': 'ok'
@@ -407,5 +482,3 @@ def add_like(request):
         ).save()
 
     return JsonResponse(context)
-
-
