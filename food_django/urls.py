@@ -28,6 +28,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('food/creation/', views.food_creation, name='food_creation'),
     path('food/', views.food_list_page, name='food_list'),
+    path('food/statistics/', views.statistics, name='food_statistics'),
     path('food/item/', views.food_item_page, name='food_item'),
     path('profile/page.html', views.profile_page, name='profile_page'),
     path("profile/page_deleted.html", views.delete_user, name="remove_user"),
